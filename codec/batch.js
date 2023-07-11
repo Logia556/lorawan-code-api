@@ -94,6 +94,8 @@ var HUFF = [
     ]
 ];
 
+let myerror = [];
+
 // }}}
 
 // {{{ Polyfills
@@ -196,7 +198,11 @@ function createBuffer(byteArray) {
         var sourceBitStart = index;
         var sz = nb_bits - 1;
         if (byteArray.length * 8 < sourceBitStart + nb_bits) {
-            throw "Verify that dest buf is large enough";
+            //attibute message in myerror array to send it in TH.js
+            myerror.push("Batch : Verify that dest buf is large enough");
+
+
+
         }
         var bittoread = 0;
         var pattern = 0;
@@ -219,7 +225,7 @@ function createBuffer(byteArray) {
             var sourceBitStart = this.index;
             this.index += nbBits;
             if (sampleType === ST_FL && nbBits !== 32) {
-                throw "Mauvais sampletype";
+                myerror.push("Batch : Mauvais sampletype");
             }
 
             var u32 = 0;
@@ -273,7 +279,7 @@ function createBuffer(byteArray) {
                     }
                 }
             }
-            throw "Bi not found in HUFF table"
+            myerror.push("Bi not found in HUFF table");
         }
     }
 }
@@ -283,7 +289,7 @@ function createBuffer(byteArray) {
  */
 function parseHexString(str) {
     if ( str === undefined || str === null ) {
-        throw "Invalid hex string"
+        myerror.push("Batch : Invalid hex string");
     }
     str = str
         .toString()
@@ -384,7 +390,7 @@ function findIndexFromArgList(argList, tag) {
             return i
         }
     }
-    throw "Cannot find index in argList"
+    myerror.push("Batch : Cannot find index in argList");
 }
 
 /**
@@ -755,7 +761,9 @@ try {
     module.exports = brUncompress
 } catch (e) {
     // when called from nashorn,  module.exports is unavailableâ€¦
+    exports.err_msg = e
 }
+
 
 // vim: fdm=marker
 
@@ -813,5 +821,14 @@ module.exports = {
     brUncompress,
     strToHexArray,
     strToDecimalArray,
+
 };
+
+//export myerror to TH.js
+module.exports.err_msg = myerror;
+
+
+
+
+
 
