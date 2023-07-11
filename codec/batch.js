@@ -198,7 +198,7 @@ function createBuffer(byteArray) {
         var sourceBitStart = index;
         var sz = nb_bits - 1;
         if (byteArray.length * 8 < sourceBitStart + nb_bits) {
-            //attibute message in myerror array to send it in TH.js
+            //attibute message in myerror array to send it in debug.js
             myerror.push("Batch : Verify that dest buf is large enough");
 
 
@@ -824,7 +824,7 @@ module.exports = {
 
 };
 
-//export myerror to TH.js
+//export myerror to debug.js
 module.exports.err_msg = myerror;
 
 
