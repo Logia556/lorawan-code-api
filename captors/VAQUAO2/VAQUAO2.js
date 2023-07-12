@@ -7,7 +7,7 @@ let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 4,lblname: "Occupancy", 
     { taglbl: 4, resol: 10, sampletype: 6,lblname: "VOC", divide: 1},
     { taglbl: 5, resol: 10, sampletype: 6,lblname: "Illuminance", divide: 1},
     { taglbl: 6, resol: 10, sampletype: 6,lblname: "Pressure", divide: 10},
-    { taglbl: 7, resol: 10, sampletype: 10,lblname: "bVOC", divide: 1} ]]
+    { taglbl: 7, resol: 10, sampletype: 10,lblname: "bVOC", divide: 1} ]];
 
 let argv= process.argv.slice(2);
 

@@ -1,6 +1,7 @@
 let nke = require("../../codec/nke_decodeUplink.js")
 
-let batch_param =[2, [{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}]]
+let batch_param =[2, [{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},
+    { taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}]];
 
 let argv= process.argv.slice(2);
 
