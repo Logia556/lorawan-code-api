@@ -26,6 +26,8 @@ function decodeUplink(input) {
         console.log(batch.err_msg)
         if (batch.err_msg.length > 0) {
             decoded = null;
+            console.log(batch.err_msg[0])
+            console.log(batch.err_msg[1])
             return {
                 error: batch.err_msg,
                 warnings: [],

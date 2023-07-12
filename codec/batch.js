@@ -198,7 +198,13 @@ function createBuffer(byteArray) {
         var sourceBitStart = index;
         var sz = nb_bits - 1;
         if (byteArray.length * 8 < sourceBitStart + nb_bits) {
-            myerror.push("Batch : Verify that dest buf is large enough");
+            //stock error only once
+            if (myerror.indexOf("Batch : Verify that dest buf is large enough") === -1){
+                myerror.push("Batch : Verify that dest buf is large enough");
+            }
+            return;
+
+
 
 
 
@@ -224,7 +230,11 @@ function createBuffer(byteArray) {
             var sourceBitStart = this.index;
             this.index += nbBits;
             if (sampleType === ST_FL && nbBits !== 32) {
-                myerror.push("Batch : Mauvais sampletype");
+                //stock error only once
+                if (myerror.indexOf("Batch : Mauvais sampletype") === -1) {
+                    myerror.push("Batch : Mauvais sampletype");
+                }
+                return;
             }
 
             var u32 = 0;
@@ -288,7 +298,11 @@ function createBuffer(byteArray) {
  */
 function parseHexString(str) {
     if ( str === undefined || str === null ) {
-        myerror.push("Batch : Invalid hex string");
+        //stock error only once
+        if (myerror.indexOf("Batch : Invalid hex string") === -1) {
+            myerror.push("Batch : Invalid hex string");
+        }
+        return;
     }
     str = str
         .toString()
