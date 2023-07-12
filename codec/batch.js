@@ -94,8 +94,6 @@ var HUFF = [
     ]
 ];
 
-let myerror = [];
-
 // }}}
 
 // {{{ Polyfills
@@ -116,22 +114,9 @@ Math.trunc =
  * brUncompress main function
  */
 
-function strToDecimalArray(str){
-    let hexArray = [];
-    for (let i=0; i<str.length; i+=2) {
-        hexArray.push(parseInt(str.substring(i, i+2), 16));
-    }
-    return hexArray;
-}
 
-function strToHexArray(str){
-    let hexArray = [];
-    for (let i=0; i<str.length; i+=2) {
-        hexArray.push(str.substring(i, i+2));
-    }
-    return hexArray;
-}
 function brUncompress(tagsz, argList, hexString, batch_absolute_timestamp) {
+
     var out = initResult();
     var buffer = createBuffer(parseHexString(hexString));
     var flag = generateFlag(buffer.getNextSample(ST_U8));
@@ -199,10 +184,12 @@ function createBuffer(byteArray) {
         var sz = nb_bits - 1;
         if (byteArray.length * 8 < sourceBitStart + nb_bits) {
             //stock error only once
+            /*
             if (myerror.indexOf("Batch : Verify that dest buf is large enough") === -1){
                 myerror.push("Batch : Verify that dest buf is large enough");
             }
-            return;
+            return;*/
+            throw new Error("Batch : Verify that dest buf is large enough");
 
 
 
@@ -231,10 +218,12 @@ function createBuffer(byteArray) {
             this.index += nbBits;
             if (sampleType === ST_FL && nbBits !== 32) {
                 //stock error only once
+                /*
                 if (myerror.indexOf("Batch : Mauvais sampletype") === -1) {
                     myerror.push("Batch : Mauvais sampletype");
                 }
-                return;
+                return;*/
+                throw new Error("Batch : Mauvais sampletype");
             }
 
             var u32 = 0;
@@ -288,7 +277,8 @@ function createBuffer(byteArray) {
                     }
                 }
             }
-            myerror.push("Bi not found in HUFF table");
+            //myerror.push("Bi not found in HUFF table");
+            throw new Error("Bi not found in HUFF table");
         }
     }
 }
@@ -403,7 +393,8 @@ function findIndexFromArgList(argList, tag) {
             return i
         }
     }
-    myerror.push("Batch : Cannot find index in argList");
+    //myerror.push("Batch : Cannot find index in argList");
+    throw new Error("Batch : Cannot find index in argList");
 }
 
 /**
@@ -831,13 +822,11 @@ console.log(msg)
 console.log(msg.payload.dataset)*/
 
 module.exports = {
-    brUncompress,
-    strToHexArray,
-    strToDecimalArray,
+    brUncompress
 
 };
 
-module.exports.err_msg = myerror;
+
 
 
 
