@@ -48,9 +48,9 @@ function decodeUplink(input) {
 
 a = decodeUplink(input);
 console.log(a);
-/*
+
 console.log(a.data)
-console.log(a.data.dataset)*/
+console.log(a.data.dataset)
 
 
 
