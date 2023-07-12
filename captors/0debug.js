@@ -16,6 +16,7 @@ let input = {
     recvTime: date,
 
 };
+console.log("lol")
 function decodeUplink(input) {
     let decoded = standard.Decoder(bytes, input.fPort);
     let payload = decoded["lora"]["payload"];
