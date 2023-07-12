@@ -8,11 +8,12 @@ console.log(argv);
 let bytes = [];
 bytes = batch.strToDecimalArray(argv[1]);
 console.log(bytes);
+let date = argv[2];
 
 let input = {
     bytes: bytes,
     fPort: Number(argv[0]),
-    recvTime: new Date(),
+    recvTime: date,
 
 };
 function decodeUplink(input) {

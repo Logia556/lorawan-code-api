@@ -6,11 +6,12 @@ let argv= process.argv.slice(2);
 
 let bytes = [];
 bytes = batch.strToDecimalArray(argv[1]);
+let date = argv[2];
 
 let input = {
     bytes: bytes,
     fPort: Number(argv[0]),
-    recvTime: new Date(),
+    recvTime: date,
 
 };
 function decodeUplink(input) {

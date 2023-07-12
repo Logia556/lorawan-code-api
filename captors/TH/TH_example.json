@@ -1,6 +1,63 @@
-{
+[
+  {
   "name": "TH",
   "version": "1.0.0",
   "dependencies": {
+    }
+  },
+  {
+    "type": "uplinkdecode",
+    "description": "uplink frame on press'O captor parameters",
+    "input_batch": {
+      "bytes": [
+        54,
+        34,
+        192,
+        129,
+        190,
+        167,
+        195,
+        30,
+        75,
+        130,
+        110,
+        123,
+        9,
+        174,
+        61
+      ],
+      "fport": 125,
+      "recvTime": "2023-07-12T09:04:50.600Z"
+    },
+    "output_batch": {
+      "batch_counter": 2,
+      "batch_relative_timestamp": 522911,
+      "dataset": [
+        {
+          "data_relative_timestamp": 522911,
+          "data": {
+            "value": 24.9,
+            "label": 0,
+            "label_name": "Temperature"
+          }
+        },
+        {
+          "data_relative_timestamp": 522911,
+          "data": {
+            "value": 47,
+            "label": 1,
+            "label_name": "Humidity"
+          }
+        },
+        {
+          "data_relative_timestamp": 522910,
+          "data": {
+            "value": 3.707,
+            "label": 2,
+            "label_name": "BatteryVoltage"
+          }
+        }
+      ]
+    }
   }
-}
+]
