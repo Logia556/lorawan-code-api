@@ -1,6 +1,53 @@
-{
+[{
   "name": "atm'O",
   "version": "1.0.0",
   "dependencies": {
   }
-}
+},
+  {
+    "type": "uplinkdecode",
+    "description": "uplink frame on press'O captor parameters",
+    "input_batch": {
+      "bytes": [
+        86,  0,  0,   0,   1, 147,   4, 208,
+        236, 19, 40, 180,  31, 160, 223,  30,
+        0,  0,  0, 128, 123,   0,   0,   0,
+        128,  5
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-13T07:02:45.885Z"
+
+    },
+    "output_batch": {
+      "data": {
+        "batch_counter": 0,
+        "batch_relative_timestamp": 551,
+        "dataset": [
+          {
+          "data_relative_timestamp": 550,
+          "data": { "value": 24.64, "label": 0, "label_name": "Temperature" }
+          },
+          {
+            "data_relative_timestamp": 550,
+            "data": { "value": 23.24, "label": 1, "label_name": "Humidity" }
+          },
+          {
+            "data_relative_timestamp": 550,
+            "data": { "value": 1012, "label": 2, "label_name": "Pressure" }
+          },
+          {
+            "data_relative_timestamp": 550,
+            "data": { "value": 0, "label": 3, "label_name": "Index1" }
+          },
+          {
+            "data_relative_timestamp": 550,
+            "data": { "value": 0, "label": 4, "label_name": "Index2" }
+          }
+        ]
+      },
+      "warnings": []
+
+
+    }
+  }
+]
