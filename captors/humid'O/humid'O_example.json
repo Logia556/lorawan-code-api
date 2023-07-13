@@ -1,6 +1,65 @@
-{
+[{
   "name": "humid'O",
   "version": "1.0.0",
   "dependencies": {
   }
-}
+},
+  {
+    "type": "uplinkdecode",
+    "description": "uplink frame on humid'O captor parameters",
+    "input_standard": {
+      "bytes": [17, 10,  0, 12, 0, 85, 57, 65, 80, 0, 0],
+      "fport": 125,
+      "recvTime": "TODO"
+    },
+    "output_standard": {
+
+      "data": {
+        "lora": {
+          "port": 125,
+          "payload": "110A000C00553941500000",
+          "date": "2023-07-12T08:12:47.858Z"
+        },
+        "zclheader": {
+          "report": "standard",
+          "endpoint": 0,
+          "cmdID": "0x0A",
+          "clusterdID": "0x000C",
+          "attributID": "0x0055"
+        },
+        "data": { "analog": 13 }
+      },
+      "warnings": []
+    },
+    "input_batch": {
+      "bytes": [32,  21,   0, 128,   1, 244, 162, 78, 112, 128, 210, 222, 1,  66, 18,  16, 249, 174,  41,  85,  64, 187, 101, 105,   4],
+      "fport": 125,
+      "recvTime": "TODO"
+    },
+    "output_batch": {
+
+      "data": {
+        "batch_counter": 5,
+        "batch_relative_timestamp": 1605,
+        "dataset": [   {
+          "data_relative_timestamp": 1000,
+          "data": { "value": 5052, "label": 1, "label_name": "0_10V" }
+        },
+          {
+            "data_relative_timestamp": 1120,
+            "data": { "value": 7520, "label": 1, "label_name": "0_10V" }
+          },
+          {
+            "data_relative_timestamp": 1000,
+            "data": { "value": 3.6, "label": 2, "label_name": "BatteryVoltage" }
+          },
+          {
+            "data_relative_timestamp": 1600,
+            "data": { "value": 3.5, "label": 2, "label_name": "BatteryVoltage" }
+          }
+        ]
+      },
+      "warnings": []
+    }
+  }
+]
