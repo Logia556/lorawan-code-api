@@ -1,6 +1,67 @@
-{
+[
+  {
   "name": "flash'O",
   "version": "1.0.0",
   "dependencies": {
   }
-}
+},
+  {
+    "type": "uplinkdecode",
+    "description": "uplink frame on flash'O captor parameters",
+    "input_standard":{
+      "bytes": [
+        17, 10, 0, 15, 4,
+        2, 35, 0,  0, 0,
+        2
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-13T07:24:26.012Z"
+    },
+    "output_standard": {
+      "data": {
+        "lora": {
+          "port": 125,
+          "payload": "110A000F04022300000002",
+          "date": "2023-07-13T07:24:26.021Z"
+        },
+        "zclheader": {
+          "report": "standard",
+          "endpoint": 0,
+          "cmdID": "0x0A",
+          "clusterdID": "0x000F",
+          "attributID": "0x0402"
+        },
+        "data": { "counter": 2 }
+      },
+      "warnings": []
+    },
+
+    "input_batch":{
+      "bytes": [
+        38,  21,  0, 32, 224,  96,
+        1, 215, 30,  0,   0, 160,
+        101,  15
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-13T08:12:55.970Z"
+
+    },
+    "output_batch":{
+      "data": {
+        "batch_counter": 5,
+        "batch_relative_timestamp": 4243779,
+        "dataset": [
+        {
+          "data_relative_timestamp": 4243649,
+          "data": { "value": 6.86, "label": 1, "label_name": "Humidity" }
+        },
+          {
+            "data_relative_timestamp": 4243664,
+            "data": { "value": 0, "label": 5, "label_name": "BatteryVoltage" }
+          }
+        ]
+      },
+      "warnings": []
+    }
+  }
+]

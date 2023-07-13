@@ -6,7 +6,7 @@
 },
   {
     "type": "uplinkdecode",
-    "description": "uplink frame on press'O captor parameters",
+    "description": "uplink frame on atm'O captor parameters",
     "input_batch": {
       "bytes": [
         86,  0,  0,   0,   1, 147,   4, 208,

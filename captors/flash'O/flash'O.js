@@ -16,9 +16,14 @@ let date = argv[2];
 let input = {
     bytes: bytes,
     fPort: Number(argv[0]),
-    recvTime: date,
+    recvTime: new Date(),
 
 };
+console.log(input);
 function decodeUplink(input) {
     return result = nke.nke_decodeUplink(input,batch_param);
 }
+let a = decodeUplink(input);
+console.log(a);
+console.log(a.data);
+console.log(a.data.dataset);
