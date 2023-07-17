@@ -7,6 +7,10 @@ let batch_param = [3, [{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4_20mA"
     { taglbl: 3, resol: 100, sampletype: 6,lblname: "ExternalPowerVoltage", divide: 1000},
     { taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}]];
 
+let endpointCorresponder={
+    analog:["4_20mA","0_10V"]
+}
+
 let argv= process.argv.slice(2);
 
 let bytes = [];
@@ -20,7 +24,7 @@ let input = {
 
 };
 function decodeUplink(input) {
-    return result = watteco.watteco_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 
 }
 
