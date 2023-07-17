@@ -9,19 +9,16 @@ function strToDecimalArray(str){
     return hexArray;
 }
 
-function watteco_decodeUplink(input, batch_parameters) {
+function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
     let bytes = input.bytes;
     let port = input.fPort;
     let date = input.recvTime;
-    console.log(date)
 
     try {
-        let decoded = standard.normalisation(input, batch_parameters)
+        let decoded = standard.normalisation(input, endpoint_parameters)
         let payload = decoded.payload;
         //console.log(decoded)
         if (decoded.type === "batch") {
-            console.log("batch")
-            console.log(date)
             let batchInput = {
                 batch1: batch_parameters[0],
                 batch2: batch_parameters[1],

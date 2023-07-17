@@ -201,18 +201,12 @@ function Decoder(bytes, port) {
             attributID = -1;
             cmdID = -1;
             clusterdID = -1;
-            console.log(cmdID);
-            console.log(clusterdID);
             //endpoint
             decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
             //command ID
             cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
-            console.log(cmdID);
             //Cluster ID
             clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
-            console.log(clusterdID);
-            console.log(decoded.zclheader.clusterdID);
-
             // decode report and read atrtribut response
             if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
                 decoded.data = {};
@@ -858,12 +852,12 @@ function Decoder(bytes, port) {
     return decoded;
 }
 
-function normalisation(input, batch_parameters){
+function normalisation(input, endpoint_parameters){
     let decoded = Decoder(input.bytes, input.fPort)
     if (decoded["zclheader"] !== undefined){
         let access = decoded["zclheader"]["endpoint"];
-        let type = batch_parameters[1][access]["lblname"];
         let firstKey= Object.keys(decoded["data"])[0];
+        let type = endpoint_parameters[firstKey][access];
         return {
             data:{
                 variable: type,
