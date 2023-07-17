@@ -31,7 +31,8 @@
       "cmdID": "0x0A",
       "clusterdID": "0x000F",
       "attributID": "0x0055"
-    }
+    },
+    "warning": []
   }
 }
 

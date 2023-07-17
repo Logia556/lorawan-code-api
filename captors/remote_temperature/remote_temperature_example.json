@@ -1,6 +1,34 @@
-{
-  "name": "remote_temperature",
-  "version": "1.0.0",
-  "dependencies": {
+[
+  {
+    "name": "remote_temperature",
+    "version": "1.0.0",
+    "dependencies": {
+    },
+    "type": "uplinkdecode",
+    "description": "uplink frame on pulse_sens'O captor parameters",
+    "input_standard": {
+      "bytes": [ 17, 10,  4,  2,  0,  0, 41,  0, 100],
+      "fPort": 125,
+      "recvTime": "undefined"
+
+    },
+    "output_standard": {
+      "data": {
+        "lora": {
+          "port": 125,
+          "payload": "110A04020000290064",
+          "date": "2023-07-17T07:34:04.559Z"
+        },
+        "zclheader": {
+          "report": "standard",
+          "endpoint": 0,
+          "cmdID": "0x0A",
+          "clusterdID": "0x0402",
+          "attributID": "0x0000"
+        },
+        "data": { "temperature": 1 }
+      },
+      "warnings": []
+    }
   }
-}
+]
