@@ -16,7 +16,7 @@ function watteco_decodeUplink(input, batch_parameters) {
     console.log(date)
 
     try {
-        let decoded = standard.normalisation(input)
+        let decoded = standard.normalisation(input, batch_parameters)
         let payload = decoded.payload;
         //console.log(decoded)
         if (decoded.type === "batch") {

@@ -858,12 +858,16 @@ function Decoder(bytes, port) {
     return decoded;
 }
 
-function normalisation(input){
-    decoded = Decoder(input.bytes, input.fPort)
+function normalisation(input, batch_parameters){
+    let decoded = Decoder(input.bytes, input.fPort)
     if (decoded["zclheader"] !== undefined){
+        let access = decoded["zclheader"]["endpoint"];
+        let type = batch_parameters[1][access]["lblname"];
+        let firstKey= Object.keys(decoded["data"])[0];
         return {
             data:{
-                value: decoded.data,
+                variable: type,
+                value: decoded["data"][firstKey],
                 date: decoded["lora"].date
             },
             type: "standard"
