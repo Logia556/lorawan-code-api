@@ -1,6 +1,38 @@
-{
+[
+  {
   "name": "pulse_sens'O_atex",
   "version": "1.0.0",
   "dependencies": {
+  },
+  "type": "uplinkdecode",
+  "description": "uplink frame on pulse_sens'O captor parameters",
+  "input_standard": {
+    "bytes": [17, 10,  0, 15,  0, 85, 16,  1],
+    "fPort": 125,
+    "recvTime": "undefined"
+  },
+  "output_standard": {
+    "data": {
+      "lora": {
+        "port": 125,
+        "payload": "110A000F00551001",
+        "date": "2023-07-17T07:10:09.996Z"
+      },
+      "zclheader": {
+        "report": "standard",
+        "endpoint": 0,
+        "cmdID": "0x0A",
+        "clusterdID": "0x000F",
+        "attributID": "0x0055"
+      },
+      "data": {
+        "pin_state": true
+      },
+      "cmdID": "0x0A",
+      "clusterdID": "0x000F",
+      "attributID": "0x0055"
+    }
   }
 }
+
+]
