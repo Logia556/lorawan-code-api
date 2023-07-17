@@ -12,15 +12,16 @@ function strToDecimalArray(str){
 function watteco_decodeUplink(input, batch_parameters) {
     let bytes = input.bytes;
     let port = input.fPort;
-    let date = input.date;
+    let date = input.recvTime;
+    console.log(date)
 
     try {
         let decoded = standard.normalisation(input)
         let payload = decoded.payload;
         //console.log(decoded)
         if (decoded.type === "batch") {
-            decoded=""
             console.log("batch")
+            console.log(date)
             let batchInput = {
                 batch1: batch_parameters[0],
                 batch2: batch_parameters[1],

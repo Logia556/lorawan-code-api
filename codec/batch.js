@@ -822,8 +822,22 @@ console.log(msg)
 console.log(msg.payload.dataset)*/
 
 function normalisation(input){
-    let decoded = brUncompress(input.batch1, input.batch2, input.payload, input.date)
-    return decoded.dataset
+    let date = input.date;
+    console.log(date)
+    let decoded = brUncompress(input.batch1, input.batch2, input.payload, date)
+    let dataListe = []
+    console.log(date)
+    for (let i = 0; i < decoded.dataset.length; i++) {
+        let data = decoded.dataset[i]
+        let dataObject = {
+            "variable": data.data.label_name,
+            "value": data.data.value,
+            "date": data.data_absolute_timestamp
+        }
+        dataListe.push(dataObject)
+    }
+
+    return dataListe
 
 
 }

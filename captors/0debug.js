@@ -8,9 +8,6 @@ let bytes = [];
 bytes = watteco.strToDecimalArray(argv[1]);
 
 let date = argv[2];
-/*
-let b = new Date();
-console.log(b)*/
 
 let input = {
     bytes: bytes,
@@ -31,6 +28,7 @@ function decodeUplink(input) {
 }
 let a = decodeUplink(input);
 console.log(a);
+console.log(a.data)
 
 
 
