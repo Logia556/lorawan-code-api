@@ -858,6 +858,24 @@ function Decoder(bytes, port) {
     return decoded;
 }
 
+function normalisation(input){
+    decoded = Decoder(input.bytes, input.fPort)
+    if (decoded["zclheader"] !== undefined){
+        return {
+            data:{
+                value: decoded.data,
+                date: decoded["lora"].date
+            },
+            type: "standard"
+        }
+    }
+    return {
+        type: decoded["batch"]["report"],
+        payload: decoded["lora"]["payload"],
+    }
+}
+
 module.exports = {
     Decoder,
+    normalisation,
 };

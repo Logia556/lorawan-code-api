@@ -821,10 +821,19 @@ msg = {payload:data};
 console.log(msg)
 console.log(msg.payload.dataset)*/
 
+function normalisation(input){
+    let decoded = brUncompress(input.batch1, input.batch2, input.payload, input.date)
+    return decoded.dataset
+
+
+}
+
 module.exports = {
-    brUncompress
+    brUncompress,
+    normalisation
 
 };
+
 
 
 

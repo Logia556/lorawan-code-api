@@ -1,7 +1,6 @@
 const standard = require("./standard");
 const batch = require("./batch");
 
-
 function strToDecimalArray(str){
     let hexArray = [];
     for (let i=0; i<str.length; i+=2) {
@@ -10,24 +9,26 @@ function strToDecimalArray(str){
     return hexArray;
 }
 
-function strToHexArray(str){
-    let hexArray = [];
-    for (let i=0; i<str.length; i+=2) {
-        hexArray.push(str.substring(i, i+2));
-    }
-    return hexArray;
-}
-function nke_decodeUplink(input,batch_parmaeters) {
+function watteco_decodeUplink(input, batch_parameters) {
     let bytes = input.bytes;
+    let port = input.fPort;
+    let date = input.date;
+
     try {
-        let decoded = standard.Decoder(bytes, input.fPort);
-        let payload = decoded["lora"]["payload"];
-        console.log(payload);
-        if (decoded["batch"] !== undefined) {
-            let bytes = strToHexArray(payload)
-            console.log(bytes)
+        let decoded = standard.normalisation(input)
+        let payload = decoded.payload;
+        //console.log(decoded)
+        if (decoded.type === "batch") {
+            decoded=""
+            console.log("batch")
+            let batchInput = {
+                batch1: batch_parameters[0],
+                batch2: batch_parameters[1],
+                payload: payload,
+                date: date,
+            }
             try {
-                let decoded = batch.brUncompress(batch_parmaeters[0], batch_parmaeters[1], bytes, input.date)
+                let decoded = batch.normalisation(batchInput)
                 return {
                     data: decoded,
                     warnings: [],
@@ -40,7 +41,7 @@ function nke_decodeUplink(input,batch_parmaeters) {
             }
         } else {
             return {
-                data: decoded,
+                data: decoded.data,
                 warnings: [],
             };
         }
@@ -53,7 +54,6 @@ function nke_decodeUplink(input,batch_parmaeters) {
 }
 
 module.exports = {
-    nke_decodeUplink,
-    strToHexArray,
+    watteco_decodeUplink: watteco_decodeUplink,
     strToDecimalArray
 }

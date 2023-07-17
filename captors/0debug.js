@@ -1,12 +1,12 @@
-let nke = require("../codec/nke_decodeUplink.js")
+let watteco = require("../codec/watteco_decodeUplink.js")
 
 
 let argv= process.argv.slice(2);
-console.log(argv);
+
 
 let bytes = [];
-bytes = nke.strToDecimalArray(argv[1]);
-console.log(bytes);
+bytes = watteco.strToDecimalArray(argv[1]);
+
 let date = argv[2];
 /*
 let b = new Date();
@@ -17,6 +17,7 @@ let input = {
     fPort: Number(argv[0]),
     recvTime: new Date(),
 };
+console.log(input)
 
 let batch_param = [3, [{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4_20mA", divide: 1},
     { taglbl: 1, resol: 1, sampletype: 12,lblname: "0_10V", divide: 1},
@@ -25,13 +26,12 @@ let batch_param = [3, [{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4_20mA"
     { taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}]];
 
 function decodeUplink(input) {
-    return result = nke.nke_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param);
 
 }
 let a = decodeUplink(input);
 console.log(a);
-//console.log(a.data);
-//console.log(a.data.dataset)
+
 
 
 
