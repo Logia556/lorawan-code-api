@@ -7,25 +7,9 @@
   },
   {
     "type": "uplinkdecode",
-    "description": "uplink frame on press'O captor parameters",
+    "description": "uplink frame on TH captor parameters",
     "input_batch": {
-      "bytes": [
-        54,
-        34,
-        192,
-        129,
-        190,
-        167,
-        195,
-        30,
-        75,
-        130,
-        110,
-        123,
-        9,
-        174,
-        61
-      ],
+      "bytes": [ 54, 34, 192, 129, 190, 167, 195, 30, 75, 130, 110, 123, 9, 174, 61],
       "fport": 125,
       "recvTime": "2023-07-12T09:04:50.600Z"
     },

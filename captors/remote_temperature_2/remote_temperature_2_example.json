@@ -5,7 +5,7 @@
   "dependencies": {
   },
   "type": "uplinkdecode",
-  "description": "uplink frame on pulse_sens'O captor parameters",
+  "description": "uplink frame on remote temperature 2 captor parameters",
   "input_standard": {
     "bytes": [ 17, 10,  4,  2,  0,  0, 41,  0, 100],
     "fPort": 125,
