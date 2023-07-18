@@ -21,5 +21,3 @@ function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 
 }
-let a = decodeUplink(input);
-console.log(a);
