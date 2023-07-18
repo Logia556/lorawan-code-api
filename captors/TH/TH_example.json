@@ -6,6 +6,9 @@
     }
   },
   {
+    "payload_batch": ["362100808098c31ecb824d7b07ba3d","125","2023-07-18T12:19:53.243175029Z"]
+  },
+  {
     "type": "uplinkdecode",
     "description": "uplink frame on TH captor parameters",
     "input_batch": {

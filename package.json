@@ -1,6 +1,18 @@
 {
   "name": "lorawan",
   "version": "1.0.0",
-  "dependencies": {
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "expose-loader": "^4.1.0",
+    "jquery": "^3.7.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }

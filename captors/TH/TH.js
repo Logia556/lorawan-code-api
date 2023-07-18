@@ -14,10 +14,12 @@ let date = argv[2];
 let input = {
     bytes: bytes,
     fPort: Number(argv[0]),
-    recvTime: new Date(),
+    recvTime: date,
 
 };
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 
 }
+let a = decodeUplink(input);
+console.log(a);
