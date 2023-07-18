@@ -12,39 +12,34 @@
     "type": "uplinkdecode",
     "description": "uplink frame on TH captor parameters",
     "input_batch": {
-      "bytes": [ 54, 34, 192, 129, 190, 167, 195, 30, 75, 130, 110, 123, 9, 174, 61],
-      "fport": 125,
-      "recvTime": "2023-07-12T09:04:50.600Z"
+      "bytes": [
+        54,  33,   0, 128, 128, 152,
+        195,  30, 203, 130,  77, 123,
+        7, 186,  61
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-18T12:19:53.243Z"
     },
     "output_batch": {
-      "batch_counter": 2,
-      "batch_relative_timestamp": 522911,
-      "dataset": [
+      "data": [
         {
-          "data_relative_timestamp": 522911,
-          "data": {
-            "value": 24.9,
-            "label": 0,
-            "label_name": "Temperature"
-          }
+          "variable": "Temperature",
+          "value": 28.7,
+          "date": "2023-07-18T12:19:53.243Z"
         },
         {
-          "data_relative_timestamp": 522911,
-          "data": {
-            "value": 47,
-            "label": 1,
-            "label_name": "Humidity"
-          }
+          "variable": "Humidity",
+          "value": 37,
+          "date": "2023-07-18T12:19:53.243Z"
         },
         {
-          "data_relative_timestamp": 522910,
-          "data": {
-            "value": 3.707,
-            "label": 2,
-            "label_name": "BatteryVoltage"
-          }
+          "variable": "BatteryVoltage",
+          "value": 3.707,
+          "date": "2023-07-18T12:19:52.243Z"
         }
-      ]
+      ],
+      "warnings": []
     }
+
   }
 ]
