@@ -6,11 +6,50 @@
     }
   },
   {
-    "payload_batch": ["362100808098c31ecb824d7b07ba3d","125","2023-07-18T12:19:53.243175029Z"]
+    "payload_batch": ["362100808098c31ecb824d7b07ba3d","125","2023-07-18T12:19:53.243175029Z"],
+    "payload_standard_humidity": ["110A04050000210E89","125","2023-07-19T07:51:25.508306410Z"],
+    "payload_standard_temperature": ["110A04020000290B89","125","2023-07-19T07:51:31.598957793Z"],
+    "payload_standard_battery": ["","125","2023-07-19T07:51:37.689609176Z"]
   },
   {
     "type": "uplinkdecode",
     "description": "uplink frame on TH captor parameters",
+    "input_standard_humidity": {
+      "bytes": [
+        17, 10,  4,   5, 0,
+        0, 33, 14, 137
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output_standard_humidity": {
+      "data": {
+        "variable": "humidity",
+        "value": 37.21,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": []
+    },
+
+
+    "input_standard_temperature": {
+      "bytes": [
+        17, 10,  4,   2, 0,
+        0, 41, 11, 137
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:31.598957793Z"
+    },
+    "output_standard_temperature": {
+      "data": {
+        "variable": "temperature",
+        "value": 29.53,
+        "date": "2023-07-19T07:51:25.508306410Z'"
+      },
+      "warnings": []
+    },
+
+
     "input_batch": {
       "bytes": [
         54,  33,   0, 128, 128, 152,

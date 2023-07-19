@@ -854,17 +854,31 @@ function Decoder(bytes, port) {
 
 function normalisation(input, endpoint_parameters){
     let decoded = Decoder(input.bytes, input.fPort)
+    console.log(decoded)
+    console.log(decoded["lora"].date)
     if (decoded["zclheader"] !== undefined){
-        let access = decoded["zclheader"]["endpoint"];
-        let firstKey= Object.keys(decoded["data"])[0];
-        let type = endpoint_parameters[firstKey][access];
-        return {
-            data:{
-                variable: type,
-                value: decoded["data"][firstKey],
-                date: decoded["lora"].date
-            },
-            type: "standard"
+        if (endpoint_parameters !== undefined) {
+            let access = decoded["zclheader"]["endpoint"];
+            let firstKey = Object.keys(decoded["data"])[0];
+            let type = endpoint_parameters[firstKey][access];//TODO il faudra changer ça pour supporter plusieurs listes
+            return {
+                data: {
+                    variable: type,
+                    value: decoded["data"][firstKey],
+                    date: input.recvTime
+                },
+                type: "standard"
+            }
+        }
+        else{
+            let firstKey = Object.keys(decoded["data"])[0];
+            return {
+                data:{
+                    variable: firstKey,
+                    value: decoded["data"][firstKey],
+                    date: input.recvTime
+                }
+            }
         }
     }
     return {

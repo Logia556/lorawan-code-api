@@ -4,6 +4,7 @@ let batch_param = [2, [{ taglbl: 0, resol: 10, sampletype: 7, lblname: "Temperat
     { taglbl: 1, resol: 100, sampletype: 6, lblname: "Humidity", divide: 100 },
     { taglbl: 2, resol: 1, sampletype: 6, lblname: "BatteryVoltage", divide: 1000 }]];
 
+
 let argv= process.argv.slice(2);
 
 let bytes = [];
@@ -17,7 +18,10 @@ let input = {
     recvTime: date,
 
 };
+console.log(input);
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 
 }
+let a = decodeUplink(input);
+console.log(a)
