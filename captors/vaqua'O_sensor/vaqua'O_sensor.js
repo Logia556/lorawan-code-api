@@ -21,6 +21,9 @@ let input = {
     recvTime: date,
 
 };
+console.log(input);
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
+a = decodeUplink(input);
+console.log(a);

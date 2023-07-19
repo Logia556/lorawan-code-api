@@ -1,6 +1,16 @@
-{
+[{
   "name": "vaqua'O_sensor",
   "version": "1.0.0",
   "dependencies": {
   }
+},
+  {
+    "payload_standard_temperature": ["110A04020000290A45"],
+    "payload_standard_humidity": ["110A040500002114BE"],
+    "payload_standard_CO2": [""],
+    "payload_standard_TVOC": ["110A800C0000210019"],
+    "payload_batch": ["424500000111008FC85EC128B4872088AD060442001E3322118A98782B"]
+  }
+
 }
+]
