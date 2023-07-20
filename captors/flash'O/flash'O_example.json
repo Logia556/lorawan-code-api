@@ -6,6 +6,11 @@
   }
 },
   {
+    "payload_standard_bin": ["110A000F00551000"],
+    "payload_standard_count": ["110A000F04022300000016"],
+    "payload_batch": ["10020020611B0000C0220854A7CE1E"]
+  },
+  {
     "type": "uplinkdecode",
     "description": "uplink frame on flash'O captor parameters",
     "input_standard":{

@@ -28,3 +28,4 @@ let input = {
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
+let a = decodeUplink(input);

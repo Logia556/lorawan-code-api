@@ -853,37 +853,46 @@ function Decoder(bytes, port) {
 }
 
 function normalisation(input, endpoint_parameters){
-    let decoded = Decoder(input.bytes, input.fPort)
+    let bytes = input.bytes;
+    let decoded = Decoder(bytes, input.fPort);
     console.log(decoded)
-    console.log(decoded["lora"].date)
+    if (bytes[1] === 0x07){
+        return{
+            data:{
+                variable:"configure reporting response status",
+                value: decoded.zclheader.status,
+                date: input.recvTime
+            }
+        }
+    }
     if (decoded["zclheader"] !== undefined){
         if (endpoint_parameters !== undefined) {
-            let access = decoded["zclheader"]["endpoint"];
-            let firstKey = Object.keys(decoded["data"])[0];
-            let type = endpoint_parameters[firstKey][access];//TODO il faudra changer ça pour supporter plusieurs listes
+            let access = decoded.zclheader.endpoint;
+            let firstKey = Object.keys(decoded.data)[0];
+            let type = endpoint_parameters[firstKey][access];
             return {
                 data: {
                     variable: type,
-                    value: decoded["data"][firstKey],
+                    value: decoded.data[firstKey],
                     date: input.recvTime
                 },
                 type: "standard"
             }
         }
         else{
-            let firstKey = Object.keys(decoded["data"])[0];
+            let firstKey = Object.keys(decoded.data)[0];
             return {
                 data:{
                     variable: firstKey,
-                    value: decoded["data"][firstKey],
+                    value: decoded.data[firstKey],
                     date: input.recvTime
                 }
             }
         }
     }
     return {
-        type: decoded["batch"]["report"],
-        payload: decoded["lora"]["payload"],
+        type: decoded.batch.report,
+        payload: decoded.lora.payload,
     }
 }
 

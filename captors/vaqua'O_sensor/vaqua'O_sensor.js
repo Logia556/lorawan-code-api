@@ -15,6 +15,10 @@ let bytes = [];
 bytes = watteco.strToDecimalArray(argv[1]);
 let date = argv[2];
 
+let endpointCorresponder = {
+    Concentration: ["TVOC", "CO2"]
+}
+
 let input = {
     bytes: bytes,
     fPort: Number(argv[0]),
@@ -23,7 +27,12 @@ let input = {
 };
 console.log(input);
 function decodeUplink(input) {
+    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0C) {
+        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    }
+
     return result = watteco.watteco_decodeUplink(input,batch_param);
+
 }
 a = decodeUplink(input);
 console.log(a);

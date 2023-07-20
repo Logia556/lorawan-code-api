@@ -4,7 +4,7 @@ module.exports={
         "bundle.js":[path.resolve(__dirname,'codec/batch.js'),
             path.resolve(__dirname,'codec/standard.js'),
             path.resolve(__dirname,'codec/watteco_decodeUplink.js'),
-            path.resolve(__dirname,'captors/0debug.js'),
+            path.resolve(__dirname,"captors/vaqua'O_sensor/vaqua'O_sensor.js"),
         ]
     },
     output: {
