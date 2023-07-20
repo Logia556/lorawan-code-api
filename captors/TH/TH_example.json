@@ -6,10 +6,13 @@
     }
   },
   {
-    "payload_batch": ["362100808098c31ecb824d7b07ba3d","125","2023-07-18T12:19:53.243175029Z"],
-    "payload_standard_humidity": ["110A04050000210E89","125","2023-07-19T07:51:25.508306410Z"],
-    "payload_standard_temperature": ["110A04020000290B89","125","2023-07-19T07:51:31.598957793Z"],
-    "payload_standard_battery": ["","125","2023-07-19T07:51:37.689609176Z"]
+    "payload_batch": ["362100808098c31ecb824d7b07ba3d"],
+    "payload_standard_humidity": ["110A04050000210E89"],
+    "payload_standard_temperature": ["110A04020000290B89"],
+    "payload_standard_battery": ["110A00500006410503040E6804"],
+    "payload_standard_bin": ["110A000F00551001"],
+    "payload_standard_count": ["110A000F04022300000000"],
+    "payload_batch2": ["36240000807EC3378B8274E303E81E"]
   },
   {
     "type": "uplinkdecode",
@@ -48,6 +51,59 @@
       },
       "warnings": []
     },
+
+    "input_standard_bin":{
+      "bytes": [
+        17, 10,  0, 15,
+        0, 85, 16,  1
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output_standard_bin": {
+      "data": {
+        "variable": "pin_state",
+        "value": true,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": []
+    },
+
+    "input_standard_count":{
+      "bytes": [
+        17, 10,  0, 15,
+        4, 2, 35, 0, 0, 0, 0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output_standard_count": {
+      "data": {
+        "variable": "count",
+        "value": 0,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": []
+    },
+
+    "input_standard_battery": {
+      "bytes": [
+        17, 10,  0, 80, 6,
+        65, 5, 3,   4, 14,
+        104, 4
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output_standard_battery": {
+      "data": {
+        "variable": "disposable_battery_voltage",
+        "value": 3.688,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": []
+    },
+
 
 
     "input_batch": {
