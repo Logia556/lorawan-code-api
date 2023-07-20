@@ -12,7 +12,14 @@
     "payload_standard_battery": ["110A00500006410503040E6804"],
     "payload_standard_bin": ["110A000F00551001"],
     "payload_standard_count": ["110A000F04022300000000"],
-    "payload_batch2": ["36240000807EC3378B8274E303E81E"]
+    "payload_batch2": ["36240000807EC3378B8274E303E81E"],
+    "payload_standard_temperature_alarm_long": ["118A04020000290B35A0C80014"],
+    "payload_standard_temperature_alarm_short": ["118A04020000290B1F90C8"],
+    "payload_standard_humidity_alarm_none_ecart": ["118A04020000290ADE"],
+    "payload_standard_humidity_alarm_none_threshold": ["118A04020000290C13"],
+    "payload_read_config_report": ["110900500080000641003C003C0448040000"],
+    "payload_config_report": ["1107040200800000"],
+    "payload_read_comment_report": ["110100000002000D0305020015E2"]
   },
   {
     "type": "uplinkdecode",

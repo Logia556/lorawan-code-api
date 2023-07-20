@@ -7,9 +7,6 @@ let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 7,lblname: "Temperature"
     { taglbl: 4, resol: 1, sampletype: 10,lblname: "Index2", divide: 1},
     { taglbl: 5, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}]];
 
-let endpointCorresponder={
-    counter:["1+/1-","2+/2-","3+/3-"]
-}
 
 let argv= process.argv.slice(2);
 
@@ -25,7 +22,7 @@ let input = {
 };
 console.log(input);
 function decodeUplink(input) {
-    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    return result = watteco.watteco_decodeUplink(input,batch_param);
 }
 let a = decodeUplink(input);
 
