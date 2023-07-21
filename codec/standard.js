@@ -854,9 +854,13 @@ function Decoder(bytes, port) {
 
 function normalisation(input, endpoint_parameters){
     let bytes = input.bytes;
+    let warning = "";
     let decoded = Decoder(bytes, input.fPort);
+    if (decoded.zclheader.alarm === 1){
+        warning = "événement surveillé déclanché"
+    }
     console.log(decoded)
-    if (bytes[1] === 0x07){
+    if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
         return{
             data:{
                 variable:"configure reporting response status",
@@ -875,15 +879,26 @@ function normalisation(input, endpoint_parameters){
         }
     }
     else if (bytes[1] === 0x01){
-        return{
-            data:{
-                variable:"read reporting configuration response status",
-                value: "no data to decode",
-                date: input.recvTime
+        if(decoded.zclheader.data === undefined){
+            return {
+                data: {
+                    variable: "read reporting configuration response status",
+                    value: "no data",
+                    date: input.recvTime
+                }
+            }
+        }
+        else{
+            return {
+                data: {
+                    variable: "read reporting configuration response status",
+                    value: decoded.zclheader.data,
+                    date: input.recvTime
+                }
             }
         }
     }
-    if (decoded["zclheader"] !== undefined){
+    if (decoded.zclheader !== undefined){
         if (endpoint_parameters !== undefined) {
             let access = decoded.zclheader.endpoint;
             let firstKey = Object.keys(decoded.data)[0];
@@ -894,7 +909,8 @@ function normalisation(input, endpoint_parameters){
                     value: decoded.data[firstKey],
                     date: input.recvTime
                 },
-                type: "standard"
+                type: "standard",
+                warning: warning
             }
         }
         else{
@@ -904,7 +920,9 @@ function normalisation(input, endpoint_parameters){
                     variable: firstKey,
                     value: decoded.data[firstKey],
                     date: input.recvTime
-                }
+                },
+                type: "standard",
+                warning: warning
             }
         }
     }
@@ -914,7 +932,10 @@ function normalisation(input, endpoint_parameters){
     }
 }
 
+
+
 module.exports = {
     Decoder,
     normalisation,
 };
+

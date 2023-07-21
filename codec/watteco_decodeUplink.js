@@ -40,7 +40,7 @@ function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
         } else {
             return {
                 data: decoded.data,
-                warnings: [],
+                warnings: [decoded.warning],
             };
         }
     } catch (error) {

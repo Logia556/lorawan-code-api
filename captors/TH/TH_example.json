@@ -13,12 +13,13 @@
     "payload_standard_bin": ["110A000F00551001"],
     "payload_standard_count": ["110A000F04022300000000"],
     "payload_batch2": ["36240000807EC3378B8274E303E81E"],
-    "payload_standard_temperature_alarm_long": ["118A04020000290B35A0C80014"],
+    "payload_standard_temperature_alarm_long_ecart": ["118A04020000290B35A0C80014"],
+    "payload_standard_temperature_alarm_long_threshold": ["118A04020000290BBEA0D00BB8000001"],
     "payload_standard_temperature_alarm_short": ["118A04020000290B1F90C8"],
     "payload_standard_humidity_alarm_none_ecart": ["118A04020000290ADE"],
     "payload_standard_humidity_alarm_none_threshold": ["118A04020000290C13"],
-    "payload_read_config_report": ["110900500080000641003C003C0448040000"],
     "payload_config_report": ["1107040200800000"],
+    "payload_read_config_report": ["110900500080000641003C003C0448040000"],
     "payload_read_comment_report": ["110100000002000D0305020015E2"]
   },
   {
@@ -140,6 +141,73 @@
           "date": "2023-07-18T12:19:52.243Z"
         }
       ],
+      "warnings": []
+    },
+
+    "input_config_report": {
+      "bytes": [
+        17, 7, 4, 2, 0, 128, 0, 0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output_config_report": {
+      "data": {
+        "variable": "configure reporting response status",
+        "value": 0,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": []
+    },
+
+    "input_read_config_report": {
+      "bytes": [
+        17,  9, 0, 80, 0, 128, 0,
+        6, 65, 0, 60, 0,  60, 4,
+        72,  4, 0,  0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output_read_config_report": {
+      "data": {
+        "variable": "read reporting configuration response status",
+        "value": 0,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": []
+    },
+
+    "input_read_comment_report": {
+      "bytes": [
+        17, 1, 0, 0, 2, 0, 13, 3, 5, 2, 0, 21, 226
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output_read_comment_report": {
+      "data": {
+        "variable": "read comment response status",
+        "value": "no data",
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": []
+    },
+
+    "input_standard_alarm": {
+      "bytes": [
+        17, 138,  4,  2, 0,
+        0,  41, 12, 19
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:31.598957793Z"
+    },
+    "output_standard_alarm": {
+      "data": {
+        "variable": "temperature",
+        "value": 30.91,
+        "date": "2023-07-19T07:51:25.508306410Z'"
+      },
       "warnings": []
     }
 

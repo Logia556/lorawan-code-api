@@ -1,6 +1,10 @@
-{
+[{
   "name": "intens'O",
   "version": "1.0.0",
   "dependencies": {
   }
+},
+{
+  "payload_standard_measure": "310A000C00553900000000"
 }
+]
