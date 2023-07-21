@@ -768,59 +768,6 @@ try {
     exports.err_msg = e
 }
 
-
-// vim: fdm=marker
-
-/*
-var time = new Date().toLocaleString(); //current time in right time format
-
-var data = brUncompress(
-        3,  // <<==  the Batch Tag size
-        // From here the batch fileds parameter list
-        [
-            {
-                taglbl: 1,
-                resol: 10,
-                sampletype: 7,
-                divide: 100,
-                lblname: "Temperature"
-            },
-            {
-                taglbl: 2,
-                resol: 100,
-                sampletype: 6,
-                divide: 100,
-                lblname: "Humidity"
-            },
-            {
-                taglbl: 3,
-                resol: 10,
-                sampletype: 6,
-                lblname: "CO2"
-            },
-            {
-                taglbl: 4,
-                resol: 10,
-                sampletype: 6,
-                lblname: "COV"
-            },
-            {
-                taglbl: 5,
-                resol: 10,
-                sampletype: 6,
-                lblname: "Lux"
-            }
-        ],
-
-    "42338080a84f011da0e800dc91fd815368f742060e51682ffa6626fad692167d6b498bbe9844b14551141571689e20149b19", // This is the batch frame
-        time // Variable fÃ¼r aktuelle Zeit
-    //TODO trouver quoi mettre pour que ca plante pas
-    )
-;
-msg = {payload:data};
-console.log(msg)
-console.log(msg.payload.dataset)*/
-
 function normalisation(input){
     let date = input.date;
     let decoded = brUncompress(input.batch1, input.batch2, input.payload, date)
@@ -835,10 +782,7 @@ function normalisation(input){
         }
         dataListe.push(dataObject)
     }
-
     return dataListe
-
-
 }
 
 module.exports = {
