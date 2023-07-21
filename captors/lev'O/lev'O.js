@@ -1,10 +1,11 @@
+//n'existe plus
 let watteco = require("../../codec/watteco_decodeUplink.js")
 
-let batch_param = [3, [{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "DeltaPressure", divide: 1},
-    { taglbl: 1, resol: 1, sampletype: 12,lblname: "FluidLevel", divide: 1},
-    { taglbl: 2, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000},
-    { taglbl: 3, resol: 100, sampletype: 6,lblname: "ExternalPowerVoltage", divide: 1000},
-    { taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}]];
+let batch_param = [3, [{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "delta_pressure", divide: 1},
+    { taglbl: 1, resol: 1, sampletype: 12,lblname: "fluid_level", divide: 1},
+    { taglbl: 2, resol: 100, sampletype: 6,lblname: "battery_voltage", divide: 1000},
+    { taglbl: 3, resol: 100, sampletype: 6,lblname: "external_power_voltage", divide: 1000},
+    { taglbl: 4, resol: 1, sampletype: 10,lblname: "index", divide: 1}]];
 
 let argv= process.argv.slice(2);
 

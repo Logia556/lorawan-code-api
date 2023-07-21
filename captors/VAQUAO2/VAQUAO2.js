@@ -1,3 +1,4 @@
+//peut-être inutile
 let watteco = require("../../codec/watteco_decodeUplink.js")
 
 let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 4,lblname: "Occupancy", divide: 1},

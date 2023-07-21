@@ -1,8 +1,8 @@
 let watteco = require("../../codec/watteco_decodeUplink.js")
 
 let batch_param = [3, [{taglbl: 0,resol: 10, sampletype: 10,lblname: "tVOC", divide: 1},
-    { taglbl: 1, resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},
-    { taglbl: 2, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},
+    { taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature", divide: 100},
+    { taglbl: 2, resol: 100, sampletype: 6,lblname: "humidity", divide: 100},
     { taglbl: 3, resol: 10, sampletype: 6,lblname: "CO2", divide: 1},
     { taglbl: 4, resol: 10, sampletype: 6,lblname: "RIAQ", divide: 1},
     { taglbl: 5, resol: 10, sampletype: 6,lblname: "IAQ", divide: 1},

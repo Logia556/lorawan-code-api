@@ -865,6 +865,24 @@ function normalisation(input, endpoint_parameters){
             }
         }
     }
+    else if (bytes[1] === 0x09){
+        return{
+            data:{
+                variable:"read reporting configuration response status",
+                value: decoded.zclheader.status,
+                date: input.recvTime
+            }
+        }
+    }
+    else if (bytes[1] === 0x01){
+        return{
+            data:{
+                variable:"read reporting configuration response status",
+                value: "no data to decode",
+                date: input.recvTime
+            }
+        }
+    }
     if (decoded["zclheader"] !== undefined){
         if (endpoint_parameters !== undefined) {
             let access = decoded.zclheader.endpoint;

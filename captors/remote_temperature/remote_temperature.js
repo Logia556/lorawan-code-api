@@ -1,7 +1,7 @@
 let watteco = require("../../codec/watteco_decodeUplink.js")
 
-let batch_param = [1, [{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},
-    { taglbl: 1, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}]];
+let batch_param = [1, [{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature", divide: 100},
+    { taglbl: 1, resol: 100, sampletype: 6,lblname: "battery_voltage", divide: 1000}]];
 
 let argv= process.argv.slice(2);
 
