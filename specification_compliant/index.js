@@ -561,7 +561,7 @@ function Decoder(bytes, port) {
                     decoded.data.nb_err_frames = bytes[index+3] *256+bytes[index+4];
                 }
                 // configuration node power desc
-                if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
+                if (   (clusterdID === 0x0050 ) && (attributID === 0x0006)) {
                     index2 = index + 3;
                     if ((bytes[index+2] &0x01) === 0x01) {decoded.data.main_or_external_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
                     if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
@@ -570,7 +570,7 @@ function Decoder(bytes, port) {
                     if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
                 }
                 //energy and power metering
-                if (  (clusterdID === 0x800a) & (attributID === 0x0000)) {
+                if (  (clusterdID === 0x800a) && (attributID === 0x0000)) {
                     index2 = index;
                     decoded.data.sum_positive_active_energy_Wh = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
                     index2 = index2 + 4;
@@ -825,17 +825,19 @@ function normalisation_standard(input, endpoint_parameters){
     let bytes = input.bytes;
     let warning = "";
     let decoded = Decoder(bytes, input.fPort);
-    if (decoded.zclheader.alarm === 1){
-        warning = "événement surveillé déclanché"
+    if (decoded.zclheader !== undefined){
+        if (decoded.zclheader.alarm){
+            warning = "événement surveillé déclanché"
+        }
     }
-    console.log(decoded)
     if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
         return{
             data:{
                 variable:"configure reporting response status",
                 value: decoded.zclheader.status,
                 date: input.recvTime
-            }
+            },
+            warning: warning
         }
     }
     else if (bytes[1] === 0x09){
@@ -844,7 +846,8 @@ function normalisation_standard(input, endpoint_parameters){
                 variable:"read reporting configuration response status",
                 value: decoded.zclheader.status,
                 date: input.recvTime
-            }
+            },
+            warning: warning
         }
     }
     else if (bytes[1] === 0x01){
@@ -854,7 +857,8 @@ function normalisation_standard(input, endpoint_parameters){
                     variable: "read reporting configuration response status",
                     value: "no data",
                     date: input.recvTime
-                }
+                },
+                warning: warning
             }
         }
         else{
@@ -863,7 +867,8 @@ function normalisation_standard(input, endpoint_parameters){
                     variable: "read reporting configuration response status",
                     value: decoded.zclheader.data,
                     date: input.recvTime
-                }
+                },
+                warning: warning
             }
         }
     }
@@ -1727,12 +1732,12 @@ function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
                 let decoded = normalisation_batch(batchInput)
                 return {
                     data: decoded,
-                    warnings: [],
+                    warnings: [""],
                 }
             } catch (error) {
                 return {
                     error: error.message,
-                    warnings: [],
+                    warnings: [""],
                 }
             }
         } else {
@@ -1744,7 +1749,7 @@ function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
     } catch (error) {
         return {
             error: error.message,
-            warnings: [],
+            warnings: [""],
         };
     }
 }

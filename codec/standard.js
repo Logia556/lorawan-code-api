@@ -1,34 +1,3 @@
-/*
- * A javascript template to decode a nke Watteco ZCL "like" standard payload at a given port
- *
- * Notice trhat this template is volontary very simple to be easiliy embedable in many javascript environnemnts
- * That's why it willingly does not uses any specific API like (Buffer from Node.js, or npm, or any..)
- *
- * Basically it can be test as it is in TTN "payload formats decoder"
- *
- */
-
-/*
- * To test simply present codec template on any computer, install Node.js (https://nodejs.org/en/)
- *
- * Then you can try decoding ZCL frames, by uncommenting first three lines below and
- * and then use commands like these in you "terminal/command" window:
- *
- *     node decodeZCL.js 125 110A04020000290998
- *     node decodeZCL.js 125 1101800F80000041170064271080031B5800A000A00136000003E84E20901407
- *
- * You could also set the three following lines commented to implement you own Decoder(...) function calls...
- *
- */
-
-/*var argv= process.argv.slice(2);
-obj = Decoder(Buffer.from(argv[1],'hex'),parseInt(argv[0], 10 ));
-console.dir(obj,{depth:null});*/
-
-
-// ----------------------------------------------------------------
-// ----------------------- FUNCTIONS PART (Deprecated) ------------
-// ----------------------------------------------------------------
 function UintToInt(Uint, Size) {
     if (Size === 2) {
         if ((Uint & 0x8000) > 0) {
@@ -45,47 +14,28 @@ function UintToInt(Uint, Size) {
             Uint = Uint - 0x100000000;
         }
     }
-
-
     return Uint;
 }
-
 function Bytes2Float32(bytes) {
     var sign = (bytes & 0x80000000) ? -1 : 1;
     var exponent = ((bytes >> 23) & 0xFF) - 127;
     var significand = (bytes & ~(-1 << 23));
-
     if (exponent == 128)
         return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
-
     if (exponent == -127) {
         if (significand == 0) return sign * 0.0;
         exponent = -126;
         significand /= (1 << 23);
     } else significand = (significand | (1 << 23)) / (1 << 23);
-
     return sign * significand * Math.pow(2, exponent);
 }
-
-// ----------------------------------------------------------------
-// ----------------------- FUNCTIONS PART -------------------------
-// ----------------------------------------------------------------
-
-/*
- * Int conversion directly from buffer with start index and required endianess
- *
- * Type must be     : U8,I8,U16,I16,U24,I24,U32,I32,U40,I40,...,U56,I56,I64
- * LittleEndian if true either big endian
- */
 function BytesToInt64(InBytes, StartIndex, Type,LittleEndian)
 {
     if( typeof(LittleEndian) == 'undefined' ) LittleEndian = false;
-
     var Signed  = (Type.substr(0,1) != "U");
     var BytesNb = parseInt(Type.substr(1,2), 10)/8;
     var inc, start;
     var nb = BytesNb;
-
     if (LittleEndian)
     {
         inc = -1;
@@ -95,24 +45,15 @@ function BytesToInt64(InBytes, StartIndex, Type,LittleEndian)
     {
         inc =  1; start = StartIndex ;
     }
-
     tmpInt64 = 0;
     for (j=start; nb > 0;(j+=inc,nb--))
     {
         tmpInt64 = (tmpInt64 << 8) + InBytes[j];
     }
-
     if ((Signed) && (BytesNb < 8) && (InBytes[start] & 0x80))
         tmpInt64 = tmpInt64 - (0x01 << (BytesNb * 8));
-
     return tmpInt64;
 }
-
-/*
- * Float32 conversion directly from buffer with start index and required endianess
- *
- * LittleEndian if true either big endian
- */
 function BytesToFloat32(InBytes,StartIndex,LittleEndian) {
 
     if( typeof(LittleEndian) == 'undefined' ) LittleEndian = false;
@@ -122,8 +63,6 @@ function BytesToFloat32(InBytes,StartIndex,LittleEndian) {
     var f32a = new Float32Array((new Int8Array(buf)).buffer);
     return f32a[0];
 }
-
-
 function decimalToHex(d, padding) {
     var hex = d.toString(16).toUpperCase();
     padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
@@ -134,7 +73,6 @@ function decimalToHex(d, padding) {
 
     return "0x" + hex;
 }
-
 function parseHexString(str) {
     var result = [];
     while (str.length >= 2) {
@@ -145,12 +83,10 @@ function parseHexString(str) {
 
     return result;
 }
-
 function byteToHex(b) {
     const hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
     return hexChar[(b >> 4) & 0x0f] + hexChar[b & 0x0f];
 }
-
 function BytesToHexStr(buff) {
     const hexOctets = [];
     for (i = 0; i < buff.length; ++i) {
@@ -158,7 +94,6 @@ function BytesToHexStr(buff) {
     }
     return hexOctets.join("");
 }
-
 function zeroPad(num, places) {
     return( String(num).padStart(places, '0') );
 }
@@ -167,15 +102,11 @@ function Decoder(bytes, port) {
     // (array) of bytes to an object of fields.
     var decoded = {};
     decoded.lora = {};
-
     decoded.lora.port  = port;
-
     // Get raw payload
     var bytes_len_	= bytes.length;
     var temp_hex_str = ""
-
     decoded.lora.payload  = "";
-
     for( var j = 0; j < bytes_len_; j++ )
 
     {
@@ -193,7 +124,6 @@ function Decoder(bytes, port) {
     {
         //batch
         batch = !(bytes[0] & 0x01);
-
         //trame standard
         if (batch === false){
             decoded.zclheader = {};
@@ -212,12 +142,10 @@ function Decoder(bytes, port) {
                 decoded.data = {};
                 //Attribut ID
                 attributID = bytes[4]*256 + bytes[5];decoded.zclheader.attributID = decimalToHex(attributID,4);
-
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
                 //data index start
                 if ((cmdID === 0x0a) | (cmdID === 0x8a))	index = 7;
                 if (cmdID === 0x01)	{index = 8; decoded.zclheader.status = bytes[6];}
-
                 //temperature
                 if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[index]*256+bytes[index+1],2))/100;
                 //humidity
@@ -248,7 +176,6 @@ function Decoder(bytes, port) {
                 }
                 //analog input
                 if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
-
                 //modbus
                 if (  (clusterdID === 0x8007 ) & (attributID === 0x0001))
                 {
@@ -258,7 +185,6 @@ function Decoder(bytes, port) {
                     decoded.data.modbus_float = 0; // 0: pas de décodage float 1: décodage float 2: décodage float 2word inversé
                     for( var j = 0; j < decoded.data.size; j++ )
                     {
-
                         temp_hex_str   = bytes[index+j+1].toString( 16 ).toUpperCase( );
                         if( temp_hex_str.length == 1 )
                         {
@@ -309,7 +235,6 @@ function Decoder(bytes, port) {
 
                     }
                 }
-
                 //multimodbus
                 if (  (clusterdID === 0x8009 ) & (attributID === 0x0000))
                 {
@@ -330,7 +255,6 @@ function Decoder(bytes, port) {
                     decoded.data.multimodbus_EP0 = ((bytes[index+3]&0x01) === 0x01);
                     index2 = index + 4;
                     without_header = 0;
-
                     if (decoded.data.multimodbus_EP0 === true)
                     {
                         if (without_header === 0){
@@ -354,7 +278,6 @@ function Decoder(bytes, port) {
                         }
                         index2 = index2 + decoded.data.multimodbus_EP0_datasize;
                     }
-
                     if (decoded.data.multimodbus_EP1 === true)
                     {
                         if (without_header === 0){
@@ -564,7 +487,6 @@ function Decoder(bytes, port) {
                     }
 
                 }
-
                 //simple metering
                 if (  (clusterdID === 0x0052 ) & (attributID === 0x0000)) {
                     decoded.data.active_energy_Wh = UintToInt(bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3],3);
@@ -580,7 +502,6 @@ function Decoder(bytes, port) {
                     if (bytes[index] === 0)
                         decoded.data.message_type = "unconfirmed";
                 }
-
                 // lorawan retry
                 if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
                     decoded.data.nb_retry= bytes[index] ;
@@ -619,7 +540,6 @@ function Decoder(bytes, port) {
                     index2 = index2 + 4;
                     decoded.data.negative_reactive_power_W = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
                 }
-
                 //energy and power multi metering
                 if (  (clusterdID === 0x8010) & (attributID === 0x0000)) {
                     decoded.data.ActiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4]);
@@ -640,7 +560,6 @@ function Decoder(bytes, port) {
                     decoded.data.ActivePowerWPhaseABC=Int32UnsignedToSigned(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28]);
                     decoded.data.ReactivePowerWPhaseABC=Int32UnsignedToSigned(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32]);
                 }
-
                 //energy and power metering
                 if (  (clusterdID === 0x800b) & (attributID === 0x0000)) {
                     index2 = index;
@@ -753,7 +672,6 @@ function Decoder(bytes, port) {
                         2
                     );
                 }
-
                 //XYZ Acceleration : Last on XYZ
                 if (  (clusterdID === 0x800f) ) {
                     i = index+1;
@@ -807,7 +725,6 @@ function Decoder(bytes, port) {
                 }
 
             }
-
             //decode configuration response
             if(cmdID === 0x07){
                 //AttributID
@@ -817,8 +734,6 @@ function Decoder(bytes, port) {
                 //batch
                 decoded.zclheader.batch = bytes[5];
             }
-
-
             //decode read configuration response
             if(cmdID === 0x09){
                 //AttributID
@@ -851,15 +766,17 @@ function Decoder(bytes, port) {
 
     return decoded;
 }
-
 function normalisation(input, endpoint_parameters){
     let bytes = input.bytes;
     let warning = "";
     let decoded = Decoder(bytes, input.fPort);
-    if (decoded.zclheader.alarm === 1){
-        warning = "événement surveillé déclanché"
-    }
     console.log(decoded)
+    if (decoded.zclheader !== undefined){
+        if (decoded.zclheader.alarm){
+            warning = "événement surveillé déclanché"
+        }
+    }
+
     if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
         return{
             data:{
@@ -931,11 +848,5 @@ function normalisation(input, endpoint_parameters){
         payload: decoded.lora.payload,
     }
 }
-
-
-
-module.exports = {
-    Decoder,
-    normalisation,
-};
+module.exports = {normalisation,};
 
