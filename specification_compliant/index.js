@@ -1682,10 +1682,26 @@ function normalisation_batch(input){
     return dataListe
 }
 
+/*
+function stringLength(str){
+    let flag = true;
+    let i = 0;
+    while (flag){
+        if (str[i] === undefined){
+            flag = false;
+        }
+        else{
+            i++;
+        }
+    }
+    return i;
+}*/
+
 
 function strToDecimalArray(str){
     let hexArray = [];
-    for (let i=0; i<(str.length); i+=2) {
+    let len = str.length;
+    for (let i=0; i<len; i+=2) {
         hexArray.push(parseInt(str.substring(i, i+2), 16));
     }
     return hexArray;
@@ -1740,25 +1756,9 @@ let batch_param = [2, [{ taglbl: 0, resol: 10, sampletype: 7, lblname: "temperat
     { taglbl: 3, resol: 1, sampletype: 1, lblname: "open_case", divide: 1 }]];
 
 
-let argv= process.argv.slice(2);
-
-let bytes = [];
-bytes = strToDecimalArray(argv[1]);
-
-let date = argv[2];
-
-let input = {
-    bytes: bytes,
-    fPort: Number(argv[0]),
-    recvTime: date,
-
-};
-console.log(input);
 function decodeUplink(input) {
+    let result = {};
     return result = watteco_decodeUplink(input,batch_param);
 }
-let a = decodeUplink(input);
-console.log(a);
 
-
-exports.decodeUplink = decodeUplink;
+module.exports.decodeUplink = decodeUplink;

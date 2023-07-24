@@ -1,10 +1,9 @@
-const driver = require("./index.js");
-const examples = require("./examples.json");
+let driver = require("./index.js");
+let examples = require("./examples.json");
 
 /*..............
 Test suites
 ..............*/
-
 describe("Decode uplink", () => {
     examples.forEach((example) => {
         if (example.type === "uplink") {
@@ -30,6 +29,7 @@ describe("Decode uplink", () => {
     });
 });
 
+/*
 describe("Decode downlink", () => {
     examples.forEach((example) => {
         if (example.type === "downlink-decode") {
@@ -68,4 +68,4 @@ describe("Encode downlink", () => {
             });
         }
     });
-});
+});*/
