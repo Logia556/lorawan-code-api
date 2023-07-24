@@ -8,8 +8,7 @@ function Bytes2Float32(bytes) {
     let sign = (bytes & 0x80000000) ? -1 : 1;
     let exponent = ((bytes >> 23) & 0xFF) - 127;
     let significand = (bytes & ~(-1 << 23));
-    if (exponent == 128)
-        return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
+    if (exponent == 128) return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
     if (exponent == -127) {
         if (significand == 0) return sign * 0.0;
         exponent = -126;
@@ -29,10 +28,7 @@ function BytesToInt64(InBytes, StartIndex, Type,LittleEndian)
         inc = -1;
         start = StartIndex + BytesNb - 1;
     }
-    else
-    {
-        inc =  1; start = StartIndex ;
-    }
+    else inc =  1; start = StartIndex ;
     tmpInt64 = 0;
     for (j=start; nb > 0;(j+=inc,nb--))
     {
@@ -45,18 +41,15 @@ function BytesToInt64(InBytes, StartIndex, Type,LittleEndian)
 function decimalToHex(d, padding) {
     let hex = d.toString(16).toUpperCase();
     padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
-
     while (hex.length < padding) {
         hex = "0" + hex;
     }
-
     return "0x" + hex;
 }
 function parseHexString(str) {
     let result = [];
     while (str.length >= 2) {
         result.push(parseInt(str.substring(0, 2), 16));
-
         str = str.substring(2, str.length);
     }
     return result;
@@ -70,11 +63,8 @@ function Decoder(bytes, port) {
     decoded.lora.payload  = "";
     for( let j = 0; j < bytes_len_; j++ )
     {
-        temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
-        if( temp_hex_str.length === 1 )
-        {
-            temp_hex_str = "0" + temp_hex_str;
-        }
+        temp_hex_str = bytes[j].toString( 16 ).toUpperCase();
+        if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
         decoded.lora.payload += temp_hex_str;
         let date = new Date();
         decoded.lora.date = date.toISOString();
@@ -95,16 +85,16 @@ function Decoder(bytes, port) {
                 decoded.data = {};
                 attributID = bytes[4]*256 + bytes[5];decoded.zclheader.attributID = decimalToHex(attributID,4);
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
-                if ((cmdID === 0x0a) | (cmdID === 0x8a))	index = 7;
+                if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
                 if (cmdID === 0x01)	{index = 8; decoded.zclheader.status = bytes[6];}
-                if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[index]*256+bytes[index+1],2))/100;
-                if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) decoded.data.humidity = (bytes[index]*256+bytes[index+1])/100;
-                if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) decoded.data.counter = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
-                if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) decoded.data.pin_state = !(!bytes[index]);
-                if (  (clusterdID === 0x0013 ) & (attributID === 0x0055)) decoded.data.value = bytes[index];
-                if (  (clusterdID === 0x0006 ) & (attributID === 0x0000)) {state = bytes[index]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
-                if (  (clusterdID === 0x8008 ) & (attributID === 0x0000)) decoded.data.differential_pressure =bytes[index]*256+bytes[index+1];
-                if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
+                if ((clusterdID === 0x0402 ) & (attributID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[index]*256+bytes[index+1],2))/100;
+                if ((clusterdID === 0x0405 ) & (attributID === 0x0000)) decoded.data.humidity = (bytes[index]*256+bytes[index+1])/100;
+                if ((clusterdID === 0x000f ) & (attributID === 0x0402)) decoded.data.counter = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
+                if ((clusterdID === 0x000f ) & (attributID === 0x0055)) decoded.data.pin_state = !(!bytes[index]);
+                if ((clusterdID === 0x0013 ) & (attributID === 0x0055)) decoded.data.value = bytes[index];
+                if ((clusterdID === 0x0006 ) & (attributID === 0x0000)) {state = bytes[index]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
+                if ((clusterdID === 0x8008 ) & (attributID === 0x0000)) decoded.data.differential_pressure =bytes[index]*256+bytes[index+1];
+                if ((clusterdID === 0x8005 ) & (attributID === 0x0000))
                 {
                     decoded.data.pin_state_1 = ((bytes[index+1]&0x01) === 0x01);
                     decoded.data.pin_state_2 = ((bytes[index+1]&0x02) === 0x02);
@@ -117,33 +107,21 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_9 = ((bytes[index]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[index]&0x02) === 0x02);
                 }
-                if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
-                if (  (clusterdID === 0x8007 ) & (attributID === 0x0001))
+                if ((clusterdID === 0x000c ) & (attributID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
+                if ((clusterdID === 0x8007 ) & (attributID === 0x0001))
                 {
                     decoded.data.payload = "";
                     decoded.data.modbus_payload = "";
                     decoded.data.size = bytes[index];
-                    decoded.data.modbus_float = 0; // 0: pas de décodage float 1: décodage float 2: décodage float 2word inversé
+                    decoded.data.modbus_float = 0;
                     for( let j = 0; j < decoded.data.size; j++ )
                     {
-                        temp_hex_str   = bytes[index+j+1].toString( 16 ).toUpperCase( );
-                        if( temp_hex_str.length == 1 )
-                        {
-                            temp_hex_str = "0" + temp_hex_str;
-                        }
+                        temp_hex_str   = bytes[index+j+1].toString( 16 ).toUpperCase();
+                        if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                         decoded.data.payload += temp_hex_str;
-                        if (j == 0)
-                        {
-                            decoded.data.modbus_address = bytes[index+j+1];
-                        }
-                        else if (j == 1)
-                        {
-                            decoded.data.modbus_commandID = bytes[index+j+1];
-                        }
-                        else if (j == 2)
-                        {
-                            decoded.data.modbus_size = bytes[index+j+1];
-                        }
+                        if (j == 0) decoded.data.modbus_address = bytes[index+j+1];
+                        else if (j == 1) decoded.data.modbus_commandID = bytes[index+j+1];
+                        else if (j == 2) decoded.data.modbus_size = bytes[index+j+1];
                         else{
                             decoded.data.modbus_payload += temp_hex_str;
                             if (decoded.data.modbus_float == 1){ // big endian
@@ -158,7 +136,7 @@ function Decoder(bytes, port) {
                                 if (j == 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[index+j+1]*256*256*256+bytes[index+j+1+1]*256*256+bytes[index+j+1+2]*256+bytes[index+j+1+3]);
                                 if (j == 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[index+j+1]*256*256*256+bytes[index+j+1+1]*256*256+bytes[index+j+1+2]*256+bytes[index+j+1+3]);
                             }
-                            if (decoded.data.modbus_float == 2){ // float little endian 2 word
+                            if (decoded.data.modbus_float == 2){
                                 if (j == 3)		decoded.data.fregister_00 = Bytes2Float32(bytes[index+j+1]*256+bytes[index+j+1+1]+bytes[index+j+1+2]*256*256*256+bytes[index+j+1+3]*256*256);
                                 if (j == 7)		decoded.data.fregister_01 = Bytes2Float32(bytes[index+j+1]*256+bytes[index+j+1+1]+bytes[index+j+1+2]*256*256*256+bytes[index+j+1+3]*256*256);
                                 if (j == 11)	decoded.data.fregister_02 = Bytes2Float32(bytes[index+j+1]*256+bytes[index+j+1+1]+bytes[index+j+1+2]*256*256*256+bytes[index+j+1+3]*256*256);
@@ -173,7 +151,7 @@ function Decoder(bytes, port) {
                         }
                     }
                 }
-                if (  (clusterdID === 0x8009 ) & (attributID === 0x0000))
+                if ((clusterdID === 0x8009 ) & (attributID === 0x0000))
                 {
                     decoded.data.payloads = "";
                     decoded.data.size = bytes[index];
@@ -204,13 +182,10 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP0_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_EP0_datasize; j++ )
+                        for(let j = 0; j < decoded.data.multimodbus_EP0_datasize;j++)
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP0_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP0_datasize;
@@ -230,10 +205,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP1_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP1_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP1_datasize;
@@ -253,10 +225,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP2_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP2_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP2_datasize;
@@ -276,10 +245,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP3_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP3_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP3_datasize;
@@ -299,10 +265,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP4_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP4_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP4_datasize;
@@ -322,10 +285,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP5_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP5_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP5_datasize;
@@ -345,10 +305,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP6_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP6_datasize;
@@ -368,10 +325,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP7_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP7_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP7_datasize;
@@ -391,10 +345,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP8_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP8_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP8_datasize;
@@ -414,10 +365,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
+                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP6_payload += temp_hex_str;
                         }
                         index2 = index2 + decoded.data.multimodbus_EP6_datasize;
@@ -430,20 +378,20 @@ function Decoder(bytes, port) {
                     decoded.data.active_power_W = UintToInt(bytes[index+9]*256+bytes[index+10],2);
                     decoded.data.reactive_power_let = UintToInt(bytes[index+11]*256+bytes[index+12],2);
                 }
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
+                if ((clusterdID === 0x8004 ) & (attributID === 0x0000)) {
                     if (bytes[index] === 1)
                         decoded.data.message_type = "confirmed";
                     if (bytes[index] === 0)
                         decoded.data.message_type = "unconfirmed";
                 }
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
+                if ((clusterdID === 0x8004 ) & (attributID === 0x0001)) {
                     decoded.data.nb_retry= bytes[index] ;
                 }
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
+                if ((clusterdID === 0x8004 ) & (attributID === 0x0002)) {
                     decoded.data.period_in_minutes = bytes[index+1] *256+bytes[index+2];
                     decoded.data.nb_err_frames = bytes[index+3] *256+bytes[index+4];
                 }
-                if (   (clusterdID === 0x0050 ) && (attributID === 0x0006)) {
+                if ((clusterdID === 0x0050 ) && (attributID === 0x0006)) {
                     index2 = index + 3;
                     if ((bytes[index+2] &0x01) === 0x01) {decoded.data.main_or_external_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
                     if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
@@ -507,89 +455,33 @@ function Decoder(bytes, port) {
                     decoded.data.IrmsC=UintToInt(bytes[index+15]*256+bytes[index+16],2)/10;
                     decoded.data.PhaseC=UintToInt(bytes[index+17]*256+bytes[index+18],2);
                 }
-                if (  (clusterdID === 0x800c) & (attributID === 0x0000)) {
-                    decoded.data.Concentration = (bytes[index]*256+bytes[index+1]);
-                }
-                if (  (clusterdID === 0x0400) & (attributID === 0x0000)) {
-                    decoded.data.Illuminance = (bytes[index]*256+bytes[index+1]);
-                }
-                if (  (clusterdID === 0x0403) & (attributID === 0x0000)) {
-                    decoded.data.Pressure = (UintToInt(bytes[index]*256+bytes[index+1],2));
-                }
-                if (  (clusterdID === 0x0406) & (attributID === 0x0000)) {
-                    decoded.data.Occupancy = !(!bytes[index]);
-                }
+                if ((clusterdID === 0x800c) & (attributID === 0x0000)) decoded.data.Concentration = (bytes[index]*256+bytes[index+1]);
+                if ((clusterdID === 0x0400) & (attributID === 0x0000)) decoded.data.Illuminance = (bytes[index]*256+bytes[index+1]);
+                if ((clusterdID === 0x0403) & (attributID === 0x0000)) decoded.data.Pressure = (UintToInt(bytes[index]*256+bytes[index+1],2));
+                if ((clusterdID === 0x0406) & (attributID === 0x0000)) decoded.data.Occupancy = !(!bytes[index]);
                 if ((clusterdID === 0x8052) & (attributID === 0x0000)) {
                     index2 = index;
-                    decoded.data.frequency =
-                        (UintToInt(
-                                bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                                2
-                            ) +
-                            22232) /
-                        1000;
+                    decoded.data.frequency = (UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2],2) + 22232) / 1000;
                     index2 = index2 + 2;
-                    decoded.data.frequency_min =
-                        (UintToInt(
-                                bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                                2
-                            ) +
-                            22232) /
-                        1000;
+                    decoded.data.frequency_min = (UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2],2) + 22232) / 1000;
                     index2 = index2 + 2;
-                    decoded.data.frequency_max =
-                        (UintToInt(
-                                bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                                2
-                            ) +
-                            22232) /
-                        1000;
+                    decoded.data.frequency_max = (UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2],2) + 22232) / 1000;
                     index2 = index2 + 2;
-                    decoded.data.Vrms =
-                        UintToInt(
-                            bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                            2
-                        ) / 10;
+                    decoded.data.Vrms = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2],2) / 10;
                     index2 = index2 + 2;
-                    decoded.data.Vrms_min =
-                        UintToInt(
-                            bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                            2
-                        ) / 10;
+                    decoded.data.Vrms_min = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2], 2) / 10;
                     index2 = index2 + 2;
-                    decoded.data.Vrms_max =
-                        UintToInt(
-                            bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                            2
-                        ) / 10;
+                    decoded.data.Vrms_max = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2], 2) / 10;
                     index2 = index2 + 2;
-                    decoded.data.Vpeak =
-                        UintToInt(
-                            bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                            2
-                        ) / 10;
+                    decoded.data.Vpeak = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2], 2) / 10;
                     index2 = index2 + 2;
-                    decoded.data.Vpeak_min =
-                        UintToInt(
-                            bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                            2
-                        ) / 10;
+                    decoded.data.Vpeak_min = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2],2) / 10;
                     index2 = index2 + 2;
-                    decoded.data.Vpeak_max =
-                        UintToInt(
-                            bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                            2
-                        ) / 10;
+                    decoded.data.Vpeak_max = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2],2) / 10;
                     index2 = index2 + 2;
-                    decoded.data.over_voltage = UintToInt(
-                        bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                        2
-                    );
+                    decoded.data.over_voltage = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2], 2);
                     index2 = index2 + 2;
-                    decoded.data.sag_voltage = UintToInt(
-                        bytes[index2 + 1] * 256 + bytes[index2 + 2],
-                        2
-                    );
+                    decoded.data.sag_voltage = UintToInt(bytes[index2 + 1] * 256 + bytes[index2 + 2], 2);
                 }
                 if (  (clusterdID === 0x800f) ) {
                     i = index+1;
@@ -667,10 +559,9 @@ function Decoder(bytes, port) {
     }
     return decoded;
 }
-
 function normalisation_standard(input, endpoint_parameters){
-    let bytes = input.bytes;
     let warning = "";
+    let bytes = input.bytes;
     let decoded = Decoder(bytes, input.fPort);
     if (decoded.zclheader !== undefined){
         if (decoded.zclheader.alarm){
@@ -679,8 +570,7 @@ function normalisation_standard(input, endpoint_parameters){
     }
     if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
         return{
-            data:{
-                variable:"configure reporting response status",
+            data:{variable:"configure reporting response status",
                 value: decoded.zclheader.status,
                 date: input.recvTime
             },
@@ -689,8 +579,7 @@ function normalisation_standard(input, endpoint_parameters){
     }
     else if (bytes[1] === 0x09){
         return{
-            data:{
-                variable:"read reporting configuration response status",
+            data:{variable:"read reporting configuration response status",
                 value: decoded.zclheader.status,
                 date: input.recvTime
             },
@@ -700,8 +589,7 @@ function normalisation_standard(input, endpoint_parameters){
     else if (bytes[1] === 0x01){
         if(decoded.zclheader.data === undefined){
             return {
-                data: {
-                    variable: "read reporting configuration response status",
+                data: {variable: "read reporting configuration response status",
                     value: "no data",
                     date: input.recvTime
                 },
@@ -710,8 +598,7 @@ function normalisation_standard(input, endpoint_parameters){
         }
         else{
             return {
-                data: {
-                    variable: "read reporting configuration response status",
+                data: {variable: "read reporting configuration response status",
                     value: decoded.zclheader.data,
                     date: input.recvTime
                 },
@@ -725,8 +612,7 @@ function normalisation_standard(input, endpoint_parameters){
             let firstKey = Object.keys(decoded.data)[0];
             let type = endpoint_parameters[firstKey][access];
             return {
-                data: {
-                    variable: type,
+                data: {variable: type,
                     value: decoded.data[firstKey],
                     date: input.recvTime
                 },
@@ -737,8 +623,7 @@ function normalisation_standard(input, endpoint_parameters){
         else{
             let firstKey = Object.keys(decoded.data)[0];
             return {
-                data:{
-                    variable: firstKey,
+                data:{variable: firstKey,
                     value: decoded.data[firstKey],
                     date: input.recvTime
                 },
@@ -837,15 +722,9 @@ let HUFF = [
         { sz: 11, lbl: 0x407 }
     ]
 ];
-Math.trunc =
-    Math.trunc ||
-    function(x) {
-        if (isNaN(x)) {
-            return NaN;
-        }
-        if (x > 0) {
-            return Math.floor(x);
-        }
+Math.trunc = Math.trunc || function(x) {
+        if (isNaN(x)) return NaN;
+        if (x > 0) return Math.floor(x);
         return Math.ceil(x);
     };
 function brUncompress(tagsz, argList, hexString, batch_absolute_timestamp) {
@@ -867,16 +746,14 @@ function initResult() {
     let series = [],
         i = 0;
     while (i < NUMBER_OF_SERIES) {
-        series.push({
-            codingType: 0,
+        series.push({codingType: 0,
             codingTable: 0,
             resolution: null,
             uncompressSamples: []
         });
         i += 1;
     }
-    return {
-        batch_counter: 0,
+    return {batch_counter: 0,
         batch_relative_timestamp: 0,
         series: series
     };
