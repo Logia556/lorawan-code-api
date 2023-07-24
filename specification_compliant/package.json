@@ -1,7 +1,7 @@
 {
-  "name": "specification_compliant",
+  "name": "TH",
   "version": "1.0.0",
-  "description": "basé sur le TH",
+  "description": "TH captor npm packaged",
   "main": "index.js",
   "scripts": {
     "test": "jest --collectCoverage"
