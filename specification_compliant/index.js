@@ -1,60 +1,29 @@
 function UintToInt(Uint, Size) {
-    if (Size === 2) {
-        if ((Uint & 0x8000) > 0) {
-            Uint = Uint - 0x10000;
-        }
-    }
-    if (Size === 3) {
-        if ((Uint & 0x800000) > 0) {
-            Uint = Uint - 0x1000000;
-        }
-    }
-    if (Size === 4) {
-        if ((Uint & 0x80000000) > 0) {
-            Uint = Uint - 0x100000000;
-        }
-    }
-
-
+    if ((Size === 2) && ((Uint & 0x8000) > 0)) Uint -= 0x10000;
+    if ((Size === 3) && ((Uint & 0x800000) > 0)) Uint -= 0x1000000;
+    if ((Size === 4) && ((Uint & 0x80000000) > 0)) Uint -= 0x100000000;
     return Uint;
 }
-
 function Bytes2Float32(bytes) {
-    var sign = (bytes & 0x80000000) ? -1 : 1;
-    var exponent = ((bytes >> 23) & 0xFF) - 127;
-    var significand = (bytes & ~(-1 << 23));
-
+    let sign = (bytes & 0x80000000) ? -1 : 1;
+    let exponent = ((bytes >> 23) & 0xFF) - 127;
+    let significand = (bytes & ~(-1 << 23));
     if (exponent == 128)
         return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
-
     if (exponent == -127) {
         if (significand == 0) return sign * 0.0;
         exponent = -126;
         significand /= (1 << 23);
     } else significand = (significand | (1 << 23)) / (1 << 23);
-
     return sign * significand * Math.pow(2, exponent);
 }
-
-// ----------------------------------------------------------------
-// ----------------------- FUNCTIONS PART -------------------------
-// ----------------------------------------------------------------
-
-/*
- * Int conversion directly from buffer with start index and required endianess
- *
- * Type must be     : U8,I8,U16,I16,U24,I24,U32,I32,U40,I40,...,U56,I56,I64
- * LittleEndian if true either big endian
- */
 function BytesToInt64(InBytes, StartIndex, Type,LittleEndian)
 {
     if( typeof(LittleEndian) == 'undefined' ) LittleEndian = false;
-
-    var Signed  = (Type.substr(0,1) != "U");
-    var BytesNb = parseInt(Type.substr(1,2), 10)/8;
-    var inc, start;
-    var nb = BytesNb;
-
+    let Signed  = (Type.substr(0,1) != "U");
+    let BytesNb = parseInt(Type.substr(1,2), 10)/8;
+    let inc, start;
+    let nb = BytesNb;
     if (LittleEndian)
     {
         inc = -1;
@@ -64,37 +33,17 @@ function BytesToInt64(InBytes, StartIndex, Type,LittleEndian)
     {
         inc =  1; start = StartIndex ;
     }
-
     tmpInt64 = 0;
     for (j=start; nb > 0;(j+=inc,nb--))
     {
         tmpInt64 = (tmpInt64 << 8) + InBytes[j];
     }
-
     if ((Signed) && (BytesNb < 8) && (InBytes[start] & 0x80))
         tmpInt64 = tmpInt64 - (0x01 << (BytesNb * 8));
-
     return tmpInt64;
 }
-
-/*
- * Float32 conversion directly from buffer with start index and required endianess
- *
- * LittleEndian if true either big endian
- */
-function BytesToFloat32(InBytes,StartIndex,LittleEndian) {
-
-    if( typeof(LittleEndian) == 'undefined' ) LittleEndian = false;
-
-    var buf = InBytes.slice(StartIndex,StartIndex+4);
-    if (! LittleEndian)	buf.reverse();
-    var f32a = new Float32Array((new Int8Array(buf)).buffer);
-    return f32a[0];
-}
-
-
 function decimalToHex(d, padding) {
-    var hex = d.toString(16).toUpperCase();
+    let hex = d.toString(16).toUpperCase();
     padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
 
     while (hex.length < padding) {
@@ -103,50 +52,23 @@ function decimalToHex(d, padding) {
 
     return "0x" + hex;
 }
-
 function parseHexString(str) {
-    var result = [];
+    let result = [];
     while (str.length >= 2) {
         result.push(parseInt(str.substring(0, 2), 16));
 
         str = str.substring(2, str.length);
     }
-
     return result;
 }
-
-function byteToHex(b) {
-    const hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
-    return hexChar[(b >> 4) & 0x0f] + hexChar[b & 0x0f];
-}
-
-function BytesToHexStr(buff) {
-    const hexOctets = [];
-    for (i = 0; i < buff.length; ++i) {
-        hexOctets.push( byteToHex(buff[i],2) );
-    }
-    return hexOctets.join("");
-}
-
-function zeroPad(num, places) {
-    return( String(num).padStart(places, '0') );
-}
 function Decoder(bytes, port) {
-    // Decode an uplink message from a buffer
-    // (array) of bytes to an object of fields.
-    var decoded = {};
+    let decoded = {};
     decoded.lora = {};
-
     decoded.lora.port  = port;
-
-    // Get raw payload
-    var bytes_len_	= bytes.length;
-    var temp_hex_str = ""
-
+    let bytes_len_	= bytes.length;
+    let temp_hex_str = ""
     decoded.lora.payload  = "";
-
-    for( var j = 0; j < bytes_len_; j++ )
-
+    for( let j = 0; j < bytes_len_; j++ )
     {
         temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
         if( temp_hex_str.length === 1 )
@@ -154,54 +76,34 @@ function Decoder(bytes, port) {
             temp_hex_str = "0" + temp_hex_str;
         }
         decoded.lora.payload += temp_hex_str;
-        var date = new Date();
+        let date = new Date();
         decoded.lora.date = date.toISOString();
     }
-
     if (port === 125)
     {
-        //batch
         batch = !(bytes[0] & 0x01);
-
-        //trame standard
         if (batch === false){
             decoded.zclheader = {};
             decoded.zclheader.report =  "standard";
             attributID = -1;
             cmdID = -1;
             clusterdID = -1;
-            //endpoint
             decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
-            //command ID
             cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
-            //Cluster ID
             clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
-            // decode report and read atrtribut response
             if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
                 decoded.data = {};
-                //Attribut ID
                 attributID = bytes[4]*256 + bytes[5];decoded.zclheader.attributID = decimalToHex(attributID,4);
-
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
-                //data index start
                 if ((cmdID === 0x0a) | (cmdID === 0x8a))	index = 7;
                 if (cmdID === 0x01)	{index = 8; decoded.zclheader.status = bytes[6];}
-
-                //temperature
                 if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[index]*256+bytes[index+1],2))/100;
-                //humidity
                 if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) decoded.data.humidity = (bytes[index]*256+bytes[index+1])/100;
-                //binary input counter
                 if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) decoded.data.counter = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
-                // binary input present value
                 if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) decoded.data.pin_state = !(!bytes[index]);
-                //multistate output
                 if (  (clusterdID === 0x0013 ) & (attributID === 0x0055)) decoded.data.value = bytes[index];
-                // on/off present value
                 if (  (clusterdID === 0x0006 ) & (attributID === 0x0000)) {state = bytes[index]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
-                //differential pressure
                 if (  (clusterdID === 0x8008 ) & (attributID === 0x0000)) decoded.data.differential_pressure =bytes[index]*256+bytes[index+1];
-                // multibinary input present value
                 if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
                 {
                     decoded.data.pin_state_1 = ((bytes[index+1]&0x01) === 0x01);
@@ -215,26 +117,21 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_9 = ((bytes[index]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[index]&0x02) === 0x02);
                 }
-                //analog input
                 if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
-
-                //modbus
                 if (  (clusterdID === 0x8007 ) & (attributID === 0x0001))
                 {
                     decoded.data.payload = "";
                     decoded.data.modbus_payload = "";
                     decoded.data.size = bytes[index];
                     decoded.data.modbus_float = 0; // 0: pas de décodage float 1: décodage float 2: décodage float 2word inversé
-                    for( var j = 0; j < decoded.data.size; j++ )
+                    for( let j = 0; j < decoded.data.size; j++ )
                     {
-
                         temp_hex_str   = bytes[index+j+1].toString( 16 ).toUpperCase( );
                         if( temp_hex_str.length == 1 )
                         {
                             temp_hex_str = "0" + temp_hex_str;
                         }
                         decoded.data.payload += temp_hex_str;
-
                         if (j == 0)
                         {
                             decoded.data.modbus_address = bytes[index+j+1];
@@ -273,13 +170,9 @@ function Decoder(bytes, port) {
                                 if (j == 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[index+j+1]*256+bytes[index+j+1+1]+bytes[index+j+1+2]*256*256*256+bytes[index+j+1+3]*256*256);
                                 if (j == 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[index+j+1]*256+bytes[index+j+1+1]+bytes[index+j+1+2]*256*256*256+bytes[index+j+1+3]*256*256);
                             }
-
                         }
-
                     }
                 }
-
-                //multimodbus
                 if (  (clusterdID === 0x8009 ) & (attributID === 0x0000))
                 {
                     decoded.data.payloads = "";
@@ -299,7 +192,6 @@ function Decoder(bytes, port) {
                     decoded.data.multimodbus_EP0 = ((bytes[index+3]&0x01) === 0x01);
                     index2 = index + 4;
                     without_header = 0;
-
                     if (decoded.data.multimodbus_EP0 === true)
                     {
                         if (without_header === 0){
@@ -312,7 +204,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP0_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP0_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP0_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -323,7 +215,6 @@ function Decoder(bytes, port) {
                         }
                         index2 = index2 + decoded.data.multimodbus_EP0_datasize;
                     }
-
                     if (decoded.data.multimodbus_EP1 === true)
                     {
                         if (without_header === 0){
@@ -336,7 +227,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP1_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP1_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP1_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -359,7 +250,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP2_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP2_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP2_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -382,7 +273,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP3_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP3_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP3_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -405,7 +296,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP4_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP4_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP4_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -428,7 +319,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP5_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP5_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP5_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -451,7 +342,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP6_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -474,7 +365,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP7_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP7_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP7_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -497,7 +388,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP8_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP8_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP8_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -520,7 +411,7 @@ function Decoder(bytes, port) {
                         }
                         decoded.data.multimodbus_EP6_payload = ""
                         if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
+                        for( let j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
                         {
                             temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length == 1 )
@@ -531,36 +422,27 @@ function Decoder(bytes, port) {
                         }
                         index2 = index2 + decoded.data.multimodbus_EP6_datasize;
                     }
-
                 }
-
-                //simple metering
                 if (  (clusterdID === 0x0052 ) & (attributID === 0x0000)) {
                     decoded.data.active_energy_Wh = UintToInt(bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3],3);
                     decoded.data.reactive_energy_Varh = UintToInt(bytes[index+4]*256*256+bytes[index+5]*256+bytes[index+6],3);
                     decoded.data.nb_samples = (bytes[index+7]*256+bytes[index+8]);
                     decoded.data.active_power_W = UintToInt(bytes[index+9]*256+bytes[index+10],2);
-                    decoded.data.reactive_power_VAR = UintToInt(bytes[index+11]*256+bytes[index+12],2);
+                    decoded.data.reactive_power_let = UintToInt(bytes[index+11]*256+bytes[index+12],2);
                 }
-                // lorawan message type
                 if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
                     if (bytes[index] === 1)
                         decoded.data.message_type = "confirmed";
                     if (bytes[index] === 0)
                         decoded.data.message_type = "unconfirmed";
                 }
-
-                // lorawan retry
                 if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
                     decoded.data.nb_retry= bytes[index] ;
                 }
-
-                // lorawan reassociation
                 if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
                     decoded.data.period_in_minutes = bytes[index+1] *256+bytes[index+2];
                     decoded.data.nb_err_frames = bytes[index+3] *256+bytes[index+4];
                 }
-                // configuration node power desc
                 if (   (clusterdID === 0x0050 ) && (attributID === 0x0006)) {
                     index2 = index + 3;
                     if ((bytes[index+2] &0x01) === 0x01) {decoded.data.main_or_external_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
@@ -569,7 +451,6 @@ function Decoder(bytes, port) {
                     if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
                     if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
                 }
-                //energy and power metering
                 if (  (clusterdID === 0x800a) && (attributID === 0x0000)) {
                     index2 = index;
                     decoded.data.sum_positive_active_energy_Wh = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
@@ -588,8 +469,6 @@ function Decoder(bytes, port) {
                     index2 = index2 + 4;
                     decoded.data.negative_reactive_power_W = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
                 }
-
-                //energy and power multi metering
                 if (  (clusterdID === 0x8010) & (attributID === 0x0000)) {
                     decoded.data.ActiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4]);
                     decoded.data.ReactiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[index+5]*256*256*256+bytes[index+6]*256*256+bytes[index+7]*256+bytes[index+8]);
@@ -609,8 +488,6 @@ function Decoder(bytes, port) {
                     decoded.data.ActivePowerWPhaseABC=Int32UnsignedToSigned(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28]);
                     decoded.data.ReactivePowerWPhaseABC=Int32UnsignedToSigned(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32]);
                 }
-
-                //energy and power metering
                 if (  (clusterdID === 0x800b) & (attributID === 0x0000)) {
                     index2 = index;
                     decoded.data.Vrms = UintToInt(bytes[index2+1]*256+bytes[index2+2],2)/10;
@@ -619,8 +496,6 @@ function Decoder(bytes, port) {
                     index2 = index2 + 2;
                     decoded.data.phase_angle = UintToInt(bytes[index2+1]*256+bytes[index2+2],2);
                 }
-
-                //voltage current multi metering
                 if (  (clusterdID === 0x800d) & (attributID === 0x0000)) {
                     decoded.data.VrmsA=UintToInt(bytes[index+1]*256+bytes[index+2],2)/10;
                     decoded.data.IrmsA=UintToInt(bytes[index+3]*256+bytes[index+4],2)/10;
@@ -632,24 +507,18 @@ function Decoder(bytes, port) {
                     decoded.data.IrmsC=UintToInt(bytes[index+15]*256+bytes[index+16],2)/10;
                     decoded.data.PhaseC=UintToInt(bytes[index+17]*256+bytes[index+18],2);
                 }
-
-                //concentration
                 if (  (clusterdID === 0x800c) & (attributID === 0x0000)) {
                     decoded.data.Concentration = (bytes[index]*256+bytes[index+1]);
                 }
-                //illuminance
                 if (  (clusterdID === 0x0400) & (attributID === 0x0000)) {
                     decoded.data.Illuminance = (bytes[index]*256+bytes[index+1]);
                 }
-                //Pressure
                 if (  (clusterdID === 0x0403) & (attributID === 0x0000)) {
                     decoded.data.Pressure = (UintToInt(bytes[index]*256+bytes[index+1],2));
                 }
-                //Occupancy
                 if (  (clusterdID === 0x0406) & (attributID === 0x0000)) {
                     decoded.data.Occupancy = !(!bytes[index]);
                 }
-                // power quality by WattSense
                 if ((clusterdID === 0x8052) & (attributID === 0x0000)) {
                     index2 = index;
                     decoded.data.frequency =
@@ -722,8 +591,6 @@ function Decoder(bytes, port) {
                         2
                     );
                 }
-
-                //XYZ Acceleration : Last on XYZ
                 if (  (clusterdID === 0x800f) ) {
                     i = index+1;
                     if (attributID === 0x0000) {
@@ -774,50 +641,30 @@ function Decoder(bytes, port) {
                         o.RstAftStdRpt_7    = (bytes[i] & 0x04 ? "true" : "false");
                     }
                 }
-
             }
-
-            //decode configuration response
             if(cmdID === 0x07){
-                //AttributID
                 attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-                //status
                 decoded.zclheader.status = bytes[4];
-                //batch
                 decoded.zclheader.batch = bytes[5];
             }
-
-
-            //decode read configuration response
             if(cmdID === 0x09){
-                //AttributID
                 attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-                //status
                 decoded.zclheader.status = bytes[4];
-                //batch
                 decoded.zclheader.batch = bytes[5];
-
-                //AttributType
                 decoded.zclheader.attribut_type = bytes[8];
-                //min
                 decoded.zclheader.min = {}
                 if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unity = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unity = "seconds";}
-                //max
                 decoded.zclheader.max = {}
                 if ((bytes[11] & 0x80) === 0x80) {decoded.zclheader.max.value = (bytes[11]-0x80)*256+bytes[12];decoded.zclheader.max.unity = "minutes";} else {decoded.zclheader.max.value = bytes[11]*256+bytes[12];decoded.zclheader.max.unity = "seconds";}
                 decoded.lora.payload  = "";
-
             }
-
         }
-
         else
         {
             decoded.batch = {};
             decoded.batch.report = "batch";
         }
     }
-
     return decoded;
 }
 
@@ -905,23 +752,20 @@ function normalisation_standard(input, endpoint_parameters){
         payload: decoded.lora.payload,
     }
 }
-
-
-var ST_UNDEF = 0;
-var ST_BL = 1;
-var ST_U4 = 2;
-var ST_I4 = 3;
-var ST_U8 = 4;
-var ST_I8 = 5;
-var ST_U16 = 6;
-var ST_I16 = 7;
-var ST_U24 = 8;
-var ST_I24 = 9;
-var ST_U32 = 10;
-var ST_I32 = 11;
-var ST_FL = 12;
-
-var ST = {};
+let ST_UNDEF = 0;
+let ST_BL = 1;
+let ST_U4 = 2;
+let ST_I4 = 3;
+let ST_U8 = 4;
+let ST_I8 = 5;
+let ST_U16 = 6;
+let ST_I16 = 7;
+let ST_U24 = 8;
+let ST_I24 = 9;
+let ST_U32 = 10;
+let ST_I32 = 11;
+let ST_FL = 12;
+let ST = {};
 ST[ST_UNDEF] = 0;
 ST[ST_BL] = 1;
 ST[ST_U4] = 4;
@@ -935,11 +779,9 @@ ST[ST_I24] = 24;
 ST[ST_U32] = 32;
 ST[ST_I32] = 32;
 ST[ST_FL] = 32;
-
-var BR_HUFF_MAX_INDEX_TABLE = 14;
-var NUMBER_OF_SERIES = 16;
-
-var HUFF = [
+let BR_HUFF_MAX_INDEX_TABLE = 14;
+let NUMBER_OF_SERIES = 16;
+let HUFF = [
     [
         { sz: 2, lbl: 0x000 },
         { sz: 2, lbl: 0x001 },
@@ -995,10 +837,6 @@ var HUFF = [
         { sz: 11, lbl: 0x407 }
     ]
 ];
-
-// }}}
-
-// {{{ Polyfills
 Math.trunc =
     Math.trunc ||
     function(x) {
@@ -1010,52 +848,23 @@ Math.trunc =
         }
         return Math.ceil(x);
     };
-// }}}
-
-/**
- * brUncompress main function
- */
-
-
 function brUncompress(tagsz, argList, hexString, batch_absolute_timestamp) {
-
-    var out = initResult();
-    var buffer = createBuffer(parseHexString(hexString));
-    var flag = generateFlag(buffer.getNextSample(ST_U8));
-
+    let out = initResult();
+    let buffer = createBuffer(parseHexString(hexString));
+    let flag = generateFlag(buffer.getNextSample(ST_U8));
     out.batch_counter = buffer.getNextSample(ST_U8, 3);
     buffer.getNextSample(ST_U8, 1);
-
-    var temp = prePopulateOutput(out, buffer, argList, flag, tagsz);
-    var last_timestamp = temp.last_timestamp;
-    var index_of_the_first_sample = temp.index_of_the_first_sample;
-
+    let temp = prePopulateOutput(out, buffer, argList, flag, tagsz);
+    let last_timestamp = temp.last_timestamp;
+    let index_of_the_first_sample = temp.index_of_the_first_sample;
     if (flag.hasSample) {
-        last_timestamp = uncompressSamplesData(
-            out,
-            buffer,
-            index_of_the_first_sample,
-            argList,
-            last_timestamp,
-            flag,
-            tagsz
-        );
+        last_timestamp = uncompressSamplesData(out, buffer, index_of_the_first_sample, argList, last_timestamp, flag, tagsz);
     }
-
-    out.batch_relative_timestamp = extractTimestampFromBuffer(
-        buffer,
-        last_timestamp
-    );
+    out.batch_relative_timestamp = extractTimestampFromBuffer(buffer, last_timestamp);
     return adaptToExpectedFormat(out, argList, batch_absolute_timestamp);
 }
-
-/////////////// Sub functions ///////////////
-
-/**
- * Init br_uncompress result data structure
- */
 function initResult() {
-    var series = [],
+    let series = [],
         i = 0;
     while (i < NUMBER_OF_SERIES) {
         series.push({
@@ -1072,34 +881,15 @@ function initResult() {
         series: series
     };
 }
-
-/**
- * Function to create a buffer from a byteArray. Allow to read sample from the
- * byteArray to extract data.
- */
 function createBuffer(byteArray) {
-    /**
-     * Retrieve the pattern for HUFF table lookup
-     */
     function bitsBuf2HuffPattern(byteArray, index, nb_bits) {
-        var sourceBitStart = index;
-        var sz = nb_bits - 1;
+        let sourceBitStart = index;
+        let sz = nb_bits - 1;
         if (byteArray.length * 8 < sourceBitStart + nb_bits) {
-            //stock error only once
-            /*
-            if (myerror.indexOf("Batch : Verify that dest buf is large enough") === -1){
-                myerror.push("Batch : Verify that dest buf is large enough");
-            }
-            return;*/
             throw new Error("Batch : Verify that dest buf is large enough");
-
-
-
-
-
         }
-        var bittoread = 0;
-        var pattern = 0;
+        let bittoread = 0;
+        let pattern = 0;
         while (nb_bits > 0) {
             if (byteArray[sourceBitStart >> 3] & (1 << (sourceBitStart & 0x07))) {
                 pattern |= 1 << (sz - bittoread);
@@ -1110,35 +900,26 @@ function createBuffer(byteArray) {
         }
         return pattern;
     }
-
     return {
         index: 0,
         byteArray: byteArray,
         getNextSample: function(sampleType, nbBitsInput) {
-            var nbBits = nbBitsInput || ST[sampleType];
-            var sourceBitStart = this.index;
+            let nbBits = nbBitsInput || ST[sampleType];
+            let sourceBitStart = this.index;
             this.index += nbBits;
             if (sampleType === ST_FL && nbBits !== 32) {
-                //stock error only once
-                /*
-                if (myerror.indexOf("Batch : Mauvais sampletype") === -1) {
-                    myerror.push("Batch : Mauvais sampletype");
-                }
-                return;*/
                 throw new Error("Batch : Mauvais sampletype");
             }
-
-            var u32 = 0;
-            var nbytes = Math.trunc((nbBits - 1) / 8) + 1;
-            var nbitsfrombyte = nbBits % 8;
+            let u32 = 0;
+            let nbytes = Math.trunc((nbBits - 1) / 8) + 1;
+            let nbitsfrombyte = nbBits % 8;
             if (nbitsfrombyte === 0 && nbytes > 0) {
                 nbitsfrombyte = 8;
             }
-
             while (nbytes > 0) {
-                var bittoread = 0;
+                let bittoread = 0;
                 while (nbitsfrombyte > 0) {
-                    var idx = sourceBitStart >> 3;
+                    let idx = sourceBitStart >> 3;
                     if (this.byteArray[idx] & (1 << (sourceBitStart & 0x07))) {
                         u32 |= 1 << ((nbytes - 1) * 8 + bittoread);
                     }
@@ -1149,27 +930,21 @@ function createBuffer(byteArray) {
                 nbytes--;
                 nbitsfrombyte = 8;
             }
-            // Propagate the sign bit if 1
             if (
                 (sampleType == ST_I4 || sampleType == ST_I8 ||sampleType == ST_I16 ||sampleType == ST_I24) &&
                 u32 & (1 << (nbBits - 1))
             ) {
-                for (var i = nbBits; i < 32; i++) {
+                for (let i = nbBits; i < 32; i++) {
                     u32 |= 1 << i;
                     nbBits++;
                 }
             }
-
             return u32;
         },
-
-        /**
-         * Extract sz and bi from Huff table
-         */
         getNextBifromHi: function(huff_coding) {
-            for (var i = 2; i < 12; i++) {
-                var lhuff = bitsBuf2HuffPattern(this.byteArray, this.index, i);
-                for (var j = 0; j < HUFF[huff_coding].length; j++) {
+            for (let i = 2; i < 12; i++) {
+                let lhuff = bitsBuf2HuffPattern(this.byteArray, this.index, i);
+                for (let j = 0; j < HUFF[huff_coding].length; j++) {
                     if (
                         HUFF[huff_coding][j].sz == i &&
                         lhuff == HUFF[huff_coding][j].lbl
@@ -1179,49 +954,15 @@ function createBuffer(byteArray) {
                     }
                 }
             }
-            //myerror.push("Bi not found in HUFF table");
             throw new Error("Bi not found in HUFF table");
         }
     }
 }
-
-/**
- * Convert the hex string given as parameter to a ByteArray
- */
-/*function parseHexString(str) {
-    if ( str === undefined || str === null ) {
-        //stock error only once
-        if (myerror.indexOf("Batch : Invalid hex string") === -1) {
-            myerror.push("Batch : Invalid hex string");
-        }
-        return;
-    }
-    str = str
-        .toString()
-        .split("")
-        .filter(function(x) {
-            return !isNaN(parseInt(x, 16))
-        })
-        .join("")
-    var result = []
-    while (str.length >= 2) {
-        result.push(parseInt(str.substring(0, 2), 16))
-        str = str.substring(2, str.length)
-    }
-    return result
-}*/
-
-/**
- * Generate a flag object from an integer value.
- */
 function generateFlag(flagAsInt) {
-    var binbase = flagAsInt.toString(2)
-
-    // leftpad
+    let binbase = flagAsInt.toString(2)
     while (binbase.length < 8) {
         binbase = "0" + binbase
     }
-
     return {
         isCommonTimestamp: parseInt(binbase[binbase.length - 2], 2),
         hasSample: !parseInt(binbase[binbase.length - 3], 2),
@@ -1229,20 +970,15 @@ function generateFlag(flagAsInt) {
         nb_of_type_measure: parseInt(binbase.substring(0, 4), 2)
     }
 }
-
-/**
- * Prepopulate output with relative timestamp and measure of the first sample
- * for each series.
- */
 function prePopulateOutput(out, buffer, argList, flag, tagsz) {
-    var currentTimestamp = 0
-    var index_of_the_first_sample = 0
-    for (var i = 0; i < flag.nb_of_type_measure; i++) {
-        var tag = {
+    let currentTimestamp = 0
+    let index_of_the_first_sample = 0
+    for (let i = 0; i < flag.nb_of_type_measure; i++) {
+        let tag = {
             size: tagsz,
             lbl: buffer.getNextSample(ST_U8, tagsz)
         }
-        var sampleIndex = findIndexFromArgList(argList, tag)
+        let sampleIndex = findIndexFromArgList(argList, tag)
 
         if (i === 0) {
             index_of_the_first_sample = sampleIndex
@@ -1265,10 +1001,6 @@ function prePopulateOutput(out, buffer, argList, flag, tagsz) {
         index_of_the_first_sample: index_of_the_first_sample
     }
 }
-
-/**
- * Initialize next series from buffer
- */
 function computeSeries(buffer, sampletype, label, currentTimestamp) {
     return {
         uncompressSamples: [
@@ -1285,34 +1017,21 @@ function computeSeries(buffer, sampletype, label, currentTimestamp) {
         resolution: null
     }
 }
-
-/**
- * Return the index of tag lbl in the argument list
- */
 function findIndexFromArgList(argList, tag) {
-    for (var i = 0; i < argList.length; i++) {
+    for (let i = 0; i < argList.length; i++) {
         if (argList[i].taglbl === tag.lbl) {
             return i
         }
     }
-    //myerror.push("Batch : Cannot find index in argList");
     throw new Error("Batch : Cannot find index in argList");
 }
-
-/**
- * Extract a new time stamp using Huff table, optionnaly from a baseTimestamp
- */
 function extractTimestampFromBuffer(buffer, baseTimestamp) {
     if (baseTimestamp) {
-        var bi = buffer.getNextBifromHi(1)
+        let bi = buffer.getNextBifromHi(1)
         return computeTimestampFromBi(buffer, baseTimestamp, bi)
     }
     return buffer.getNextSample(ST_U32)
 }
-
-/**
- * Compute a new timestamp from a previous one, regarding bi value
- */
 function computeTimestampFromBi(buffer, baseTimestamp, bi) {
     if (bi > BR_HUFF_MAX_INDEX_TABLE) {
         return buffer.getNextSample(ST_U32)
@@ -1322,35 +1041,20 @@ function computeTimestampFromBi(buffer, baseTimestamp, bi) {
     }
     return baseTimestamp
 }
-
-/**
- * Compute a new timestamp from a previous one, regarding posotive bi value
- */
 function computeTimestampFromPositiveBi(buffer, baseTimestamp, bi) {
     return buffer.getNextSample(ST_U32, bi) + baseTimestamp + Math.pow(2, bi) - 1
 }
-
-/**
- * Extract the measure from the buffer, handling float case
- */
-
 function getMeasure(buffer, sampletype) {
-    var v = buffer.getNextSample(sampletype)
+    let v = buffer.getNextSample(sampletype)
     return sampletype === ST_FL ? bytes2Float32(v) : v
 }
-
-/**
- * Convert bytes to a float32 representation.
- */
 function bytes2Float32(bytes) {
-    var sign = bytes & 0x80000000 ? -1 : 1,
+    let sign = bytes & 0x80000000 ? -1 : 1,
         exponent = ((bytes >> 23) & 0xff) - 127,
         significand = bytes & ~(-1 << 23)
-
     if (exponent == 128) {
         return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY)
     }
-
     if (exponent == -127) {
         if (significand === 0) {
             return sign * 0.0
@@ -1360,97 +1064,41 @@ function bytes2Float32(bytes) {
     } else {
         significand = (significand | (1 << 23)) / (1 << 23)
     }
-
     return sign * significand * Math.pow(2, exponent)
 }
-
-/**
- * Uncompress samples data presenting common timestamp or separate timestamp
- */
-function uncompressSamplesData(
-    out,
-    buffer,
-    index_of_the_first_sample,
-    argList,
-    last_timestamp,
-    flag,
-    tagsz
-) {
+function uncompressSamplesData(out, buffer, index_of_the_first_sample, argList, last_timestamp, flag, tagsz) {
     if (flag.isCommonTimestamp) {
-        return handleCommonTimestamp(
-            out,
-            buffer,
-            index_of_the_first_sample,
-            argList,
-            flag,
-            tagsz
-        )
+        return handleCommonTimestamp(out, buffer, index_of_the_first_sample, argList, flag, tagsz)
     }
-    return handleSeparateTimestamp(
-        out,
-        buffer,
-        argList,
-        last_timestamp,
-        flag,
-        tagsz
-    )
+    return handleSeparateTimestamp(out, buffer, argList, last_timestamp, flag, tagsz)
 }
-
-/**
- * Uncompress data in case of common timestamp
- */
-function handleCommonTimestamp(
-    out,
-    buffer,
-    index_of_the_first_sample,
-    argList,
-    flag,
-    tagsz
-) {
-    //number of sample
-    var nb_sample_to_parse = buffer.getNextSample(ST_U8, 8)
-    var tag = {}
-
-    var temp = initTimestampCommonTable(
-        out,
-        buffer,
-        nb_sample_to_parse,
-        index_of_the_first_sample
-    )
-    var timestampCommon = temp.timestampCommon
-    var lastTimestamp = temp.lastTimestamp
-
-    for (var j = 0; j < flag.nb_of_type_measure; j++) {
-        var first_null_delta_value = 1
+function handleCommonTimestamp(out, buffer, index_of_the_first_sample, argList, flag, tagsz) {
+    let nb_sample_to_parse = buffer.getNextSample(ST_U8, 8)
+    let tag = {}
+    let temp = initTimestampCommonTable(out, buffer, nb_sample_to_parse, index_of_the_first_sample)
+    let timestampCommon = temp.timestampCommon
+    let lastTimestamp = temp.lastTimestamp
+    for (let j = 0; j < flag.nb_of_type_measure; j++) {
+        let first_null_delta_value = 1
         tag.lbl = buffer.getNextSample(ST_U8, tagsz)
-        var sampleIndex = findIndexFromArgList(argList, tag)
-        for (var i = 0; i < nb_sample_to_parse; i++) {
-            //Available bit
-            var available = buffer.getNextSample(ST_U8, 1)
+        let sampleIndex = findIndexFromArgList(argList, tag)
+        for (let i = 0; i < nb_sample_to_parse; i++) {
+            let available = buffer.getNextSample(ST_U8, 1)
             if (available) {
-                //Delta value
-                var bi = buffer.getNextBifromHi(out.series[sampleIndex].codingTable)
-                var currentMeasure = {
+                let bi = buffer.getNextBifromHi(out.series[sampleIndex].codingTable)
+                let currentMeasure = {
                     data_relative_timestamp: 0,
                     data: {}
                 }
                 if (bi <= BR_HUFF_MAX_INDEX_TABLE) {
-                    var precedingValue =
+                    let precedingValue =
                         out.series[sampleIndex].uncompressSamples[
                         out.series[sampleIndex].uncompressSamples.length - 1
                             ].data.value
                     if (bi > 0) {
-                        currentMeasure.data.value = completeCurrentMeasure(
-                            buffer,
-                            precedingValue,
-                            out.series[sampleIndex].codingType,
-                            argList[sampleIndex].resol,
-                            bi
-                        )
+                        currentMeasure.data.value = completeCurrentMeasure(buffer, precedingValue, out.series[sampleIndex].codingType, argList[sampleIndex].resol, bi)
                     } else {
-                        // (bi <= 0)
                         if (first_null_delta_value) {
-                            // First value is yet recorded starting from the header
                             first_null_delta_value = 0
                             continue
                         } else {
@@ -1458,7 +1106,6 @@ function handleCommonTimestamp(
                         }
                     }
                 } else {
-                    // bi > BR_HUFF_MAX_INDEX_TABLE
                     currentMeasure.data.value = buffer.getNextSample(
                         argList[sampleIndex].sampletype
                     )
@@ -1470,31 +1117,18 @@ function handleCommonTimestamp(
     }
     return lastTimestamp
 }
-
-/**
- * Initialize common timestamp table. Returns the table and last calculated timestamp
- */
-function initTimestampCommonTable(
-    out,
-    buffer,
-    nbSampleToParse,
-    firstSampleIndex
-) {
-    var timestampCommon = []
-    var lastTimestamp = 0
-    var timestampCoding = buffer.getNextSample(ST_U8, 2)
-    for (var i = 0; i < nbSampleToParse; i++) {
-        //delta timestamp
-        var bi = buffer.getNextBifromHi(timestampCoding)
+function initTimestampCommonTable(out, buffer, nbSampleToParse, firstSampleIndex) {
+    let timestampCommon = []
+    let lastTimestamp = 0
+    let timestampCoding = buffer.getNextSample(ST_U8, 2)
+    for (let i = 0; i < nbSampleToParse; i++) {
+        let bi = buffer.getNextBifromHi(timestampCoding)
         if (bi <= BR_HUFF_MAX_INDEX_TABLE) {
             if (i === 0) {
-                timestampCommon.push(
-                    out.series[firstSampleIndex].uncompressSamples[0]
-                        .data_relative_timestamp
-                )
+                timestampCommon.push(out.series[firstSampleIndex].uncompressSamples[0].data_relative_timestamp)
             } else {
                 if (bi > 0) {
-                    var precedingTimestamp = timestampCommon[i - 1]
+                    let precedingTimestamp = timestampCommon[i - 1]
                     timestampCommon.push(
                         buffer.getNextSample(ST_U32, bi) +
                         precedingTimestamp +
@@ -1515,90 +1149,56 @@ function initTimestampCommonTable(
         lastTimestamp: lastTimestamp
     }
 }
-
-/**
- * Complete current measure from the preceding one
- */
 function completeCurrentMeasure(buffer, precedingValue, codingType, resol, bi) {
-    var currentValue = buffer.getNextSample(ST_U16, bi)
+    let currentValue = buffer.getNextSample(ST_U16, bi)
     if (codingType === 0) {
-        // ADLC
         return computeAdlcValue(currentValue, resol, precedingValue, bi)
     }
     if (codingType === 1) {
-        // Positive
         return (currentValue + Math.pow(2, bi) - 1) * resol + precedingValue
     }
-    // Negative
     return precedingValue - (currentValue + (Math.pow(2, bi) - 1)) * resol
 }
-
-/**
- * Return current value in ADLC case
- */
 function computeAdlcValue(currentValue, resol, precedingValue, bi) {
     if (currentValue >= Math.pow(2, bi - 1)) {
         return currentValue * resol + precedingValue
     }
     return (currentValue + 1 - Math.pow(2, bi)) * resol + precedingValue
 }
-
-/**
- * Uncompress data in case of separate timestamp
- */
-function handleSeparateTimestamp(
-    out,
-    buffer,
-    argList,
-    last_timestamp,
-    flag,
-    tagsz
-) {
-    var tag = {}
-    for (var i = 0; i < flag.nb_of_type_measure; i++) {
+function handleSeparateTimestamp(out, buffer, argList, last_timestamp, flag, tagsz) {
+    let tag = {}
+    for (let i = 0; i < flag.nb_of_type_measure; i++) {
         tag.lbl = buffer.getNextSample(ST_U8, tagsz)
-        var sampleIndex = findIndexFromArgList(argList, tag)
-        var compressSampleNb = buffer.getNextSample(ST_U8, 8)
+        let sampleIndex = findIndexFromArgList(argList, tag)
+        let compressSampleNb = buffer.getNextSample(ST_U8, 8)
         if (compressSampleNb) {
-            var timestampCoding = buffer.getNextSample(ST_U8, 2)
-            for (var j = 0; j < compressSampleNb; j++) {
-                var precedingRelativeTimestamp =
+            let timestampCoding = buffer.getNextSample(ST_U8, 2)
+            for (let j = 0; j < compressSampleNb; j++) {
+                let precedingRelativeTimestamp =
                     out.series[sampleIndex].uncompressSamples[
                     out.series[sampleIndex].uncompressSamples.length - 1
                         ].data_relative_timestamp
-                var currentMeasure = {
+                let currentMeasure = {
                     data_relative_timestamp: 0,
                     data: {}
                 }
-                var bi = buffer.getNextBifromHi(timestampCoding)
-                currentMeasure.data_relative_timestamp = computeTimestampFromBi(
-                    buffer,
-                    precedingRelativeTimestamp,
-                    bi
-                )
+                let bi = buffer.getNextBifromHi(timestampCoding)
+                currentMeasure.data_relative_timestamp = computeTimestampFromBi(buffer, precedingRelativeTimestamp, bi)
                 if (currentMeasure.data_relative_timestamp > last_timestamp) {
                     last_timestamp = currentMeasure.data_relative_timestamp
                 }
                 bi = buffer.getNextBifromHi(out.series[sampleIndex].codingTable)
                 if (bi <= BR_HUFF_MAX_INDEX_TABLE) {
-                    var precedingValue =
+                    let precedingValue =
                         out.series[sampleIndex].uncompressSamples[
                         out.series[sampleIndex].uncompressSamples.length - 1
                             ].data.value
                     if (bi > 0) {
-                        currentMeasure.data.value = completeCurrentMeasure(
-                            buffer,
-                            precedingValue,
-                            out.series[sampleIndex].codingType,
-                            argList[sampleIndex].resol,
-                            bi
-                        )
+                        currentMeasure.data.value = completeCurrentMeasure(buffer, precedingValue, out.series[sampleIndex].codingType, argList[sampleIndex].resol, bi)
                     } else {
-                        // bi <= 0
                         currentMeasure.data.value = precedingValue
                     }
                 } else {
-                    // bi > BR_HUFF_MAX_INDEX_TABLE
                     currentMeasure.data.value = buffer.getNextSample(
                         argList[sampleIndex].sampletype
                     )
@@ -1609,12 +1209,8 @@ function handleSeparateTimestamp(
     }
     return last_timestamp
 }
-
-/**
- * Translate brUncompress output data to expected structure
- */
 function adaptToExpectedFormat(out, argList, batchAbsoluteTimestamp) {
-    var returnedGlobalObject = {
+    let returnedGlobalObject = {
         batch_counter: out.batch_counter,
         batch_relative_timestamp: out.batch_relative_timestamp
     }
@@ -1628,7 +1224,7 @@ function adaptToExpectedFormat(out, argList, batchAbsoluteTimestamp) {
         ) {
             return acc.concat(
                 current.uncompressSamples.map(function(item) {
-                    var returned = {
+                    let returned = {
                         data_relative_timestamp: item.data_relative_timestamp,
                         data: {
                             value: argList[index].divide
@@ -1654,11 +1250,6 @@ function adaptToExpectedFormat(out, argList, batchAbsoluteTimestamp) {
         [])
     return returnedGlobalObject
 }
-
-/**
- * Compute data absolute timestamp from batch absolute timestamp (bat), batch
- * relative timestamp (brt) and data relative timestamp (drt)
- */
 function computeDataAbsoluteTimestamp(bat, brt, drt) {
     return new Date(new Date(bat) - (brt - drt) * 1000).toISOString()
 }
@@ -1666,7 +1257,6 @@ function computeDataAbsoluteTimestamp(bat, brt, drt) {
 try {
     module.exports = brUncompress
 } catch (e) {
-    // when called from nashorn,  module.exports is unavailableâ€¦
     exports.err_msg = e
 }
 
@@ -1686,32 +1276,6 @@ function normalisation_batch(input){
     }
     return dataListe
 }
-
-/*
-function stringLength(str){
-    let flag = true;
-    let i = 0;
-    while (flag){
-        if (str[i] === undefined){
-            flag = false;
-        }
-        else{
-            i++;
-        }
-    }
-    return i;
-}*/
-
-
-function strToDecimalArray(str){
-    let hexArray = [];
-    let len = str.length;
-    for (let i=0; i<len; i+=2) {
-        hexArray.push(parseInt(str.substring(i, i+2), 16));
-    }
-    return hexArray;
-}
-
 function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
     let bytes = input.bytes;
     let port = input.fPort;
@@ -1753,17 +1317,8 @@ function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
         };
     }
 }
-
-
-let batch_param = [2, [{ taglbl: 0, resol: 10, sampletype: 7, lblname: "temperature", divide: 100 },
-    { taglbl: 1, resol: 100, sampletype: 6, lblname: "humidity", divide: 100 },
-    { taglbl: 2, resol: 1, sampletype: 6, lblname: "battery_voltage", divide: 1000 },
-    { taglbl: 3, resol: 1, sampletype: 1, lblname: "open_case", divide: 1 }]];
-
-
+let batch_param = [2, [{ taglbl: 0, resol: 10, sampletype: 7, lblname: "temperature", divide: 100 }, { taglbl: 1, resol: 100, sampletype: 6, lblname: "humidity", divide: 100 }, { taglbl: 2, resol: 1, sampletype: 6, lblname: "battery_voltage", divide: 1000 }, { taglbl: 3, resol: 1, sampletype: 1, lblname: "open_case", divide: 1 }]];
 function decodeUplink(input) {
-    let result = {};
     return result = watteco_decodeUplink(input,batch_param);
 }
-
 module.exports.decodeUplink = decodeUplink;
