@@ -8,8 +8,8 @@
   "vendorId": "//TODO",
   "specVersion": "1.0.0",
   "codec": {
-    "encodeDownlink": true,
-    "decodeDownlink": true,
+    "encodeDownlink": false,
+    "decodeDownlink": false,
     "examples": true,
     "jsonSchemas": true
   }
