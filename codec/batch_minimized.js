@@ -461,3 +461,6 @@ function normalisation_batch(input){
     }
     return dataListe
 }
+module.exports = {
+    normalisation_batch
+}

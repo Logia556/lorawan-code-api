@@ -1,10 +1,12 @@
+const standard = require("./standard_minimized.js");
+const batch = require("./batch_minimized.js");
 function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
     let bytes = input.bytes;
     let port = input.fPort;
     let date = input.recvTime;
 
     try {
-        let decoded = normalisation_standard(input, endpoint_parameters)
+        let decoded = standard.normalisation_standard(input, endpoint_parameters)
         let payload = decoded.payload;
         //console.log(decoded)
         if (decoded.type === "batch") {
@@ -15,7 +17,7 @@ function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
                 date: date,
             }
             try {
-                let decoded = normalisation_batch(batchInput)
+                let decoded = batch.normalisation_batch(batchInput)
                 return {
                     data: decoded,
                     warnings: [""],
@@ -38,4 +40,7 @@ function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
             warnings: [""],
         };
     }
+}
+module.exports = {
+    watteco_decodeUplink: watteco_decodeUplink,
 }

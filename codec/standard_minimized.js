@@ -54,6 +54,15 @@ function parseHexString(str) {
     }
     return result;
 }
+function zeroPad(num, places) {
+    return( String(num).padStart(places, '0') );
+}
+function decimalToBitString(dec){
+    var bitString = "";
+    var bin = dec.toString(2);
+    bitString += zeroPad(bin, 8);
+    return bitString;
+}
 function Decoder(bytes, port) {
     let decoded = {};
     decoded.lora = {};
@@ -84,11 +93,59 @@ function Decoder(bytes, port) {
             if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
                 decoded.data = {};
                 attID = bytes[4]*256 + bytes[5];decoded.zclheader.attID = decimalToHex(attID,4);
-                if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
                 if ((cmdID === 0x0a) | (cmdID === 0x8a)) i1 = 7;
+                if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
                 if (cmdID === 0x01)	{i1 = 8; decoded.zclheader.status = bytes[6];}
-                if ((clustID === 0x0402 ) & (attID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
-                if ((clustID === 0x0405 ) & (attID === 0x0000)) decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
+                if ((clustID === 0x0402 ) & (attID === 0x0000)) {
+                    decoded.data.temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
+                    if (cmdID === 0x8a){
+                        let rc=""
+                        if(bytes[i1+2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        }else{
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none"){
+                            decoded.zclheader.alarmmess = "alarme déclanchée sur la température"
+                        };
+                        console.log(rc)
+                        console.log(rc[2])
+                        console.log(rc[3])
+                        if ((rc[2] === "0") && (rc[3] === "1")){
+                            let csd = decimalToBitString(bytes[i1 + 3])
+                            console.log(csd)
+                            if((csd[3]==="1") && (csd[4]==="0")){
+                                let mode = "seuil"
+                                let qual =""
+                                if (csd[1]==="1"){
+                                    qual = "haut"
+                                }
+                                else{
+                                    qual = "bas"
+                                }
+                                let mess = mode + " " + qual + " de température dépassé"
+                                console.log(mess)
+                                decoded.zclheader.alarmmess = mess
+                            }
+                            if((csd[3]==="0") && (csd[4]==="1")){
+                                decoded.zclheader.alarmmess = "écart de température trop important détecté"
+                            }
+                        }
+                    }
+                }
+                if ((clustID === 0x0405 ) & (attID === 0x0000)){
+                    decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
+                    if(bytes[i1+2] !== undefined) {
+                        let rc = decimalToBitString(bytes[i1 + 2])
+                    }
+                    let rc = "none"
+                    if ((rc === "none") && (cmdID === 0x8a)){
+                        decoded.zclheader.alarmmess = "alarme déclanchée sur l'humidité"
+                    };
+                }
                 if ((clustID === 0x000f ) & (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
                 if ((clustID === 0x000f ) & (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
                 if ((clustID === 0x0013 ) & (attID === 0x0055)) decoded.data.value = bytes[i1];
@@ -564,9 +621,10 @@ function normalisation_standard(input, endpoint_parameters){
     let bytes = input.bytes;
     console.log(input)
     let decoded = Decoder(bytes, input.fPort);
+    console.log(decoded)
     if (decoded.zclheader !== undefined){
         if (decoded.zclheader.alarm){
-            warning = "événement surveillé déclanché"
+            warning = decoded.zclheader.alarmmess
         }
     }
     if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
@@ -638,3 +696,4 @@ function normalisation_standard(input, endpoint_parameters){
         payload: decoded.lora.payload,
     }
 }
+module.exports = {normalisation_standard,};

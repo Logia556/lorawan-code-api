@@ -1,5 +1,5 @@
-const standard = require("./standard");
-const batch = require("./batch");
+const standard = require("./standard_minimized");
+const batch = require("./batch_minimized");
 
 function strToDecimalArray(str){
     let hexArray = [];

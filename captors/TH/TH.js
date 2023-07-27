@@ -1,4 +1,12 @@
-let watteco = require("../../codec/watteco_decodeUplink.js")
+let watteco = require("../../codec/decode_minimized.js")
+
+function strToDecimalArray(str){
+    let hexArray = [];
+    for (let i=0; i<str.length; i+=2) {
+        hexArray.push(parseInt(str.substring(i, i+2), 16));
+    }
+    return hexArray;
+}
 
 let batch_param = [2, [{ taglbl: 0, resol: 10, sampletype: 7, lblname: "temperature", divide: 100 },
     { taglbl: 1, resol: 100, sampletype: 6, lblname: "humidity", divide: 100 },
@@ -9,7 +17,7 @@ let batch_param = [2, [{ taglbl: 0, resol: 10, sampletype: 7, lblname: "temperat
 let argv= process.argv.slice(2);
 
 let bytes = [];
-bytes = watteco.strToDecimalArray(argv[1]);
+bytes = strToDecimalArray(argv[1]);
 
 let date = argv[2];
 

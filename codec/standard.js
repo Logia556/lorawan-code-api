@@ -97,6 +97,16 @@ function BytesToHexStr(buff) {
 function zeroPad(num, places) {
     return( String(num).padStart(places, '0') );
 }
+function hexToBitString(hex){
+    //write a function to convert an hex value to a bit string
+    var bitString = "";
+    for (var i = 0; i < hex.length; i++) {
+        var bin = parseInt(hex[i], 16).toString(2);
+        bitString += zeroPad(bin, 4);
+        console.log("en fonction")
+    }
+    return bitString;
+}
 function Decoder(bytes, port) {
     // Decode an uplink message from a buffer
     // (array) of bytes to an object of fields.
@@ -147,7 +157,8 @@ function Decoder(bytes, port) {
                 if ((cmdID === 0x0a) | (cmdID === 0x8a))	index = 7;
                 if (cmdID === 0x01)	{index = 8; decoded.zclheader.status = bytes[6];}
                 //temperature
-                if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[index]*256+bytes[index+1],2))/100;
+                if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[index]*256+bytes[index+1],2))/100
+
                 //humidity
                 if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) decoded.data.humidity = (bytes[index]*256+bytes[index+1])/100;
                 //binary input counter
