@@ -13,7 +13,7 @@
     "payload_standard_bin": ["110A000F00551001"],
     "payload_standard_count": ["110A000F04022300000000"],
     "payload_batch2": ["36240000807EC3378B8274E303E81E"],
-    "payload_standard_temperature_alarm_long_ecart": ["118A04020000290B35A0C80014"],
+    "payload_standard_temperature_alarm_long_ecart  (non)": ["118A04020000290B35A0C80014"],
     "payload_standard_temperature_alarm_long_threshold": ["118A04020000290BBEA0D00BB8000001"],
     "payload_standard_temperature_alarm_long_2_threshold": ["118A0402000029010EA0B008FC000001B10834000001"],
     "payload_standard_temperature_alarm_long_3_threshold ": ["118a0402000029010ea0b008fc000001b10834000001b207d0000001"],

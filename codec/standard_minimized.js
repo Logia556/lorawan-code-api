@@ -134,6 +134,28 @@ function Decoder(bytes, port) {
                                 decoded.zclheader.alarmmess = "écart de température trop important détecté"
                             }
                         }
+                        if ((rc[2]==="1") &&(rc[3]==="0")){
+                            let csd = decimalToBitString(bytes[i1 + 3])
+                            if((csd[3]==="1") && (csd[4]==="0")){
+                                let mode = "seuil"
+                                let qual =""
+                                if (csd[1]==="1"){
+                                    qual = "haut"
+                                }
+                                else{
+                                    qual = "bas"
+                                }
+                                let temp = ((bytes[i1 + 4]*256+bytes[i1 + 5])/100).toString()+"°C"
+                                let mess = mode + " " + qual + " de température atteint : " + temp
+                                decoded.zclheader.alarmmess = mess
+
+                            }
+                            if((csd[3]==="0") && (csd[4]==="1")) {
+                                let temp = ((bytes[i1 + 4] * 256 + bytes[i1 + 5]) / 100).toString() + "°C"
+                                let mess = "écart de température trop important détecté : " + temp
+                                decoded.zclheader.alarmmess = mess
+                            }
+                        }
                     }
                 }
                 if ((clustID === 0x0405 ) & (attID === 0x0000)){
