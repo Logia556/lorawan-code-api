@@ -63,6 +63,36 @@ function decimalToBitString(dec){
     bitString += zeroPad(bin, 8);
     return bitString;
 }
+function alarmShort(length, listMess, flag, bytes, decoded, i1){
+    let i = 0
+    while(flag === 0) {
+        let bi = bytes[(i1 + 3 +(length*i))]
+        if (bi === undefined){
+            console.log(listMess)
+            decoded.zclheader.alarmmess = listMess
+            flag = 1
+            break
+        }
+        let csd = decimalToBitString(bi)
+        if ((csd[3] === "1") && (csd[4] === "0")) {
+            let mode = "threshold"
+            let qual = ""
+            if (csd[1] === "1") {
+                qual = "exceed"
+            } else {
+                qual = "fall"
+            }
+            let mess = qual + " " + mode + " detected"
+            listMess.push(mess)
+        }
+        if ((csd[3] === "0") && (csd[4] === "1")) {
+            let mess = "delta detected"
+            listMess.push(mess)
+        }
+        i+=1
+
+    }
+}
 function Decoder(bytes, port) {
     let decoded = {};
     decoded.lora = {};
@@ -116,35 +146,8 @@ function Decoder(bytes, port) {
                         };
                         if ((rc[2] === "0") && (rc[3] === "1")){
                             let length = 1
-                            let i = 0
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
 
-                            while(flag === 0) {
-                                let bi = bytes[(i1 + 3 +(length*i))]
-                                if (bi === undefined){
-                                    console.log(listMess)
-                                    decoded.zclheader.alarmmess = listMess
-                                    flag = 1
-                                    break
-                                }
-                                let csd = decimalToBitString(bi)
-                                if ((csd[3] === "1") && (csd[4] === "0")) {
-                                    let mode = "seuil"
-                                    let qual = ""
-                                    if (csd[1] === "1") {
-                                        qual = "haut"
-                                    } else {
-                                        qual = "bas"
-                                    }
-                                    let mess = mode + " " + qual + " de température dépassé"
-                                    listMess.push(mess)
-                                }
-                                if ((csd[3] === "0") && (csd[4] === "1")) {
-                                    let mess = "écart de température trop important détecté"
-                                    listMess.push(mess)
-                                }
-                                i+=1
-
-                            }
                         }
                         if ((rc[2]==="1") &&(rc[3]==="0")){
                             let length = 6
