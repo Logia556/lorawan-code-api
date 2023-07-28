@@ -95,6 +95,10 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 }
 function alarmLong(length, listMess, flag, bytes, decoded, i1){
     let i = 0
+    let check = 0
+    let baseLength = length
+    let countUp=0
+    let countDown=0
     while(flag===0) {
         let bi = bytes[(i1 + 3 +(length*i))]
         if (bi === undefined){
@@ -103,24 +107,56 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1){
             flag = 1
             break
         }
+        if(length!== baseLength){
+            length=baseLength
+        }
         let csd = decimalToBitString(bi)
         if ((csd[3] === "1") && (csd[4] === "0")) {
-            let mode = "seuil"
+            let countCheck = decimalToBitString(bytes[i1 + 6 + (length*i)])
+            if(countCheck[0] === "1"){
+                check = 1
+                length+=2
+            }
+            let mode = "threshold"
             let qual = ""
             if (csd[1] === "1") {
-                qual = "haut"
+                qual = "exceed"
+                countUp= decimalToBitString(bytes[i1 + 7 + (length*i)]) + decimalToBitString(bytes[i1 + 8 + (length*i)])
+                countUp = parseInt(countUp, 2)
+                if(check===1){
+                    countDown= decimalToBitString(bytes[i1 + 9 + (length*i)]) + decimalToBitString(bytes[i1 + 10 + (length*i)])
+                    countDown = parseInt(countDown, 2)
+                }
             } else {
-                qual = "bas"
+                qual = "fall"
+                if(check===1){
+                    countUp= decimalToBitString(bytes[i1 + 7 + (length*i)]) + decimalToBitString(bytes[i1 + 8 + (length*i)])
+                    countUp = parseInt(countUp, 2)
+                    countDown= decimalToBitString(bytes[i1 + 9 + (length*i)]) + decimalToBitString(bytes[i1 + 10 + (length*i)])
+                    countDown = parseInt(countDown, 2)
+                }else {
+                    countDown = decimalToBitString(bytes[i1 + 7 + (length * i)]) + decimalToBitString(bytes[i1 + 8 + (length * i)])
+                    countDown = parseInt(countDown, 2)
+                }
+
             }
-            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString() + "°C"
-            let mess = mode + " " + qual + " de température atteint : " + temp
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString()
+
+
+            let mess = mode + " " + qual + " detected: " + "value: "+temp + " countUp: " + countUp + ", countDown: " + countDown
             listMess.push(mess)
+            if (check ===1){
+                length-=2
+                check = 0
+            }
 
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
-            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString() + "°C"
+            length-=3
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString()
             let mess = "écart de température trop important détecté : " + temp
             listMess.push(mess)
+
         }
         i+=1
     }
