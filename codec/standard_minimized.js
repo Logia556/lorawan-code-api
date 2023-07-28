@@ -93,6 +93,39 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 
     }
 }
+function alarmLong(length, listMess, flag, bytes, decoded, i1){
+    let i = 0
+    while(flag===0) {
+        let bi = bytes[(i1 + 3 +(length*i))]
+        if (bi === undefined){
+            console.log(listMess)
+            decoded.zclheader.alarmmess = listMess
+            flag = 1
+            break
+        }
+        let csd = decimalToBitString(bi)
+        if ((csd[3] === "1") && (csd[4] === "0")) {
+            let mode = "seuil"
+            let qual = ""
+            if (csd[1] === "1") {
+                qual = "haut"
+            } else {
+                qual = "bas"
+            }
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString() + "°C"
+            let mess = mode + " " + qual + " de température atteint : " + temp
+            listMess.push(mess)
+
+        }
+        if ((csd[3] === "0") && (csd[4] === "1")) {
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString() + "°C"
+            let mess = "écart de température trop important détecté : " + temp
+            listMess.push(mess)
+        }
+        i+=1
+    }
+
+}
 function Decoder(bytes, port) {
     let decoded = {};
     decoded.lora = {};
@@ -151,36 +184,7 @@ function Decoder(bytes, port) {
                         }
                         if ((rc[2]==="1") &&(rc[3]==="0")){
                             let length = 6
-                            let i = 0
-                            while(flag===0) {
-                                let bi = bytes[(i1 + 3 +(length*i))]
-                                if (bi === undefined){
-                                    console.log(listMess)
-                                    decoded.zclheader.alarmmess = listMess
-                                    flag = 1
-                                    break
-                                }
-                                let csd = decimalToBitString(bi)
-                                if ((csd[3] === "1") && (csd[4] === "0")) {
-                                    let mode = "seuil"
-                                    let qual = ""
-                                    if (csd[1] === "1") {
-                                        qual = "haut"
-                                    } else {
-                                        qual = "bas"
-                                    }
-                                    let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString() + "°C"
-                                    let mess = mode + " " + qual + " de température atteint : " + temp
-                                    listMess.push(mess)
-
-                                }
-                                if ((csd[3] === "0") && (csd[4] === "1")) {
-                                    let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / 100).toString() + "°C"
-                                    let mess = "écart de température trop important détecté : " + temp
-                                    listMess.push(mess)
-                                }
-                                i+=1
-                            }
+                            alarmLong(length, listMess, flag, bytes, decoded, i1)
                         }
                     }
                 }
