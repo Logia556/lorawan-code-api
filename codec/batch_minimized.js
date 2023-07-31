@@ -193,6 +193,16 @@ function createBuffer(byteArray) {
         }
     }
 }
+function parseHexString(str) {
+    var result = [];
+    while (str.length >= 2) {
+        result.push(parseInt(str.substring(0, 2), 16));
+
+        str = str.substring(2, str.length);
+    }
+
+    return result;
+}
 function generateFlag(flagAsInt) {
     let binbase = flagAsInt.toString(2)
     while (binbase.length < 8) {
