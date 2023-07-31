@@ -4,10 +4,10 @@ module.exports={
     target: "node",
     mode: "production",
     entry: {
-        "bundle":[path.resolve(__dirname,'specification_compliant/standard_minimized.js'),
-            path.resolve(__dirname,'specification_compliant/batch_minimized.js'),
-            path.resolve(__dirname,'specification_compliant/decode_minimized.js'),
-            path.resolve(__dirname,"specification_compliant/captor_minimized.js"),
+        "bundle":[path.resolve(__dirname,'../codec/standard_minimized.js'),
+            path.resolve(__dirname,'../codec/batch_minimized.js'),
+            path.resolve(__dirname,'../codec/decode_minimized.js'),
+            path.resolve(__dirname,"../codec/captor_minimized.js"),
         ]
     },
     output: {

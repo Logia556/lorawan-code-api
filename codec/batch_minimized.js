@@ -287,8 +287,8 @@ function bytes2Float32(bytes) {
     let sign = bytes & 0x80000000 ? -1 : 1,
         exponent = ((bytes >> 23) & 0xff) - 127,
         significand = bytes & ~(-1 << 23)
-    if (exponent == 128) return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY)
-    if (exponent == -127) {
+    if (exponent === 128) return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY)
+    if (exponent === -127) {
         if (significand === 0) return sign * 0.0
         exponent = -126
         significand /= 1 << 22

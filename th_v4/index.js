@@ -11,8 +11,8 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 814:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 971:
+/***/ ((module) => {
 
 let ST_UNDEF = 0;
 let ST_BL = 1;
@@ -135,29 +135,6 @@ function initResult() {
         series: series
     };
 }
-function parseHexString(str) {
-    if ( str === undefined || str === null ) {
-        //stock error only once
-        if (myerror.indexOf("Batch : Invalid hex string") === -1) {
-            myerror.push("Batch : Invalid hex string");
-        }
-        return;
-    }
-    str = str
-        .toString()
-        .split("")
-        .filter(function(x) {
-            return !isNaN(parseInt(x, 16))
-        })
-        .join("")
-    var result = []
-    while (str.length >= 2) {
-        result.push(parseInt(str.substring(0, 2), 16))
-        str = str.substring(2, str.length)
-    }
-    return result
-}
-
 function createBuffer(byteArray) {
     function bitsBuf2HuffPattern(byteArray, i1, nb_bits) {
         let sourceBitStart = i1;
@@ -231,6 +208,16 @@ function createBuffer(byteArray) {
             throw new Error("Bi not found in HUFF table");
         }
     }
+}
+function parseHexString(str) {
+    var result = [];
+    while (str.length >= 2) {
+        result.push(parseInt(str.substring(0, 2), 16));
+
+        str = str.substring(2, str.length);
+    }
+
+    return result;
 }
 function generateFlag(flagAsInt) {
     let binbase = flagAsInt.toString(2)
@@ -316,8 +303,8 @@ function bytes2Float32(bytes) {
     let sign = bytes & 0x80000000 ? -1 : 1,
         exponent = ((bytes >> 23) & 0xff) - 127,
         significand = bytes & ~(-1 << 23)
-    if (exponent == 128) return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY)
-    if (exponent == -127) {
+    if (exponent === 128) return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY)
+    if (exponent === -127) {
         if (significand === 0) return sign * 0.0
         exponent = -126
         significand /= 1 << 22
@@ -500,29 +487,30 @@ function normalisation_batch(input){
     }
     return dataListe
 }
+module.exports = {
+    normalisation_batch
+}
 
-exports.normalisation_batch = normalisation_batch;
 
 /***/ }),
 
-/***/ 264:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 421:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-let imp = __webpack_require__(984);
+let watteco = __webpack_require__(684);
 let batch_param = [2, [{ taglbl: 0, resol: 10, sampletype: 7, lblname: "temperature", divide: 100 }, { taglbl: 1, resol: 100, sampletype: 6, lblname: "humidity", divide: 100 }, { taglbl: 2, resol: 1, sampletype: 6, lblname: "battery_voltage", divide: 1000 }, { taglbl: 3, resol: 1, sampletype: 1, lblname: "open_case", divide: 1 }]];
 function decodeUplink(input) {
-    return result = imp.watteco_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param);
 }
-exports.decodeUplink = decodeUplink;
-
+module.exports.decodeUplink = decodeUplink;
 
 /***/ }),
 
-/***/ 984:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 684:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-let standard = __webpack_require__(511);
-let batch = __webpack_require__(814);
+const standard = __webpack_require__(263);
+const batch = __webpack_require__(971);
 function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
     let bytes = input.bytes;
     let port = input.fPort;
@@ -564,13 +552,14 @@ function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
         };
     }
 }
-
-exports.watteco_decodeUplink = watteco_decodeUplink;
+module.exports = {
+    watteco_decodeUplink: watteco_decodeUplink,
+}
 
 /***/ }),
 
-/***/ 511:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 263:
+/***/ ((module) => {
 
 function UintToInt(Uint, Size) {
     if ((Size === 2) && ((Uint & 0x8000) > 0)) Uint -= 0x10000;
@@ -582,9 +571,9 @@ function Bytes2Float32(bytes) {
     let sign = (bytes & 0x80000000) ? -1 : 1;
     let exp = ((bytes >> 23) & 0xFF) - 127;
     let signi = (bytes & ~(-1 << 23));
-    if (exp == 128) return sign * ((signi) ? Number.NaN : Number.POSITIVE_INFINITY);
-    if (exp == -127) {
-        if (signi == 0) return 0;
+    if (exp === 128) return sign * ((signi) ? Number.NaN : Number.POSITIVE_INFINITY);
+    if (exp === -127) {
+        if (signi === 0) return 0;
         exp = -126;
         signi /= (1 << 23);
     } else signi = (signi | (1 << 23)) / (1 << 23);
@@ -628,6 +617,114 @@ function parseHexString(str) {
     }
     return result;
 }
+function zeroPad(num, places) {
+    return( String(num).padStart(places, '0') );
+}
+function decimalToBitString(dec){
+    var bitString = "";
+    var bin = dec.toString(2);
+    bitString += zeroPad(bin, 8);
+    return bitString;
+}
+function alarmShort(length, listMess, flag, bytes, decoded, i1){
+    let i = 0
+    while(flag === 0) {
+        let bi = bytes[(i1 + 3 +(length*i))]
+        if (bi === undefined){
+            console.log(listMess)
+            decoded.zclheader.alarmmess = listMess
+            flag = 1
+            break
+        }
+        let csd = decimalToBitString(bi)
+        if ((csd[3] === "1") && (csd[4] === "0")) {
+            let mode = "threshold"
+            let qual = ""
+            if (csd[1] === "1") {
+                qual = "exceed"
+            } else {
+                qual = "fall"
+            }
+            let mess = qual + " " + mode + " detected"
+            listMess.push(mess)
+        }
+        if ((csd[3] === "0") && (csd[4] === "1")) {
+            let mess = "delta triggered"
+            listMess.push(mess)
+        }
+        i+=1
+
+    }
+}
+function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
+    let i = 0
+    let check = 0
+    let baseLength = length
+    let countUp=0
+    let countDown=0
+    while(flag===0) {
+        let bi = bytes[(i1 + 3 +(length*i))]
+        if (bi === undefined){
+            console.log(listMess)
+            decoded.zclheader.alarmmess = listMess
+            flag = 1
+            break
+        }
+        if(length!== baseLength){
+            length=baseLength
+        }
+        let csd = decimalToBitString(bi)
+        if ((csd[3] === "1") && (csd[4] === "0")) {
+            let countCheck = decimalToBitString(bytes[i1 + 6 + (length*i)])
+            if(countCheck[0] === "1"){
+                check = 1
+                length+=2
+            }
+            let mode = "threshold"
+            let qual = ""
+            if (csd[1] === "1") {
+                qual = "exceed"
+                countUp= decimalToBitString(bytes[i1 + 7 + (length*i)]) + decimalToBitString(bytes[i1 + 8 + (length*i)])
+                countUp = parseInt(countUp, 2)
+                if(check===1){
+                    countDown= decimalToBitString(bytes[i1 + 9 + (length*i)]) + decimalToBitString(bytes[i1 + 10 + (length*i)])
+                    countDown = parseInt(countDown, 2)
+                }
+            } else {
+                qual = "fall"
+                if(check===1){
+                    countUp= decimalToBitString(bytes[i1 + 7 + (length*i)]) + decimalToBitString(bytes[i1 + 8 + (length*i)])
+                    countUp = parseInt(countUp, 2)
+                    countDown= decimalToBitString(bytes[i1 + 9 + (length*i)]) + decimalToBitString(bytes[i1 + 10 + (length*i)])
+                    countDown = parseInt(countDown, 2)
+                }else {
+                    countDown = decimalToBitString(bytes[i1 + 7 + (length * i)]) + decimalToBitString(bytes[i1 + 8 + (length * i)])
+                    countDown = parseInt(countDown, 2)
+                }
+
+            }
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
+
+
+            let mess = mode + " " + qual + " detected: " + "value: "+temp + " countUp: " + countUp + ", countDown: " + countDown
+            listMess.push(mess)
+            if (check ===1){
+                length-=2
+                check = 0
+            }
+
+        }
+        if ((csd[3] === "0") && (csd[4] === "1")) {
+            length-=3
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
+            let mess = "delta triggered : " + temp
+            listMess.push(mess)
+
+        }
+        i+=1
+    }
+
+}
 function Decoder(bytes, port) {
     let decoded = {};
     decoded.lora = {};
@@ -645,30 +742,90 @@ function Decoder(bytes, port) {
     }
     if (port === 125)
     {
-        batch = !(bytes[0] & 0x01);
+       let batch = !(bytes[0] & 0x01);
         if (batch === false){
             decoded.zclheader = {};
             decoded.zclheader.report =  "standard";
-            attID = -1;
-            cmdID = -1;
-            clustID = -1;
+            let attID = -1;
+            let cmdID = -1;
+            let clustID = -1;
             decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
             cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
             clustID = bytes[2]*256 + bytes[3]; decoded.zclheader.clustID = decimalToHex(clustID,4);
             if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
                 decoded.data = {};
                 attID = bytes[4]*256 + bytes[5];decoded.zclheader.attID = decimalToHex(attID,4);
+                let i1 = 0
+                if ((cmdID === 0x0a) || (cmdID === 0x8a)) i1 = 7;
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
-                if ((cmdID === 0x0a) | (cmdID === 0x8a)) i1 = 7;
                 if (cmdID === 0x01)	{i1 = 8; decoded.zclheader.status = bytes[6];}
-                if ((clustID === 0x0402 ) & (attID === 0x0000)) decoded.data.temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
-                if ((clustID === 0x0405 ) & (attID === 0x0000)) decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
-                if ((clustID === 0x000f ) & (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
-                if ((clustID === 0x000f ) & (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
-                if ((clustID === 0x0013 ) & (attID === 0x0055)) decoded.data.value = bytes[i1];
-                if ((clustID === 0x0006 ) & (attID === 0x0000)) {state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
-                if ((clustID === 0x8008 ) & (attID === 0x0000)) decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
-                if ((clustID === 0x8005 ) & (attID === 0x0000))
+                if ((clustID === 0x0402 ) && (attID === 0x0000)) {
+                    decoded.data.temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
+                    //getions des alarmes
+                    if (cmdID === 0x8a){
+                        let rc=""
+                        let listMess=[]
+                        let flag = 0
+                        let divider = 100
+                        if(bytes[i1+2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        }else{
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none"){
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        };
+                        if ((rc[2] === "0") && (rc[3] === "1")){
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+
+                        }
+                        if ((rc[2]==="1") &&(rc[3]==="0")){
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
+                if ((clustID === 0x0405 ) && (attID === 0x0000)){
+                    decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
+                    if(bytes[i1+2] !== undefined) {
+                        let rc = decimalToBitString(bytes[i1 + 2])
+                    }
+                    let listMess=[]
+                    let flag = 0
+                    let divider = 100
+                    let rc = ""
+                    if(bytes[i1+2] === undefined) {
+                        rc = "none"
+                        console.log("je suis dans le test undefined")
+
+                    }else{
+                        rc = decimalToBitString(bytes[i1 + 2])
+                        console.log("je suis dans le test defined")
+                    }
+                    if (rc === "none"){
+                        listMess.push("alarm triggered")
+                        decoded.zclheader.alarmmess = listMess
+                    };
+                    if ((rc[2] === "0") && (rc[3] === "1")){
+                        let length = 1
+                        alarmShort(length, listMess, flag, bytes, decoded, i1)
+                    }
+                    if ((rc[2]==="1") &&(rc[3]==="0")){
+                        let length = 6
+                        alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                    }
+                }
+                if ((clustID === 0x000f ) && (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                if ((clustID === 0x000f ) && (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
+                if ((clustID === 0x0013 ) && (attID === 0x0055)) decoded.data.value = bytes[i1];
+                if ((clustID === 0x0006 ) && (attID === 0x0000)) {let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
+                if ((clustID === 0x8008 ) && (attID === 0x0000)) decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
+                if ((clustID === 0x8005 ) && (attID === 0x0000))
                 {
                     decoded.data.pin_state_1 = ((bytes[i1+1]&0x01) === 0x01);
                     decoded.data.pin_state_2 = ((bytes[i1+1]&0x02) === 0x02);
@@ -681,8 +838,8 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_9 = ((bytes[i1]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[i1]&0x02) === 0x02);
                 }
-                if ((clustID === 0x000c ) & (attID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
-                if ((clustID === 0x8007 ) & (attID === 0x0001))
+                if ((clustID === 0x000c ) && (attID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                if ((clustID === 0x8007 ) && (attID === 0x0001))
                 {
                     decoded.data.payload = "";
                     decoded.data.modbus_payload = "";
@@ -691,41 +848,41 @@ function Decoder(bytes, port) {
                     for( let j = 0; j < decoded.data.size; j++ )
                     {
                         temp_hex_str   = bytes[i1+j+1].toString( 16 ).toUpperCase();
-                        if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                        if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                         decoded.data.payload += temp_hex_str;
-                        if (j == 0) decoded.data.modbus_address = bytes[i1+j+1];
-                        else if (j == 1) decoded.data.modbus_commandID = bytes[i1+j+1];
-                        else if (j == 2) decoded.data.modbus_size = bytes[i1+j+1];
+                        if (j === 0) decoded.data.modbus_address = bytes[i1+j+1];
+                        else if (j === 1) decoded.data.modbus_commandID = bytes[i1+j+1];
+                        else if (j === 2) decoded.data.modbus_size = bytes[i1+j+1];
                         else{
                             decoded.data.modbus_payload += temp_hex_str;
-                            if (decoded.data.modbus_float == 1){ // big endian
-                                if (j == 3)		decoded.data.fregister_00 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 7)		decoded.data.fregister_01 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 11)	decoded.data.fregister_02 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 15)	decoded.data.fregister_03 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 19)	decoded.data.fregister_04 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 23)	decoded.data.fregister_05 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 27)	decoded.data.fregister_06 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 31)	decoded.data.fregister_07 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j == 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                            if (decoded.data.modbus_float === 1){ // big endian
+                                if (j === 3)		decoded.data.fregister_00 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 7)		decoded.data.fregister_01 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 11)	decoded.data.fregister_02 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 15)	decoded.data.fregister_03 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 19)	decoded.data.fregister_04 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 23)	decoded.data.fregister_05 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 27)	decoded.data.fregister_06 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 31)	decoded.data.fregister_07 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                if (j === 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
                             }
-                            if (decoded.data.modbus_float == 2){
-                                if (j == 3)		decoded.data.fregister_00 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 7)		decoded.data.fregister_01 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 11)	decoded.data.fregister_02 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 15)	decoded.data.fregister_03 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 19)	decoded.data.fregister_04 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 23)	decoded.data.fregister_05 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 27)	decoded.data.fregister_06 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 31)	decoded.data.fregister_07 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j == 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                            if (decoded.data.modbus_float === 2){
+                                if (j === 3)		decoded.data.fregister_00 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 7)		decoded.data.fregister_01 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 11)	decoded.data.fregister_02 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 15)	decoded.data.fregister_03 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 19)	decoded.data.fregister_04 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 23)	decoded.data.fregister_05 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 27)	decoded.data.fregister_06 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 31)	decoded.data.fregister_07 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                if (j === 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
                             }
                         }
                     }
                 }
-                if ((clustID === 0x8009 ) & (attID === 0x0000))
+                if ((clustID === 0x8009 ) && (attID === 0x0000))
                 {
                     decoded.data.payloads = "";
                     decoded.data.size = bytes[i1];
@@ -759,7 +916,7 @@ function Decoder(bytes, port) {
                         for(let j = 0; j < decoded.data.multimodbus_EP0_datasize;j++)
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP0_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP0_datasize;
@@ -779,7 +936,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP1_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP1_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP1_datasize;
@@ -799,7 +956,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP2_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP2_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP2_datasize;
@@ -819,7 +976,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP3_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP3_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP3_datasize;
@@ -839,7 +996,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP4_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP4_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP4_datasize;
@@ -859,7 +1016,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP5_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP5_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP5_datasize;
@@ -879,7 +1036,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP6_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP6_datasize;
@@ -899,7 +1056,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP7_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP7_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP7_datasize;
@@ -919,7 +1076,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP8_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP8_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP8_datasize;
@@ -939,34 +1096,34 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP6_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP6_datasize;
                     }
                 }
-                if (  (clustID === 0x0052 ) & (attID === 0x0000)) {
+                if (  (clustID === 0x0052 ) && (attID === 0x0000)) {
                     decoded.data.active_energy_Wh = UintToInt(bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3],3);
                     decoded.data.reactive_energy_Varh = UintToInt(bytes[i1+4]*256*256+bytes[i1+5]*256+bytes[i1+6],3);
                     decoded.data.nb_samples = (bytes[i1+7]*256+bytes[i1+8]);
                     decoded.data.active_power_W = UintToInt(bytes[i1+9]*256+bytes[i1+10],2);
                     decoded.data.reactive_power_let = UintToInt(bytes[i1+11]*256+bytes[i1+12],2);
                 }
-                if ((clustID === 0x8004 ) & (attID === 0x0000)) {
+                if ((clustID === 0x8004 ) && (attID === 0x0000)) {
                     if (bytes[i1] === 1)
                         decoded.data.message_type = "confirmed";
                     if (bytes[i1] === 0)
                         decoded.data.message_type = "unconfirmed";
                 }
-                if ((clustID === 0x8004 ) & (attID === 0x0001)) {
+                if ((clustID === 0x8004 ) && (attID === 0x0001)) {
                     decoded.data.nb_retry= bytes[i1] ;
                 }
-                if ((clustID === 0x8004 ) & (attID === 0x0002)) {
+                if ((clustID === 0x8004 ) && (attID === 0x0002)) {
                     decoded.data.period_in_minutes = bytes[i1+1] *256+bytes[i1+2];
                     decoded.data.nb_err_frames = bytes[i1+3] *256+bytes[i1+4];
                 }
                 if ((clustID === 0x0050 ) && (attID === 0x0006)) {
-                    i2 = i1 + 3;
+                    let i2 = i1 + 3;
                     if ((bytes[i1+2] &0x01) === 0x01) {decoded.data.main_or_external_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x04) === 0x04) {decoded.data.disposable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
@@ -974,7 +1131,7 @@ function Decoder(bytes, port) {
                     if ((bytes[i1+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                 }
                 if (  (clustID === 0x800a) && (attID === 0x0000)) {
-                    i2 = i1;
+                    let i2 = i1;
                     decoded.data.sum_positive_active_energy_Wh = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
                     decoded.data.sum_negative_active_energy_Wh = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
@@ -991,7 +1148,7 @@ function Decoder(bytes, port) {
                     i2 = i2 + 4;
                     decoded.data.negative_reactive_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                 }
-                if (  (clustID === 0x8010) & (attID === 0x0000)) {
+                if (  (clustID === 0x8010) && (attID === 0x0000)) {
                     decoded.data.ActiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
                     decoded.data.ReactiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
                     decoded.data.ActiveEnergyWhPhaseB=Int32UnsignedToSigned(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
@@ -1000,7 +1157,7 @@ function Decoder(bytes, port) {
                     decoded.data.ReactiveEnergyWhPhaseC=Int32UnsignedToSigned(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
                     decoded.data.ActiveEnergyWhPhaseABC=Int32UnsignedToSigned(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
                     decoded.data.ReactiveEnergyWhPhaseABC=Int32UnsignedToSigned(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
-                } else if (  (clustID === 0x8010) & (attID === 0x0001)) {
+                } else if (  (clustID === 0x8010) && (attID === 0x0001)) {
                     decoded.data.ActivePowerWPhaseA= Int32UnsignedToSigned(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
                     decoded.data.ReactivePowerWPhaseA= Int32UnsignedToSigned(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
                     decoded.data.ActivePowerWPhaseB=Int32UnsignedToSigned(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
@@ -1010,15 +1167,15 @@ function Decoder(bytes, port) {
                     decoded.data.ActivePowerWPhaseABC=Int32UnsignedToSigned(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
                     decoded.data.ReactivePowerWPhaseABC=Int32UnsignedToSigned(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
                 }
-                if (  (clustID === 0x800b) & (attID === 0x0000)) {
-                    i2 = i1;
+                if (  (clustID === 0x800b) && (attID === 0x0000)) {
+                    let i2 = i1;
                     decoded.data.Vrms = UintToInt(bytes[i2+1]*256+bytes[i2+2],2)/10;
                     i2 = i2 + 2;
                     decoded.data.Irms = UintToInt(bytes[i2+1]*256+bytes[i2+2],2)/10;
                     i2 = i2 + 2;
                     decoded.data.phase_angle = UintToInt(bytes[i2+1]*256+bytes[i2+2],2);
                 }
-                if (  (clustID === 0x800d) & (attID === 0x0000)) {
+                if (  (clustID === 0x800d) && (attID === 0x0000)) {
                     decoded.data.VrmsA=UintToInt(bytes[i1+1]*256+bytes[i1+2],2)/10;
                     decoded.data.IrmsA=UintToInt(bytes[i1+3]*256+bytes[i1+4],2)/10;
                     decoded.data.PhaseA=UintToInt(bytes[i1+5]*256+bytes[i1+6],2);
@@ -1029,12 +1186,12 @@ function Decoder(bytes, port) {
                     decoded.data.IrmsC=UintToInt(bytes[i1+15]*256+bytes[i1+16],2)/10;
                     decoded.data.PhaseC=UintToInt(bytes[i1+17]*256+bytes[i1+18],2);
                 }
-                if ((clustID === 0x800c) & (attID === 0x0000)) decoded.data.Concentration = (bytes[i1]*256+bytes[i1+1]);
-                if ((clustID === 0x0400) & (attID === 0x0000)) decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
-                if ((clustID === 0x0403) & (attID === 0x0000)) decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
-                if ((clustID === 0x0406) & (attID === 0x0000)) decoded.data.Occupancy = !(!bytes[i1]);
-                if ((clustID === 0x8052) & (attID === 0x0000)) {
-                    i2 = i1;
+                if ((clustID === 0x800c) && (attID === 0x0000)) decoded.data.Concentration = (bytes[i1]*256+bytes[i1+1]);
+                if ((clustID === 0x0400) && (attID === 0x0000)) decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
+                if ((clustID === 0x0403) && (attID === 0x0000)) decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
+                if ((clustID === 0x0406) && (attID === 0x0000)) decoded.data.Occupancy = !(!bytes[i1]);
+                if ((clustID === 0x8052) && (attID === 0x0000)) {
+                    let i2 = i1;
                     decoded.data.frequency = (UintToInt(bytes[i2 + 1] * 256 + bytes[i2 + 2],2) + 22232) / 1000;
                     i2 = i2 + 2;
                     decoded.data.frequency_min = (UintToInt(bytes[i2 + 1] * 256 + bytes[i2 + 2],2) + 22232) / 1000;
@@ -1058,9 +1215,9 @@ function Decoder(bytes, port) {
                     decoded.data.sag_voltage = UintToInt(bytes[i2 + 1] * 256 + bytes[i2 + 2], 2);
                 }
                 if (  (clustID === 0x800f) ) {
-                    i = i1+1;
+                    let i = i1+1;
                     if (attID === 0x0000) {
-                        o = decoded.data.Last = {};
+                        let o = decoded.data.Last = {};
                         o.NbTriggedAcq = BytesToInt64(bytes,i,"U32"); i+=4;
                         o.Mean_X_G = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
                         o.Max_X_G  = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
@@ -1072,8 +1229,8 @@ function Decoder(bytes, port) {
                         o.Max_Z_G  = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
                         o.Dt_Z_ms  = BytesToInt64(bytes,i,"U16");
                     } else if (attID === 0x0001 || (attID === 0x0002) || (attID === 0x0003)){
-                        ext = (attID === 0x0001 ? "Stats_X" : (attID === 0x0002 ? "Stats_Y" : "Stats_Z"));
-                        o = decoded.data[ext] = {};
+                        let ext = (attID === 0x0001 ? "Stats_X" : (attID === 0x0002 ? "Stats_Y" : "Stats_Z"));
+                        let o = decoded.data[ext] = {};
                         o.NbAcq     = BytesToInt64(bytes,i,"U16"); i+=2;
                         o.MinMean_G = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
                         o.MinMax_G  = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
@@ -1085,10 +1242,10 @@ function Decoder(bytes, port) {
                         o.MaxMax_G  = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
                         o.MaxDt     = BytesToInt64(bytes,i,"U16"); i+=2;
                     } else if (attID === 0x8000) {
-                        o = decoded.data.Params = {};
+                        let o = decoded.data.Params = {};
                         o.WaitFreq_Hz       = BytesToInt64(bytes,i,"U16")/10.0; i+=2;
                         o.AcqFreq_Hz        = BytesToInt64(bytes,i,"U16")/10.0; i+=2;
-                        delay = BytesToInt64(bytes,i,"U16"); i+=2;
+                        let delay = BytesToInt64(bytes,i,"U16"); i+=2;
                         if (delay & 0x8000) delay = (delay & (~0x8000)) * 60;
                         o.NewWaitDelay_s    = (delay & 0x8000 ? delay = (delay & (~0x8000)) * 60 : delay);
                         o.MaxAcqDuration_ms = BytesToInt64(bytes,i,"U16"); i+=2;
@@ -1138,9 +1295,11 @@ function normalisation_standard(input, endpoint_parameters){
     let bytes = input.bytes;
     console.log(input)
     let decoded = Decoder(bytes, input.fPort);
+    console.log(decoded)
     if (decoded.zclheader !== undefined){
         if (decoded.zclheader.alarm){
-            warning = "événement surveillé déclanché"
+            warning = decoded.zclheader.alarmmess
+            console.log(warning)
         }
     }
     if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
@@ -1212,8 +1371,7 @@ function normalisation_standard(input, endpoint_parameters){
         payload: decoded.lora.payload,
     }
 }
-
-exports.normalisation_standard = normalisation_standard;
+module.exports = {normalisation_standard,};
 
 /***/ })
 
@@ -1248,10 +1406,10 @@ exports.normalisation_standard = normalisation_standard;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_require__(511);
-/******/ 	__webpack_require__(814);
-/******/ 	__webpack_require__(984);
-/******/ 	var __webpack_exports__ = __webpack_require__(264);
+/******/ 	__webpack_require__(263);
+/******/ 	__webpack_require__(971);
+/******/ 	__webpack_require__(684);
+/******/ 	var __webpack_exports__ = __webpack_require__(421);
 /******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()

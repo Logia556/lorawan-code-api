@@ -193,10 +193,10 @@ function Decoder(bytes, port) {
                 decoded.data = {};
                 attID = bytes[4]*256 + bytes[5];decoded.zclheader.attID = decimalToHex(attID,4);
                 let i1 = 0
-                if ((cmdID === 0x0a) | (cmdID === 0x8a)) i1 = 7;
+                if ((cmdID === 0x0a) || (cmdID === 0x8a)) i1 = 7;
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
                 if (cmdID === 0x01)	{i1 = 8; decoded.zclheader.status = bytes[6];}
-                if ((clustID === 0x0402 ) & (attID === 0x0000)) {
+                if ((clustID === 0x0402 ) && (attID === 0x0000)) {
                     decoded.data.temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
                     //getions des alarmes
                     if (cmdID === 0x8a){
@@ -227,7 +227,7 @@ function Decoder(bytes, port) {
                         }
                     }
                 }
-                if ((clustID === 0x0405 ) & (attID === 0x0000)){
+                if ((clustID === 0x0405 ) && (attID === 0x0000)){
                     decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
                     if(bytes[i1+2] !== undefined) {
                         let rc = decimalToBitString(bytes[i1 + 2])
@@ -257,12 +257,12 @@ function Decoder(bytes, port) {
                         alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
                     }
                 }
-                if ((clustID === 0x000f ) & (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
-                if ((clustID === 0x000f ) & (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
-                if ((clustID === 0x0013 ) & (attID === 0x0055)) decoded.data.value = bytes[i1];
-                if ((clustID === 0x0006 ) & (attID === 0x0000)) {let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
-                if ((clustID === 0x8008 ) & (attID === 0x0000)) decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
-                if ((clustID === 0x8005 ) & (attID === 0x0000))
+                if ((clustID === 0x000f ) && (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                if ((clustID === 0x000f ) && (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
+                if ((clustID === 0x0013 ) && (attID === 0x0055)) decoded.data.value = bytes[i1];
+                if ((clustID === 0x0006 ) && (attID === 0x0000)) {let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
+                if ((clustID === 0x8008 ) && (attID === 0x0000)) decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
+                if ((clustID === 0x8005 ) && (attID === 0x0000))
                 {
                     decoded.data.pin_state_1 = ((bytes[i1+1]&0x01) === 0x01);
                     decoded.data.pin_state_2 = ((bytes[i1+1]&0x02) === 0x02);
@@ -275,8 +275,8 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_9 = ((bytes[i1]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[i1]&0x02) === 0x02);
                 }
-                if ((clustID === 0x000c ) & (attID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
-                if ((clustID === 0x8007 ) & (attID === 0x0001))
+                if ((clustID === 0x000c ) && (attID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                if ((clustID === 0x8007 ) && (attID === 0x0001))
                 {
                     decoded.data.payload = "";
                     decoded.data.modbus_payload = "";
@@ -473,7 +473,7 @@ function Decoder(bytes, port) {
                         for( let j = 0; j < decoded.data.multimodbus_EP6_datasize; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 ) temp_hex_str = "0" + temp_hex_str;
+                            if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP6_payload += temp_hex_str;
                         }
                         i2 = i2 + decoded.data.multimodbus_EP6_datasize;
@@ -539,7 +539,7 @@ function Decoder(bytes, port) {
                         i2 = i2 + decoded.data.multimodbus_EP6_datasize;
                     }
                 }
-                if (  (clustID === 0x0052 ) & (attID === 0x0000)) {
+                if (  (clustID === 0x0052 ) && (attID === 0x0000)) {
                     decoded.data.active_energy_Wh = UintToInt(bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3],3);
                     decoded.data.reactive_energy_Varh = UintToInt(bytes[i1+4]*256*256+bytes[i1+5]*256+bytes[i1+6],3);
                     decoded.data.nb_samples = (bytes[i1+7]*256+bytes[i1+8]);
