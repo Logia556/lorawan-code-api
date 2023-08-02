@@ -229,32 +229,35 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID === 0x0405 ) && (attID === 0x0000)){
                     decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
-                    if(bytes[i1+2] !== undefined) {
-                        let rc = decimalToBitString(bytes[i1 + 2])
-                    }
-                    let listMess=[]
-                    let flag = 0
-                    let divider = 100
-                    let rc = ""
-                    if(bytes[i1+2] === undefined) {
-                        rc = "none"
-                        console.log("je suis dans le test undefined")
+                    if (cmdID===0x8a) {
+                        if (bytes[i1 + 2] !== undefined) {
+                            let rc = decimalToBitString(bytes[i1 + 2])
+                        }
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
 
-                    }else{
-                        rc = decimalToBitString(bytes[i1 + 2])
-                        console.log("je suis dans le test defined")
-                    }
-                    if (rc === "none"){
-                        listMess.push("alarm triggered")
-                        decoded.zclheader.alarmmess = listMess
-                    };
-                    if ((rc[2] === "0") && (rc[3] === "1")){
-                        let length = 1
-                        alarmShort(length, listMess, flag, bytes, decoded, i1)
-                    }
-                    if ((rc[2]==="1") &&(rc[3]==="0")){
-                        let length = 6
-                        alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
                     }
                 }
                 if ((clustID === 0x000f ) && (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
@@ -550,6 +553,37 @@ function Decoder(bytes, port) {
                     if ((bytes[i1+2] &0x04) === 0x04) {decoded.data.disposable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
+                    if (cmdID===0x8a) {
+                        if (bytes[i1 + 2] !== undefined) {
+                            let rc = decimalToBitString(bytes[i1 + 2])
+                        }
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1000
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+
                 }
                 if (  (clustID === 0x800a) && (attID === 0x0000)) {
                     let i2 = i1;
