@@ -293,60 +293,62 @@ function Decoder(bytes, port) {
                         else{
                             decoded.data.modbus_payload += temp_hex_str;
                             if (decoded.data.modbus_float === 1){ // big endian
-                                if (j === 3)		decoded.data.fregister_00 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 7)		decoded.data.fregister_01 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 11)	decoded.data.fregister_02 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 15)	decoded.data.fregister_03 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 19)	decoded.data.fregister_04 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 23)	decoded.data.fregister_05 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 27)	decoded.data.fregister_06 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 31)	decoded.data.fregister_07 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
-                                if (j === 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3]);
+                                let a = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3])
+                                if (j === 3)		decoded.data.fregister_00 = a;
+                                if (j === 7)		decoded.data.fregister_01 = a;
+                                if (j === 11)	decoded.data.fregister_02 = a;
+                                if (j === 15)	decoded.data.fregister_03 = a;
+                                if (j === 19)	decoded.data.fregister_04 = a;
+                                if (j === 23)	decoded.data.fregister_05 = a;
+                                if (j === 27)	decoded.data.fregister_06 = a;
+                                if (j === 31)	decoded.data.fregister_07 = a;
+                                if (j === 35)	decoded.data.fregister_08 = a;
+                                if (j === 35)	decoded.data.fregister_09 = a;
                             }
                             if (decoded.data.modbus_float === 2){
-                                if (j === 3)		decoded.data.fregister_00 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 7)		decoded.data.fregister_01 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 11)	decoded.data.fregister_02 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 15)	decoded.data.fregister_03 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 19)	decoded.data.fregister_04 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 23)	decoded.data.fregister_05 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 27)	decoded.data.fregister_06 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 31)	decoded.data.fregister_07 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 35)	decoded.data.fregister_08 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
-                                if (j === 35)	decoded.data.fregister_09 = Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256);
+                                let a =Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256)
+                                if (j === 3)		decoded.data.fregister_00 = a;
+                                if (j === 7)		decoded.data.fregister_01 = a;
+                                if (j === 11)	decoded.data.fregister_02 = a;
+                                if (j === 15)	decoded.data.fregister_03 = a;
+                                if (j === 19)	decoded.data.fregister_04 = a;
+                                if (j === 23)	decoded.data.fregister_05 = a;
+                                if (j === 27)	decoded.data.fregister_06 = a;
+                                if (j === 31)	decoded.data.fregister_07 = a;
+                                if (j === 35)	decoded.data.fregister_08 = a;
+                                if (j === 35)	decoded.data.fregister_09 = a;
                             }
                         }
                     }
                 }
                 if ((clustID === 0x8009 ) && (attID === 0x0000))
                 {
+                    let b2 = bytes[i1+2]
+                    let b3 = bytes[i1+3]
                     decoded.data.payloads = "";
                     decoded.data.size = bytes[i1];
                     decoded.data.multimodbus_frame_series_sent = bytes[i1+1];
-                    decoded.data.multimodbus_frame_number_in_serie = (bytes[i1+2] & 0xE0) >> 5;
-                    decoded.data.multimodbus_last_frame_of_serie = (bytes[i1+2] & 0x1C ) >> 2;
-                    decoded.data.multimodbus_EP9 = ((bytes[i1+2]&0x01) === 0x01);
-                    decoded.data.multimodbus_EP8 = ((bytes[i1+2]&0x02) === 0x02);
-                    decoded.data.multimodbus_EP7 = ((bytes[i1+3]&0x80) === 0x80);
-                    decoded.data.multimodbus_EP6 = ((bytes[i1+3]&0x40) === 0x40);
-                    decoded.data.multimodbus_EP5 = ((bytes[i1+3]&0x20) === 0x20);
-                    decoded.data.multimodbus_EP4 = ((bytes[i1+3]&0x10) === 0x10);
-                    decoded.data.multimodbus_EP3 = ((bytes[i1+3]&0x08) === 0x08);
-                    decoded.data.multimodbus_EP2 = ((bytes[i1+3]&0x04) === 0x04);
-                    decoded.data.multimodbus_EP1 = ((bytes[i1+3]&0x02) === 0x02);
-                    decoded.data.multimodbus_EP0 = ((bytes[i1+3]&0x01) === 0x01);
-                    i2 = i1 + 4;
+                    decoded.data.multimodbus_frame_number_in_serie = (b2 & 0xE0) >> 5;
+                    decoded.data.multimodbus_last_frame_of_serie = (b2 & 0x1C ) >> 2;
+                    decoded.data.multimodbus_EP9 = ((b2&0x01) === 0x01);
+                    decoded.data.multimodbus_EP8 = ((b2&0x02) === 0x02);
+                    decoded.data.multimodbus_EP7 = ((b3&0x80) === 0x80);
+                    decoded.data.multimodbus_EP6 = ((b3&0x40) === 0x40);
+                    decoded.data.multimodbus_EP5 = ((b3&0x20) === 0x20);
+                    decoded.data.multimodbus_EP4 = ((b3&0x10) === 0x10);
+                    decoded.data.multimodbus_EP3 = ((b3&0x08) === 0x08);
+                    decoded.data.multimodbus_EP2 = ((b3&0x04) === 0x04);
+                    decoded.data.multimodbus_EP1 = ((b3&0x02) === 0x02);
+                    decoded.data.multimodbus_EP0 = ((b3&0x01) === 0x01);
+                    let i2 = i1 + 4;
                     without_header = 0;
                     if (decoded.data.multimodbus_EP0 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP0_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP0_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP0_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP0_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP0_datasize = bytes[i2+2];
+                            i2 +=3;
                         }
                         decoded.data.multimodbus_EP0_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -356,17 +358,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP0_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP0_datasize;
+                        i2 += decoded.data.multimodbus_EP0_datasize;
                     }
                     if (decoded.data.multimodbus_EP1 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP1_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP1_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP1_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP1_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP1_datasize = bytes[i2+2];
+                            i2 +=3
                         }
                         decoded.data.multimodbus_EP1_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -376,17 +376,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP1_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP1_datasize;
+                        i2 += decoded.data.multimodbus_EP1_datasize;
                     }
                     if (decoded.data.multimodbus_EP2 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP2_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP2_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP2_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP2_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP2_datasize = bytes[i2+2];
+                            i2 +=3;
                         }
                         decoded.data.multimodbus_EP2_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -396,17 +394,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP2_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP2_datasize;
+                        i2 += decoded.data.multimodbus_EP2_datasize;
                     }
                     if (decoded.data.multimodbus_EP3 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP3_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP3_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP3_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP3_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP3_datasize = bytes[i2+2];
+                            i2 +=3
                         }
                         decoded.data.multimodbus_EP3_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -416,17 +412,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP3_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP3_datasize;
+                        i2 += decoded.data.multimodbus_EP3_datasize;
                     }
                     if (decoded.data.multimodbus_EP4 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP4_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP4_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP4_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP4_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP4_datasize = bytes[i2+2];
+                            i2 +=3;
                         }
                         decoded.data.multimodbus_EP4_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -436,17 +430,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP4_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP4_datasize;
+                        i2 += decoded.data.multimodbus_EP4_datasize;
                     }
                     if (decoded.data.multimodbus_EP5 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP5_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP5_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP5_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP5_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP5_datasize = bytes[i2+2];
+                            i2 +=3;
                         }
                         decoded.data.multimodbus_EP5_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -456,17 +448,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP5_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP5_datasize;
+                        i2 += decoded.data.multimodbus_EP5_datasize;
                     }
                     if (decoded.data.multimodbus_EP6 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP6_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP6_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP6_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP6_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP6_datasize = bytes[i2+2];
+                            i2 +=3
                         }
                         decoded.data.multimodbus_EP6_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -476,17 +466,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP6_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP6_datasize;
+                        i2 += decoded.data.multimodbus_EP6_datasize;
                     }
                     if (decoded.data.multimodbus_EP7 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP7_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP7_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP7_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP7_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP7_datasize = bytes[i2+2];
+                            i2 +=3
                         }
                         decoded.data.multimodbus_EP7_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -496,17 +484,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP7_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP7_datasize;
+                        i2 += decoded.data.multimodbus_EP7_datasize;
                     }
                     if (decoded.data.multimodbus_EP8 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP8_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP8_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP8_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP8_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP8_datasize = bytes[i2+2];
+                            i2 +=3;
                         }
                         decoded.data.multimodbus_EP8_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -516,17 +502,15 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP8_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP8_datasize;
+                        i2 += decoded.data.multimodbus_EP8_datasize;
                     }
                     if (decoded.data.multimodbus_EP9 === true)
                     {
                         if (without_header === 0){
                             decoded.data.multimodbus_EP6_slaveID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP6_fnctID = bytes[i2];
-                            i2 = i2 + 1;
-                            decoded.data.multimodbus_EP6_datasize = bytes[i2];
-                            i2 = i2 + 1;
+                            decoded.data.multimodbus_EP6_fnctID = bytes[i2+1];
+                            decoded.data.multimodbus_EP6_datasize = bytes[i2+2];
+                            i2 +=3
                         }
                         decoded.data.multimodbus_EP6_payload = ""
                         if (bytes[i2] === undefined ) return decoded;
@@ -536,7 +520,7 @@ function Decoder(bytes, port) {
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                             decoded.data.multimodbus_EP6_payload += temp_hex_str;
                         }
-                        i2 = i2 + decoded.data.multimodbus_EP6_datasize;
+                        i2 += decoded.data.multimodbus_EP6_datasize;
                     }
                 }
                 if (  (clustID === 0x0052 ) && (attID === 0x0000)) {
