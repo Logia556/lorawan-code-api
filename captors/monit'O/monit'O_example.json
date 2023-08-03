@@ -1,6 +1,11 @@
-{
+[{
   "name": "monit'O",
   "version": "1.0.0",
   "dependencies": {
   }
-}
+},
+  {
+    "payload_standard_analoginput": "110A000C0055393EEF5004",
+    "payload_batch": "3620000000230708EC7DD60B3DB20F4204005800"
+  }
+]

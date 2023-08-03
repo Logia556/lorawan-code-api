@@ -1,6 +1,12 @@
-{
+[{
   "name": "ventil'O",
   "version": "1.0.0",
   "dependencies": {
   }
-}
+},
+  {
+    "payload_standard_dif_pres_val": "110A80080000290006",
+    "payload_standard_dif_pres_val_moy_sincelast": "110A80080100290006",
+    "payload_batch": "36600000800600000000D61B2CBA0730D803"
+  }
+]
