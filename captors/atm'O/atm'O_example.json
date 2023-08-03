@@ -5,6 +5,15 @@
   }
 },
   {
+    "payload_standard_battery": "110A00500006410503040E5A04",
+    "payload_standard_temperature": "110A04020000290B8D",
+    "payload_standard_humidity":"110A040500002111DA",
+    "payload_standard_pressure": "110A040300002903E5",
+    "payload_standard_state": "",
+    "payload_standard_count": "",
+    "payload_batch": "20220080039281F268D3212D54A0C3E170380AB000"
+  },
+  {
     "type": "uplinkdecode",
     "description": "uplink frame on atm'O captor parameters",
     "input_batch": {

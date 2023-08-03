@@ -7,7 +7,7 @@
     "payload_standard_battery": "110A00500006410501040E5404",
     "paylaod_standard_temperature": "110A04020000290A5C",
     "payload_standard_alarm_delta": "118A040200002909BEA0C80064",
-    "payload_standard_alarm_threshold": "",
+    "payload_standard_alarm_threshold_long": "118A04020000290B8EA0D005DC000001",
     "payload_batch": "20010000017D0585A8E9401708F07703FCD903"
   }
 
