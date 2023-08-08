@@ -278,7 +278,39 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_9 = ((bytes[i1]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[i1]&0x02) === 0x02);
                 }
-                if ((clustID === 0x000c ) && (attID === 0x0055)) decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                if ((clustID === 0x000c ) && (attID === 0x0055)){
+                    decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                    if (cmdID===0x8a) {
+                        if (bytes[i1 + 2] !== undefined) {
+                            let rc = decimalToBitString(bytes[i1 + 2])
+                        }
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 8
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
                 if ((clustID === 0x8007 ) && (attID === 0x0001))
                 {
                     decoded.data.payload = "";
