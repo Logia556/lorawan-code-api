@@ -649,7 +649,7 @@ function Decoder(bytes, port) {
                         }
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
