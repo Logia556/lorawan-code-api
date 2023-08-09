@@ -1,5 +1,6 @@
 const standard = require("./standard_minimized.js");
 const batch = require("./batch_minimized.js");
+
 function watteco_decodeUplink(input, batch_parameters, endpoint_parameters) {
     let bytes = input.bytes;
     let port = input.fPort;
