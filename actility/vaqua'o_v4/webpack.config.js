@@ -4,10 +4,10 @@ module.exports={
     target: "node",
     mode: "production",
     entry: {
-        "bundle.js":[path.resolve(__dirname,'../codec/standard_minimized.js'),
-            path.resolve(__dirname,'../codec/batch_minimized.js'),
-            path.resolve(__dirname,'../codec/decode_minimized.js'),
-            path.resolve(__dirname,"../captors/vaqua'o_sensor/vaqua'o_sensor.js"),
+        "bundle.js":[path.resolve(__dirname,'../../codec/standard_minimized.js'),
+            path.resolve(__dirname,'../../codec/batch_minimized.js'),
+            path.resolve(__dirname,'../../codec/decode_minimized.js'),
+            path.resolve(__dirname,"../../captors/vaqua'o_sensor/vaqua'o_sensor.js"),
         ]
     },
     output: {

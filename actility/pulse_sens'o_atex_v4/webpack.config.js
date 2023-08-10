@@ -4,10 +4,10 @@ module.exports={
     target: "node",
     mode: "production",
     entry: {
-        "bundle.js":[path.resolve(__dirname,'../codec/standard_minimized.js'),
-            path.resolve(__dirname,'../codec/batch_minimized.js'),
-            path.resolve(__dirname,'../codec/decode_minimized.js'),
-            path.resolve(__dirname,"../captors/pulse_sens'o_atex/pulse_sensor_atex.js"),
+        "bundle.js":[path.resolve(__dirname,'../../codec/standard_minimized.js'),
+            path.resolve(__dirname,'../../codec/batch_minimized.js'),
+            path.resolve(__dirname,'../../codec/decode_minimized.js'),
+            path.resolve(__dirname,"../../captors/pulse_sens'o_atex/pulse_sensor_atex.js"),
         ]
     },
     output: {
