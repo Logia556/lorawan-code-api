@@ -274,44 +274,30 @@
     "description": "uplink containing a batch of values",
     "input": {
       "bytes": [
-        54,
-        33,
-        0,
-        128,
-        128,
-        152,
-        195,
-        30,
-        203,
-        130,
-        77,
-        123,
-        7,
-        186,
-        61
+        54, 96,   0,   0, 128,  6,   0,
+        0,  0,   0, 214,  27, 44, 186,
+        7, 48, 216,   3
       ],
       "fPort": 125,
-      "recvTime": "2023-07-18T12:19:53.243Z"
-    },
+      "recvTime": "2023-08-11T14:43:22.377Z"
+    }
+  ,
     "output": {
       "data": [
         {
           "variable": "temperature",
-          "value": 28.7,
-          "date": "2023-07-18T12:19:53.243Z"
+          "value": 33.5,
+          "date": "2023-08-11T14:43:22.377Z"
         },
         {
-          "variable": "humidity",
-          "value": 37,
-          "date": "2023-07-18T12:19:53.243Z"
+          "variable": "differential_pressure",
+          "value": 6,
+          "date": "2023-08-11T14:43:22.377Z"
         },
-        {
-          "variable": "battery_voltage",
-          "value": 3.707,
-          "date": "2023-07-18T12:19:52.243Z"
-        }
+        { "variable": "index", "value": 0, "date": "2023-08-11T14:42:22.377Z" }
       ],
-      "warnings": [""]
+      "warnings": [ "" ]
     }
+
   }
 ]
