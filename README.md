@@ -39,3 +39,14 @@ De même, on modifie le résultat de <code>brUncompress()</code> pour retourner 
     npx webpack --config webpack.config.js
 
 <p>il faudra s'ssurer que les dossier spécifiés existes.</p>
+
+## JEST
+<p>dans package.json:</p>
+
+    "scripts": {
+        "test": "jest --collectCoverage"
+    }
+
+<p> lancer les tests</p>
+
+    npm run test
