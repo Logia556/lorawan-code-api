@@ -134,15 +134,18 @@ function decodeDownlink(input){
     let bytes = input.bytes;
     console.log(bytes)
     let decoded = {};
-
     console.log(commande)
+    console.log(cluster_attribute)
     let cmdID = -1
     let clustID=-1
     let attID=-1
+    let name = "name"
     cmdID =  bytes[1];
     clustID = bytes[2]*256 + bytes[3];
     attID = bytes[4]*256 + bytes[5];
     decoded.type = commande[cmdID]
+    decoded.cluster = cluster_attribute[clustID][name]
+    decoded.attribute = cluster_attribute[clustID][attID]
     return decoded;
 
 }
@@ -159,7 +162,7 @@ function decimalToHex(d, padding) {
 }
 
 let objet={
-    bytes: [0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    bytes: [0, 6, 4, 6, 0, 1, 0, 0, 0, 0, 0]
 }
 
 let a = decodeDownlink(objet)
