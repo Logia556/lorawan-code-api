@@ -685,11 +685,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
