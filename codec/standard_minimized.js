@@ -63,6 +63,9 @@ function decimalToBitString(dec){
     bitString += zeroPad(bin, 8);
     return bitString;
 }
+function int(value){
+    return parseInt(value, 2)
+}
 function alarmShort(length, listMess, flag, bytes, decoded, i1){
     let i = 0
     while(flag === 0) {
@@ -74,6 +77,7 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
             break
         }
         let csd = decimalToBitString(bi)
+        let index = int(csd[5])*4+int(csd[6])*2+int(csd[7])
         if ((csd[3] === "1") && (csd[4] === "0")) {
             let mode = "threshold"
             let qual = ""
@@ -82,11 +86,12 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
             } else {
                 qual = "fall"
             }
-            let mess = qual + " " + mode + " detected"
+
+            let mess = qual + " " + mode +" "+ index + " detected"
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
-            let mess = "delta triggered"
+            let mess = "delta "+index+"triggered"
             listMess.push(mess)
         }
         i+=1
@@ -111,6 +116,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
             length=baseLength
         }
         let csd = decimalToBitString(bi)
+        let index = int(csd[5])*4+int(csd[6])*2+int(csd[7])
         if ((csd[3] === "1") && (csd[4] === "0")) {
             let countCheck = decimalToBitString(bytes[i1 + 6 + (length*i)])
             if(countCheck[0] === "1"){
@@ -143,7 +149,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
             let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
 
 
-            let mess = mode + " " + qual + " detected: " + "value: "+temp + " count_up: " + countUp + ", count_down: " + countDown
+            let mess = mode + " "+index + " " + qual + " detected: " + "value: "+temp + " count_up: " + countUp + ", count_down: " + countDown
             listMess.push(mess)
             if (check ===1){
                 length-=2
@@ -154,7 +160,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
             let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
-            let mess = "delta triggered : " + temp
+            let mess = "delta "+ index + "triggered : " + temp
             listMess.push(mess)
 
         }

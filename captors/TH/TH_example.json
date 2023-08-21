@@ -21,7 +21,6 @@
     "payload_standard_temperature_alarm_short": ["118A04020000290B1F90C8"],
     "payload_standard_temperature_alarm_short_2_threshold ???": ["118A04020000290BDE"],
     "payload_standard_temperature_alarm_short_2_threshold_2": ["118A0402000029075590B0B1"],
-
     "payload_standard_humidity_alarm_none_ecart": ["118A04020000290ADE"],
     "payload_standard_humidity_alarm_none_threshold": ["118A04020000290C13"],
     "payload_config_report": ["1107040200800000"],
