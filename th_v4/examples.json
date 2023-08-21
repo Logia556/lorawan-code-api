@@ -271,6 +271,41 @@
   },
   {
     "type": "uplink",
+    "description": "uplink containing 2 short alarm on temperature",
+    "input": {
+      "bytes": [
+        17,
+        138,
+        4,
+        2,
+        0,
+        0,
+        41,
+        7,
+        85,
+        144,
+        176,
+        177
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": {
+        "variable": "temperature",
+        "value": 18.77,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": [
+        [
+          "fall threshold 0 detected",
+          "fall threshold 1 detected"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "uplink",
     "description": "uplink containing 3 long alarm on temperature",
     "input": {
       "bytes": [17, 138,   4, 2,   0, 0,  41, 1,
@@ -291,9 +326,9 @@
       },
       "warnings": [
         [
-          "threshold fall detected: value: 23 count_up: 0, count_down: 1",
-          "threshold fall detected: value: 21 count_up: 0, count_down: 1",
-          "threshold fall detected: value: 20 count_up: 0, count_down: 1"
+          "threshold 0 fall detected: value: 23 count_up: 0, count_down: 1",
+          "threshold 1 fall detected: value: 21 count_up: 0, count_down: 1",
+          "threshold 2 fall detected: value: 20 count_up: 0, count_down: 1"
         ]
       ]
     }
