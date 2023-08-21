@@ -143,7 +143,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
             let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
 
 
-            let mess = mode + " " + qual + " detected: " + "value: "+temp + " countUp: " + countUp + ", countDown: " + countDown
+            let mess = mode + " " + qual + " detected: " + "value: "+temp + " count_up: " + countUp + ", count_down: " + countDown
             listMess.push(mess)
             if (check ===1){
                 length-=2
