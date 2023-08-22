@@ -204,11 +204,12 @@ function Decoder(bytes, port) {
                 if (cmdID === 0x01)	{i1 = 8; decoded.zclheader.status = bytes[6];}
 
                 if ((clustID === 0x0000 ) && (attID === 0x0002)){
-                    let length = bytes[i1];
                     decoded.data.firmware=""
-                    for (let i = 0; i < length; i++) {
-                        decoded.data.firmware += String.fromCharCode(bytes[i1 + 1 + i]);
+                    for (let i = 0; i < 6; i++) {
+                        decoded.data.firmware += String(bytes[i1 + i]);
+                        if (i !== 5) decoded.data.firmware += ".";
                     }
+
                 }
                 if ((clustID === 0x0000 ) && (attID === 0x0003)){
                     let length = bytes[i1];
@@ -285,6 +286,12 @@ function Decoder(bytes, port) {
                             alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
                         }
                     }
+                }
+                if ((clustID === 0x0402 ) && (attID === 0x0001)) {
+                    decoded.data.min_temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
+                }
+                if ((clustID === 0x0402 ) && (attID === 0x0002)) {
+                    decoded.data.max_temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
                 }
                 if ((clustID === 0x0405 ) && (attID === 0x0000)){
                     decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
