@@ -33,7 +33,9 @@
     "payload_firmaware_version": ["110100000002000D0305020015E2"],
     "payload_kernel_version": ["11010000000300420B436F6E74696B6920332E78"],
     "payload_model_identifier": ["11010000000500420D37312D37302D3130332D303030"],
-    "payload_date_production": ["1101000000060042083235313132303231"]
+    "payload_date_production": ["1101000000060042083235313132303231"],
+    "payload_min_value": ["1101040200010029F060"],
+    "payload_max_value": ["11010402000200292EE0"]
   },
   {
     "type": "uplinkdecode",
