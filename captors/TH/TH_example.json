@@ -27,7 +27,13 @@
     "payload_read_config_report": ["110900500080000641003C003C0448040000"],
     "payload_read_current_value_temperature": ["11010402000000290992"],
     "payload_standard_alarm_long_threshold_4exceed": ["118A04020000290980A0D007D0000004"],
-    "payload_standard_alarm_long_threshold_4fall": ["118A04020000290171A0B007D0000004"]
+    "payload_standard_alarm_long_threshold_4fall": ["118A04020000290171A0B007D0000004"],
+
+
+    "payload_firmaware_version": ["110100000002000D0305020015E2"],
+    "payload_kernel_version": ["11010000000300420B436F6E74696B6920332E78"],
+    "payload_model_identifier": ["11010000000500420D37312D37302D3130332D303030"],
+    "payload_date_production": ["1101000000060042083235313132303231"]
   },
   {
     "type": "uplinkdecode",

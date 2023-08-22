@@ -202,6 +202,59 @@ function Decoder(bytes, port) {
                 if ((cmdID === 0x0a) || (cmdID === 0x8a)) i1 = 7;
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
                 if (cmdID === 0x01)	{i1 = 8; decoded.zclheader.status = bytes[6];}
+
+                if ((clustID === 0x0000 ) && (attID === 0x0002)){
+                    let length = bytes[i1];
+                    decoded.data.firmware=""
+                    for (let i = 0; i < length; i++) {
+                        decoded.data.firmware += String.fromCharCode(bytes[i1 + 1 + i]);
+                    }
+                }
+                if ((clustID === 0x0000 ) && (attID === 0x0003)){
+                    let length = bytes[i1];
+                    decoded.data.kernel=""
+                    console.log(decoded.data.kernel)
+                    for (let i = 0; i < length; i++) {
+                        decoded.data.kernel += String.fromCharCode(bytes[i1 + 1 + i]);
+
+                    }
+                }
+                if ((clustID === 0x0000 ) && (attID === 0x0004)){
+                    let length = bytes[i1];
+                    decoded.data.manufacturer=""
+                    for (let i = 0; i < length; i++) {
+                        decoded.data.manufacturer += String.fromCharCode(bytes[i1 + 1 + i]);
+                    }
+                }
+                if ((clustID === 0x0000 ) && (attID === 0x0005)){
+                    let length = bytes[i1];
+                    decoded.data.model=""
+                    for (let i = 0; i < length; i++) {
+                        decoded.data.model += String.fromCharCode(bytes[i1 + 1 + i]);
+                    }
+                }
+                if ((clustID === 0x0000 ) && (attID === 0x0006)){
+                    let length = bytes[i1];
+                    decoded.data.date=""
+                    for (let i = 0; i < length; i++) {
+                        decoded.data.date += String.fromCharCode(bytes[i1 + 1 + i]);
+                    }
+                }
+                if ((clustID === 0x0000 ) && (attID === 0x0010)){
+                    let length = bytes[i1];
+                    decoded.data.position=""
+                    for (let i = 0; i < length; i++) {
+                        decoded.data.position += String.fromCharCode(bytes[i1 + 1 + i]);
+                    }
+                }
+                if ((clustID === 0x0000 ) && (attID === 0x8001)){
+                    let length = bytes[i1];
+                    decoded.data.application=""
+                    for (let i = 0; i < length; i++) {
+                        decoded.data.application += String.fromCharCode(bytes[i1 + 1 + i]);
+                    }
+                }
+
                 if ((clustID === 0x0402 ) && (attID === 0x0000)) {
                     decoded.data.temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
                     //getions des alarmes
