@@ -1,7 +1,7 @@
 [
   {
     "type": "uplink",
-    "description": "uplink containing temperature value",
+    "description": "uplink containing temperature value | payload:110A04020000290B89",
     "input": {
       "bytes": [
         17,
@@ -28,7 +28,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink containing baterry charge",
+    "description": "uplink containing battery charge | payload:110A00500006410503040E6804",
     "input": {
       "bytes": [
         17,
@@ -61,7 +61,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink containing temperature value",
+    "description": "uplink containing humidity value | payload:110A04050000210E89",
     "input": {
       "bytes": [
         17,
@@ -90,7 +90,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink containing open detection value",
+    "description": "uplink containing open detection value | payload:110A000F00551001",
     "input": {
       "bytes": [
         17,
@@ -118,7 +118,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink containing number of open detection",
+    "description": "uplink containing number of open detection | payload:110A000F04022300000000",
     "input": {
       "bytes": [
         17,
@@ -147,7 +147,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink containing config status",
+    "description": "uplink of configure reporting on cluster 0x0402 attibute 0x0000 containing config status | payload:1107040200800000",
     "input": {
       "bytes": [
         17,
@@ -164,45 +164,13 @@
     },
     "output": {
       "data": {
-        "variable": "configure reporting response status",
-        "value": 0,
-        "date": "2023-07-19T07:51:25.508306410Z"
-      },
-      "warnings": [""]
-    }
-  },
-  {
-    "type": "uplink",
-    "description": "uplink containing config status",
-    "input": {
-      "bytes": [
-        17,
-        9,
-        0,
-        80,
-        0,
-        128,
-        0,
-        6,
-        65,
-        0,
-        60,
-        0,
-        60,
-        4,
-        72,
-        4,
-        0,
-        0
-      ],
-      "fPort": 125,
-      "recvTime": "2023-07-19T07:51:25.508306410Z"
-    },
-    "output": {
-      "data": {
-        "variable": "read reporting configuration response status",
-        "value": 0,
-        "date": "2023-07-19T07:51:25.508306410Z"
+        "report": "standard",
+        "endpoint": 0,
+        "cmdID": "0x07",
+        "clustID": "0x0402",
+        "attID": "0x0000",
+        "status": 0,
+        "batch": 128
       },
       "warnings": [
         ""
@@ -211,40 +179,58 @@
   },
   {
     "type": "uplink",
-    "description": "uplink containing read config status",
+    "description": "uplink of reading reporting configuration  on cluster 0x0050 attribute 0x0006 | payload:110900500080000641003C003C0448040000",
     "input": {
       "bytes": [
-        17,
-        1,
-        0,
-        0,
-        2,
-        0,
-        13,
-        3,
-        5,
-        2,
-        0,
-        21,
-        226
+        17,  9, 0, 80, 0, 128, 0,
+        6, 65, 0, 60, 0,  60, 4,
+        72,  4, 0,  0
       ],
       "fPort": 125,
       "recvTime": "2023-07-19T07:51:25.508306410Z"
     },
     "output": {
       "data": {
-        "variable": "read reporting configuration response status",
-        "value": "no data",
-        "date": "2023-07-19T07:51:25.508306410Z"
+        "report": "standard",
+        "endpoint": 0,
+        "cmdID": "0x09",
+        "clustID": "0x0050",
+        "attID": "0x0006",
+        "status": 0,
+        "batch": 128,
+        "attribut_type": 65,
+        "min": { "value": 60, "unity": "seconds" },
+        "max": { "value": 60, "unity": "seconds" }
       },
-      "warnings": [
-        ""
-      ]
+      "warnings": [ "" ]
     }
+
   },
   {
     "type": "uplink",
-    "description": "uplink containing alarm on temperature",
+    "description": "uplink of read current value on cluster 0x0402 | payload:11010402000000290992",
+    "input": {
+      "bytes": [
+        17, 1,  4, 2,   0,
+        0, 0, 41, 9, 146
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": {
+        "variable": "temperature",
+        "value": 24.5,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": [ "" ]
+    }
+
+  },
+  {
+    "type": "uplink",
+    "description": "uplink containing none threshold alarm on temperature | payload:118A04020000290C13",
     "input": {
       "bytes": [
         17,
@@ -271,7 +257,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink containing 2 short alarm on temperature",
+    "description": "uplink containing 2 short threshold alarms on temperature | payload:118A0402000029075590B0B1",
     "input": {
       "bytes": [
         17,
@@ -298,15 +284,69 @@
       },
       "warnings": [
         [
-          "fall threshold 0 detected",
-          "fall threshold 1 detected"
+          "alarm, criterion_index: 0, mode: threshold, crossing: fall",
+          "alarm, criterion_index: 1, mode: threshold, crossing: fall"
+        ]
+
+      ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink containing 2 long delta alarms on temperature | payload:118A040200002900F9A0C80064C900C8",
+    "input": {
+      "bytes": [
+        17, 138,   4,   2,   0, 0,
+        41,   0, 249, 160, 200, 0,
+        100, 201,   0, 200
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": {
+        "variable": "temperature",
+        "value": 2.49,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": [
+        [
+          "alarm, criterion_index: 0, mode: delta, value: 1",
+          "alarm, criterion_index: 1, mode: delta, value: 2"
+        ]
+      ]
+    }
+
+  },
+  {
+    "type": "uplink",
+    "description": "uplink containing long threshold 4 exceed alarms on temperature | payload:118A04020000290980A0D007D0000004",
+    "input": {
+      "bytes": [
+        17, 138,   4,   2,   0, 0,
+        41,   9, 128, 160, 208, 7,
+        208,   0,   0,   4
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": {
+        "variable": "temperature",
+        "value": 24.32,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      },
+      "warnings": [
+        [
+          "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 20, occurences_up: 4, occurences_down: 0"
         ]
       ]
     }
   },
   {
     "type": "uplink",
-    "description": "uplink containing 3 long alarm on temperature",
+    "description": "uplink containing 3 long threshold alarms on temperature | payload:118a0402000029010ea0b008fc000001b10834000001b207d0000001",
     "input": {
       "bytes": [17, 138,   4, 2,   0, 0,  41, 1,
         14, 160, 176, 8, 252, 0,   0, 1,
@@ -326,16 +366,17 @@
       },
       "warnings": [
         [
-          "threshold 0 fall detected: value: 23 count_up: 0, count_down: 1",
-          "threshold 1 fall detected: value: 21 count_up: 0, count_down: 1",
-          "threshold 2 fall detected: value: 20 count_up: 0, count_down: 1"
+          "alarm, criterion_index: 0, mode: threshold, crossing: fall, value: 23, occurences_up: 0, occurences_down: 1",
+          "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 21, occurences_up: 0, occurences_down: 1",
+          "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 20, occurences_up: 0, occurences_down: 1"
         ]
+
       ]
     }
   },
   {
     "type": "uplink",
-    "description": "uplink containing a batch of values",
+    "description": "uplink containing a batch of values | payload:362100808098c31ecb824d7b07ba3d",
     "input": {
       "bytes": [
         54,

@@ -25,7 +25,9 @@
     "payload_standard_humidity_alarm_none_threshold": ["118A04020000290C13"],
     "payload_config_report": ["1107040200800000"],
     "payload_read_config_report": ["110900500080000641003C003C0448040000"],
-    "payload_read_comment_report": ["110100000002000D0305020015E2"]
+    "payload_read_current_value_temperature": ["11010402000000290992"],
+    "payload_standard_alarm_long_threshold_4exceed": ["118A04020000290980A0D007D0000004"],
+    "payload_standard_alarm_long_threshold_4fall": ["118A04020000290171A0B007D0000004"]
   },
   {
     "type": "uplinkdecode",

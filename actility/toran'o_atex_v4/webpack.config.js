@@ -6,7 +6,7 @@ module.exports={
     entry: {
         "bundle.js":[path.resolve(__dirname,'../../codec/standard_minimized.js'),
             path.resolve(__dirname,'../../codec/batch_minimized.js'),
-            path.resolve(__dirname,'../../codec/decode_minimized.js'),
+            path.resolve(__dirname,'../../codec/decode_uplink.js'),
             path.resolve(__dirname,"../../captors/toran'o_atex/toran'o_atex.js"),
         ]
     },

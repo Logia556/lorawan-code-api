@@ -1,4 +1,4 @@
-let watteco = require("../../codec/decode_minimized.js")
+let watteco = require("../../codec/decode_uplink.js")
 
 function strToDecimalArray(str){
     let hexArray = [];

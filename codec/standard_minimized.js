@@ -87,11 +87,11 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
                 qual = "fall"
             }
 
-            let mess = qual + " " + mode +" "+ index + " detected"
+            let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
-            let mess = "delta "+index+"triggered"
+            let mess = "alarm, delta "+index+" triggered"
             listMess.push(mess)
         }
         i+=1
@@ -149,7 +149,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
             let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
 
 
-            let mess = mode + " "+index + " " + qual + " detected: " + "value: "+temp + " count_up: " + countUp + ", count_down: " + countDown
+            let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             listMess.push(mess)
             if (check ===1){
                 length-=2
@@ -160,7 +160,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
             let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
-            let mess = "delta "+ index + "triggered : " + temp
+            let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
 
         }
@@ -828,29 +828,25 @@ function normalisation_standard(input, endpoint_parameters){
     }
     if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
         return{
-            data:{variable:"configure reporting response status",
-                value: decoded.zclheader.status,
-                date: input.recvTime
-            },
+            data: decoded.zclheader,
             warning: warning
         }
     }
     else if (bytes[1] === 0x09){
         return{
-            data:{variable:"read reporting configuration response status",
-                value: decoded.zclheader.status,
-                date: input.recvTime
-            },
+            data: decoded.zclheader,
             warning: warning
         }
     }
     else if (bytes[1] === 0x01){
         if(decoded.zclheader.data === undefined){
+            let firstKey = Object.keys(decoded.data)[0];
             return {
-                data: {variable: "read reporting configuration response status",
-                    value: "no data",
+                data:{variable: firstKey,
+                    value: decoded.data[firstKey],
                     date: input.recvTime
                 },
+                type: "standard",
                 warning: warning
             }
         }
