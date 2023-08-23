@@ -404,6 +404,35 @@ function Decoder(bytes, port) {
                     if ((bytes[i1+1] === 0xFF)&&(bytes[i1+3]===0x01)) decoded.data.type = "mV";
                 }
                 if ((clustID===0x000C)&&(attID===0x8003)) decoded.data.powerduration = bytes[i1]*256+bytes[i1+1];
+                if ((clustID===0x000C)&&(attID===0x8004)){
+                    let chockparammetters = {}
+                    //byte to bite string
+                    let part1 = decimalToBitString(bytes[i1])
+                    let part2 = decimalToBitString(bytes[i1+1])
+                    let mode = part1[0]*2+part1[1]
+                    if (mode === 0) chockparammetters.mode = "idle"
+                    if (mode === 1) chockparammetters.mode = "chock"
+                    if (mode === 2) chockparammetters.mode = "click"
+                    let frequency = part1[2]*8+part1[3]*4+part1[4]*2+part1[5]
+                    if (frequency === 0) chockparammetters.frequency = "idle"
+                    if (frequency === 1) chockparammetters.frequency = "1Hz"
+                    if (frequency === 2) chockparammetters.frequency = "10Hz"
+                    if (frequency === 3) chockparammetters.frequency = "25Hz"
+                    if (frequency === 4) chockparammetters.frequency = "50Hz"
+                    if (frequency === 5) chockparammetters.frequency = "100Hz"
+                    if (frequency === 6) chockparammetters.frequency = "200Hz"
+                    if (frequency === 7) chockparammetters.frequency = "400Hz"
+                    if (frequency === 8) chockparammetters.frequency = "1620Hz"
+                    if (frequency === 9) chockparammetters.frequency = "5376Hz"
+                    chockparammetters.range={}
+                    let range = part1[6]*2+part1[7]
+                    if (range === 0) {chockparammetters.range.precision = "+/- 2g"; chockparammetters.range.value = 16}
+                    if (range === 1) {chockparammetters.range.precision = "+/- 4g"; chockparammetters.range.value = 32}
+                    if (range === 2) {chockparammetters.range.precision = "+/- 8g"; chockparammetters.range.value = 64}
+                    if (range === 3) {chockparammetters.range.precision = "+/- 16g"; chockparammetters.range.value = 128}
+                    let multiplicator = part2[0]*128+part2[1]*64+part2[2]*32+part2[3]*16+part2[4]*8+part2[5]*4+part2[6]*2+part2[7]
+                    chockparammetters.threshold = multiplicator*chockparammetters.range.value
+                }
                 if ((clustID === 0x8007 ) && (attID === 0x0001))
                 {
                     decoded.data.payload = "";
