@@ -333,6 +333,10 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x0405 ) && (attID === 0x0002)) decoded.data.max_humidity = (bytes[i1]*256+bytes[i1+1])/100;
                 if ((clustID === 0x000f ) && (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
                 if ((clustID === 0x000f ) && (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
+                if ((clustID === 0x000f ) && (attID === 0x0054)){
+                    if (bytes[i1] === 0) decoded.data.polarity = "normal";
+                    if (bytes[i1] === 1) decoded.data.polarity = "reverse";
+                }
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) decoded.data.value = bytes[i1];
                 if ((clustID === 0x0006 ) && (attID === 0x0000)) {let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
                 if ((clustID === 0x8008 ) && (attID === 0x0000)) decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
