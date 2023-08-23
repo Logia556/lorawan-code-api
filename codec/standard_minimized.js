@@ -651,6 +651,14 @@ function Decoder(bytes, port) {
                 if ((clustID===0x8004) && (attID===0x0003)){
                     decoded.data.datarate = bytes[i1+2];
                 }
+                if ((clustID===0x8004) && (attID===0x0004)){
+                    decoded.data.ABP = "";
+                    for (let i = 0; i<4; i++){
+                        decoded.data.ABP += String(bytes[i1+1+i]);
+                        if (i<3) decoded.data.ABP += ".";
+
+                    }
+                }
                 if ((clustID===0x0050) && (attID===0x0004)){
                     let length = bytes[i1]*256+bytes[i1+1];
                     let configuration = {}

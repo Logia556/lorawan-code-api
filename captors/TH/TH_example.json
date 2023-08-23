@@ -41,7 +41,8 @@
 
     "pauload_message_type_dataUP": ["110180040000000800"],
     "payload_message_retry_dataUP": ["110180040001002007"],
-    "payload_datarate": ["11018004000300410201FF"]
+    "payload_datarate": ["11018004000300410201FF"],
+    "payload_ABP": ["110180040004004104FFFFFFFF"]
   },
   {
     "type": "uplinkdecode",
