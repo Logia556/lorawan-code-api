@@ -403,6 +403,7 @@ function Decoder(bytes, port) {
                     if ((bytes[i1+1] === 0xFF)&&(bytes[i1+3]===0x00)) decoded.data.type = "mA";
                     if ((bytes[i1+1] === 0xFF)&&(bytes[i1+3]===0x01)) decoded.data.type = "mV";
                 }
+                if ((clustID===0x000C)&&(attID===0x8003)) decoded.data.powerduration = bytes[i1]*256+bytes[i1+1];
                 if ((clustID === 0x8007 ) && (attID === 0x0001))
                 {
                     decoded.data.payload = "";
