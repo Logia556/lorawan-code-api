@@ -195,9 +195,12 @@ function Decoder(bytes, port) {
             decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
             cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
             clustID = bytes[2]*256 + bytes[3]; decoded.zclheader.clustID = decimalToHex(clustID,4);
+            console.log(clustID)
             if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
                 decoded.data = {};
                 attID = bytes[4]*256 + bytes[5];decoded.zclheader.attID = decimalToHex(attID,4);
+                let firsthalfattID = bytes[4]
+                console.log(firsthalfattID)
                 let i1 = 0
                 if ((cmdID === 0x0a) || (cmdID === 0x8a)) i1 = 7;
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
@@ -679,6 +682,19 @@ function Decoder(bytes, port) {
                     if ((bytes[i1+2] &0x04) === 0x04) {decoded.data.disposable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
+                }
+                if ((clustID === 0x0050) && (firsthalfattID === 0xFF)){
+                    console.log("je suis dans le 0xFF")
+
+                    let secondhalfattID = bytes[5];
+                    let action = "action "+secondhalfattID.toString();
+                    decoded.data[action]=""
+                    let length = bytes[i1+1]
+                    let actionvalue = "none"
+                    for (let i = 0; i < length; i++) {
+                        actionvalue += String.fromCharCode(bytes[i1 + 1 + i])
+                    }
+                    decoded.data[action] = actionvalue;
                 }
                 if (  (clustID === 0x800a) && (attID === 0x0000)) {
                     let i2 = i1;
