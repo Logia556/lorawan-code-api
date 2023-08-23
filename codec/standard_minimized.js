@@ -337,6 +337,15 @@ function Decoder(bytes, port) {
                     if (bytes[i1] === 0) decoded.data.polarity = "normal";
                     if (bytes[i1] === 1) decoded.data.polarity = "reverse";
                 }
+                if ((clustID === 0x000f ) && (attID === 0x0400)){
+                    if (bytes[i1] === 0) decoded.data.edgeselection = "none";
+                    if (bytes[i1] === 1) decoded.data.edgeselection = "falling edge";
+                    if (bytes[i1] === 2) decoded.data.edgeselection = "rising edge";
+                    if (bytes[i1] === 3) decoded.data.edgeselection = "both edges";
+                    if (bytes[i1] === 5) decoded.data.edgeselection = "polling and falling edge";
+                    if (bytes[i1] === 6) decoded.data.edgeselection = "polling and rising edge";
+                    if (bytes[i1] === 7) decoded.data.edgeselection = "polling and both edges";
+                }
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) decoded.data.value = bytes[i1];
                 if ((clustID === 0x0006 ) && (attID === 0x0000)) {let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
                 if ((clustID === 0x8008 ) && (attID === 0x0000)) decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
