@@ -652,10 +652,18 @@ function Decoder(bytes, port) {
                     decoded.data.datarate = bytes[i1+2];
                 }
                 if ((clustID===0x8004) && (attID===0x0004)){
-                    decoded.data.ABP = "";
+                    decoded.data.ABP_dev_address = "";
                     for (let i = 0; i<4; i++){
-                        decoded.data.ABP += String(bytes[i1+1+i]);
-                        if (i<3) decoded.data.ABP += ".";
+                        decoded.data.ABP_dev_address += String(bytes[i1+1+i]);
+                        if (i<3) decoded.data.ABP_dev_address += ".";
+
+                    }
+                }
+                if ((clustID===0x8004) && (attID===0x0005)){
+                    decoded.data.OTA_app_EUI = "";
+                    for (let i = 0; i<8; i++){
+                        decoded.data.OTA_app_EUI += String(bytes[i1+1+i]);
+                        if (i<7) decoded.data.OTA_app_EUI += ".";
 
                     }
                 }
