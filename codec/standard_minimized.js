@@ -398,6 +398,11 @@ function Decoder(bytes, port) {
                         }
                     }
                 }
+                if ((clustID === 0x000c ) && (attID === 0x0100)){
+                    if (bytes[i1+1] === 0x05) decoded.data.type = "ppm";
+                    if ((bytes[i1+1] === 0xFF)&&(bytes[i1+3]===0x00)) decoded.data.type = "mA";
+                    if ((bytes[i1+1] === 0xFF)&&(bytes[i1+3]===0x01)) decoded.data.type = "mV";
+                }
                 if ((clustID === 0x8007 ) && (attID === 0x0001))
                 {
                     decoded.data.payload = "";
@@ -822,6 +827,8 @@ function Decoder(bytes, port) {
 
 
                 }
+                if ((clustID===0x800C)&&(attID===0x0001)) decoded.data.analog=bytes[i1];
+                if ((clustID===0x800C)&&(attID===0x0002)) decoded.data.analog=bytes[i1];
                 if ((clustID === 0x0400) && (attID === 0x0000)) decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
                 if ((clustID === 0x0403) && (attID === 0x0000)) decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
                 if ((clustID === 0x0406) && (attID === 0x0000)) decoded.data.Occupancy = !(!bytes[i1]);
