@@ -644,8 +644,12 @@ function Decoder(bytes, port) {
                     decoded.data.nb_retry= bytes[i1] ;
                 }
                 if ((clustID === 0x8004 ) && (attID === 0x0002)) {
-                    decoded.data.period_in_minutes = bytes[i1+1] *256+bytes[i1+2];
-                    decoded.data.nb_err_frames = bytes[i1+3] *256+bytes[i1+4];
+                    decoded.data.automatic_association = {};
+                    decoded.data.automatic_association.period_in_minutes = bytes[i1+1] *256+bytes[i1+2];
+                    decoded.data.automatic_association.nb_err_frames = bytes[i1+3] *256+bytes[i1+4];
+                }
+                if ((clustID===0x8004) && (attID===0x0003)){
+                    decoded.data.datarate = bytes[i1+2];
                 }
                 if ((clustID===0x0050) && (attID===0x0004)){
                     let length = bytes[i1]*256+bytes[i1+1];
