@@ -679,37 +679,6 @@ function Decoder(bytes, port) {
                     if ((bytes[i1+2] &0x04) === 0x04) {decoded.data.disposable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
-                    if (cmdID===0x8a) {
-                        if (bytes[i1 + 2] !== undefined) {
-                            let rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        let listMess = []
-                        let flag = 0
-                        let divider = 1000
-                        let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-                            console.log("je suis dans le test undefined")
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
-                        }
-                        if (rc === "none") {
-                            listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
-                        }
-                        ;
-                        if ((rc[2] === "0") && (rc[3] === "1")) {
-                            let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
-                        }
-                        if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 6
-                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
-                        }
-                    }
-
                 }
                 if (  (clustID === 0x800a) && (attID === 0x0000)) {
                     let i2 = i1;
@@ -892,6 +861,20 @@ function Decoder(bytes, port) {
                 decoded.zclheader.max = {}
                 if ((bytes[11] & 0x80) === 0x80) {decoded.zclheader.max.value = (bytes[11]-0x80)*256+bytes[12];decoded.zclheader.max.unit = "minutes";} else {decoded.zclheader.max.value = bytes[11]*256+bytes[12];decoded.zclheader.max.unit = "seconds";}
                 decoded.lora.payload  = "";
+
+                if ((clustID===0x0050) && (attID===0x0006)){
+                    let length = bytes[13];
+                    let nb = length/5
+                    let i=0
+                    while(nb>0){
+                        decoded.zclheader.modepower = bytes[14+i*5];
+                        decoded.zclheader.powersource = bytes[15+i*5];
+                        decoded.zclheader.delta = bytes[16+i*5]*256+bytes[17+i*5];
+                        decoded.zclheader.changedpowersource = bytes[18+i*5];
+                        i++
+                        nb--
+                    }
+                }
             }
         }
         else
