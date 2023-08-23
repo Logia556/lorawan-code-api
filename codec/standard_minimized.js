@@ -329,6 +329,8 @@ function Decoder(bytes, port) {
                         }
                     }
                 }
+                if ((clustID === 0x0405 ) && (attID === 0x0001)) decoded.data.min_humidity = (bytes[i1]*256+bytes[i1+1])/100;
+                if ((clustID === 0x0405 ) && (attID === 0x0002)) decoded.data.max_humidity = (bytes[i1]*256+bytes[i1+1])/100;
                 if ((clustID === 0x000f ) && (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
                 if ((clustID === 0x000f ) && (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) decoded.data.value = bytes[i1];
