@@ -644,6 +644,34 @@ function Decoder(bytes, port) {
                     decoded.data.period_in_minutes = bytes[i1+1] *256+bytes[i1+2];
                     decoded.data.nb_err_frames = bytes[i1+3] *256+bytes[i1+4];
                 }
+                if ((clustID===0x0050) && (attID===0x0004)){
+                    let length = bytes[i1]*256+bytes[i1+1];
+                    let configuration = {}
+                    let nbendpoints = bytes[i1+2];
+                    for (let i = 0; i < nbendpoints; i++) {
+                        let endpoint = {}
+                        endpoint.endpoint = bytes[i1+3+i*7];
+                        let nbinput_cluster = bytes[i1+4+i*7];
+                        endpoint.input_clusters = []
+                        for (let j=0; j < nbinput_cluster; j++){
+                            let cluster = {}
+                            endpoint.input_clusters[j] = decimalToHex(bytes[i1 + 5 + i * 7 + j * 2] * 256 + bytes[i1 + 6 + i * 7 + j * 2], 4);
+                        }
+                        let nboutput_cluster = bytes[i1+5+i*7+nbinput_cluster*2];
+                        endpoint.output_clusters = []
+                        for (let j=0; j < nboutput_cluster; j++){
+                            let cluster = {}
+                            endpoint.output_clusters[j] = decimalToHex(bytes[i1 + 6 + i * 7 + j * 2] * 256 + bytes[i1 + 7 + i * 7 + j * 2], 4);
+                        }
+                        configuration[i] = endpoint;
+                    }
+                    decoded.data.configuration = configuration;
+                    console.log("configuration",configuration)
+                    console.log(configuration[0].input_clusters)
+
+
+
+                }
                 if ((clustID === 0x0050 ) && (attID === 0x0006)) {
                     let i2 = i1 + 3;
                     if ((bytes[i1+2] &0x01) === 0x01) {decoded.data.main_or_external_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
@@ -860,9 +888,9 @@ function Decoder(bytes, port) {
                 decoded.zclheader.batch = bytes[5];
                 decoded.zclheader.attribut_type = bytes[8];
                 decoded.zclheader.min = {}
-                if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unity = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unity = "seconds";}
+                if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unit = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unit = "seconds";}
                 decoded.zclheader.max = {}
-                if ((bytes[11] & 0x80) === 0x80) {decoded.zclheader.max.value = (bytes[11]-0x80)*256+bytes[12];decoded.zclheader.max.unity = "minutes";} else {decoded.zclheader.max.value = bytes[11]*256+bytes[12];decoded.zclheader.max.unity = "seconds";}
+                if ((bytes[11] & 0x80) === 0x80) {decoded.zclheader.max.value = (bytes[11]-0x80)*256+bytes[12];decoded.zclheader.max.unit = "minutes";} else {decoded.zclheader.max.value = bytes[11]*256+bytes[12];decoded.zclheader.max.unit = "seconds";}
                 decoded.lora.payload  = "";
             }
         }

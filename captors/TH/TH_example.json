@@ -35,7 +35,9 @@
     "payload_model_identifier": ["11010000000500420D37312D37302D3130332D303030"],
     "payload_date_production": ["1101000000060042083235313132303231"],
     "payload_min_value": ["1101040200010029F060"],
-    "payload_max_value": ["11010402000200292EE0"]
+    "payload_max_value": ["11010402000200292EE0"],
+
+    "payload_available_cluster_endpoints": ["110100500004004C000C010004005004020405000F00"]
   },
   {
     "type": "uplinkdecode",
