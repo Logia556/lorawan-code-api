@@ -1014,10 +1014,10 @@ function normalisation_standard(input, endpoint_parameters){
                     break;
                 }
                 else{
-                    data +={variable: firstKey,
+                    data.push({variable: firstKey,
                         value: decoded.data[firstKey],
                         date: input.recvTime
-                    }
+                    })
                     indent++;
                 }
             }
@@ -1050,11 +1050,11 @@ function normalisation_standard(input, endpoint_parameters){
                     break;
                 } else {
                     let type = endpoint_parameters[firstKey][access];
-                    data += {
+                    data.push({
                         variable: type,
                         value: decoded.data[firstKey],
                         date: input.recvTime
-                    }
+                    })
                     indent++;
                 }
             }
