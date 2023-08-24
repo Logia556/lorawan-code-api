@@ -367,6 +367,10 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_9 = ((bytes[i1]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[i1]&0x02) === 0x02);
                 }
+                if ((clustID===0x8006)&&(attID===0x0000)) decoded.data.speed = bytes[i1]*256*256+bytes[i1+1]*256+bytes[i1+2];
+                if ((clustID===0x8006)&&(attID===0x0001)) decoded.data.databit = bytes[i1]
+                if ((clustID===0x8006)&&(attID===0x0002)) decoded.data.parity = bytes[i1];
+                if ((clustID===0x8006)&&(attID===0x0003)) decoded.data.stopbit = bytes[i1];
                 if ((clustID === 0x000c ) && (attID === 0x0055)){
                     decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
                     if (cmdID===0x8a) {

@@ -34,3 +34,6 @@ function decodeUplink(input) {
 }
 let a = decodeUplink(input);
 console.log(a)
+
+
+let clusters=["temperature:0402","humidity:0405","binary:000F","basic:0000","lorawan:8004","configuration:0050"]

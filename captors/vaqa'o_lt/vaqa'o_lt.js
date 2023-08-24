@@ -1,0 +1,1 @@
+let clusters=["temperature:0402/*2","humidity:0405/*2","basic:0000","lorawan:8004","configuration:0050","concentration:800C","binary:000F"]

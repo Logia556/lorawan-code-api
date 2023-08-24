@@ -25,3 +25,5 @@ function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
 module.exports.decodeUplink = decodeUplink;
+
+let clusters=["binary:000F/*3","basic:0000","lorawan:8004","configuration:0050","multibinary:8005"]

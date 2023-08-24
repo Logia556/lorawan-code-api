@@ -13,28 +13,7 @@ let batch_param = [4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "index_1", di
     {taglbl: 10, resol: 1, sampletype: 12, lblname: "ratiometric_0-5_V_2", divide: 1},
     {taglbl: 11, resol: 100, sampletype: 6, lblname: "battery_voltage", divide: 1}]];
 
-let endpointCorresponder ={
-    sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_1","sum_positive_active_energy_Wh_2","sum_positive_active_energy_Wh_3","sum_positive_active_energy_Wh_4"],
-    sum_negative_active_energy_Wh: ["sum_negative_active_energy_Wh_1","sum_negative_active_energy_Wh_2","sum_negative_active_energy_Wh_3","sum_negative_active_energy_Wh_4"],
-    sum_positive_reactive_energy_Wh: ["sum_positive_reactive_energy_Wh_1","sum_positive_reactive_energy_Wh_2","sum_positive_reactive_energy_Wh_3","sum_positive_reactive_energy_Wh_4"],
-    sum_negative_reactive_energy_Wh: ["sum_negative_reactive_energy_Wh_1","sum_negative_reactive_energy_Wh_2","sum_negative_reactive_energy_Wh_3","sum_negative_reactive_energy_Wh_4"],
-    positive_active_power_W: ["positive_active_power_W_1","positive_active_power_W_2","positive_active_power_W_3","positive_active_power_W_4"],
-    negative_active_power_W: ["negative_active_power_W_1","negative_active_power_W_2","negative_active_power_W_3","negative_active_power_W_4"],
-    positive_reactive_power_W: ["positive_reactive_power_W_1","positive_reactive_power_W_2","positive_reactive_power_W_3","positive_reactive_power_W_4"],
-    negative_reactive_power_W: ["negative_reactive_power_W_1","negative_reactive_power_W_2","negative_reactive_power_W_3","negative_reactive_power_W_4"],
-    Vrms: ["Vrms_1","Vrms_2","Vrms_3","Vrms_4"],
-    Irms: ["Irms_1","Irms_2","Irms_3","Irms_4"],
-    phase_angle: ["phase_angle_1","phase_angle_2","phase_angle_3","phase_angle_4"],
-    analog:["4-20_mA","0-5_V_1","0-5_V_2 ","ratiometric_0-5_V_1","ratiometric_0-5_V_2"],
-    count:["index_1","index_2","index_3"],
-    pin_state:["state_1","state_2","state_3"],
-    polarity:["polarity_1","polarity_2","polarity_3"],
-    edgeselection:["edge_1","edge_2","edge_3"],
-    debounceperiod:["debounce_1","debounce_2","debounce_3"],
-    pollperiod:["poll_1","poll_2","poll_3"],
-    forcenotify:["force_1","force_2","force_3"],
 
-}
 function strToDecimalArray(str) {
     let arr = [];
     for (let i = 0; i < str.length; i += 2) {
@@ -54,6 +33,17 @@ let input = {
     recvTime: date,
 
 };
+let endpointCorresponder = {
+    analog:["4-20_mA","0-5_V_1","0-5_V_2 ","ratiometric_0-5_V_1","ratiometric_0-5_V_2"],
+    count:["index_1","index_2","index_3"],
+    pin_state:["state_1","state_2","state_3"],
+    polarity:["polarity_1","polarity_2","polarity_3"],
+    edgeselection:["edge_1","edge_2","edge_3"],
+    debounceperiod:["debounce_1","debounce_2","debounce_3"],
+    pollperiod:["poll_1","poll_2","poll_3"],
+    forcenotify:["force_1","force_2","force_3"],
+}
+
 console.log(input);
 function decodeUplink(input) {
     if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0A) {
@@ -73,3 +63,5 @@ function decodeUplink(input) {
 module.exports.decodeUplink = decodeUplink;
 let a = decodeUplink(input);
 console.log(a);
+
+let clusters=["binary:000F/*3","basic:0000","lorawan:8004","configuration:0050","analoginput:000C/*5","multibinary:8005"]
