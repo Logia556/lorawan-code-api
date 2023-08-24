@@ -46,12 +46,6 @@ let endpointCorresponder = {
 
 console.log(input);
 function decodeUplink(input) {
-    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0A) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0B) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
     if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0C) {
         return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
     }
