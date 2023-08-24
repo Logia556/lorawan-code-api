@@ -7,24 +7,28 @@ let batch_param = [4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "index_1", di
     { taglbl: 4, resol: 1, sampletype: 1,lblname: "state_2", divide: 1},
     { taglbl: 5, resol: 1, sampletype: 1,lblname: "state_3", divide: 1},
     { taglbl: 6, resol: 0.004, sampletype: 12,lblname: "4-20_mA", divide: 1},
-    { taglbl: 7, resol: 1, sampletype: 12,lblname: "0-5V_[1]", divide: 1},
-    {taglbl: 8, resol: 1, sampletype: 12, lblname: "0-5V_[2]", divide: 1},
-    {taglbl: 9, resol: 1, sampletype: 12, lblname: "ratio_[1]", divide: 1},
-    {taglbl: 10, resol: 1, sampletype: 12, lblname: "ratio_[2]", divide: 1},
+    { taglbl: 7, resol: 1, sampletype: 12,lblname: "0-5_V_1", divide: 1},
+    {taglbl: 8, resol: 1, sampletype: 12, lblname: "0-5_V_2", divide: 1},
+    {taglbl: 9, resol: 1, sampletype: 12, lblname: "ratiometric_0-5_V_1", divide: 1},
+    {taglbl: 10, resol: 1, sampletype: 12, lblname: "ratiometric_0-5_V_2", divide: 1},
     {taglbl: 11, resol: 100, sampletype: 6, lblname: "battery_voltage", divide: 1}]];
 
 let endpointCorresponder ={
-    sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_0","sum_positive_active_energy_Wh_1","sum_positive_active_energy_Wh_2","sum_positive_active_energy_Wh_3"],
-    sum_negative_active_energy_Wh: ["sum_negative_active_energy_Wh_0","sum_negative_active_energy_Wh_1","sum_negative_active_energy_Wh_2","sum_negative_active_energy_Wh_3"],
-    sum_positive_reactive_energy_Wh: ["sum_positive_reactive_energy_Wh_0","sum_positive_reactive_energy_Wh_1","sum_positive_reactive_energy_Wh_2","sum_positive_reactive_energy_Wh_3"],
-    sum_negative_reactive_energy_Wh: ["sum_negative_reactive_energy_Wh_0","sum_negative_reactive_energy_Wh_1","sum_negative_reactive_energy_Wh_2","sum_negative_reactive_energy_Wh_3"],
-    positive_active_power_W: ["positive_active_power_W_0","positive_active_power_W_1","positive_active_power_W_2","positive_active_power_W_3"],
-    negative_active_power_W: ["negative_active_power_W_0","negative_active_power_W_1","negative_active_power_W_2","negative_active_power_W_3"],
-    positive_reactive_power_W: ["positive_reactive_power_W_0","positive_reactive_power_W_1","positive_reactive_power_W_2","positive_reactive_power_W_3"],
-    negative_reactive_power_W: ["negative_reactive_power_W_0","negative_reactive_power_W_1","negative_reactive_power_W_2","negative_reactive_power_W_3"],
-    Vrms: ["Vrms_0","Vrms_1","Vrms_2","Vrms_3"],
-    Irms: ["Irms_0","Irms_1","Irms_2","Irms_3"],
-    phase_angle: ["phase_angle_0","phase_angle_1","phase_angle_2","phase_angle_3"],
+    sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_1","sum_positive_active_energy_Wh_2","sum_positive_active_energy_Wh_3","sum_positive_active_energy_Wh_4"],
+    sum_negative_active_energy_Wh: ["sum_negative_active_energy_Wh_1","sum_negative_active_energy_Wh_2","sum_negative_active_energy_Wh_3","sum_negative_active_energy_Wh_4"],
+    sum_positive_reactive_energy_Wh: ["sum_positive_reactive_energy_Wh_1","sum_positive_reactive_energy_Wh_2","sum_positive_reactive_energy_Wh_3","sum_positive_reactive_energy_Wh_4"],
+    sum_negative_reactive_energy_Wh: ["sum_negative_reactive_energy_Wh_1","sum_negative_reactive_energy_Wh_2","sum_negative_reactive_energy_Wh_3","sum_negative_reactive_energy_Wh_4"],
+    positive_active_power_W: ["positive_active_power_W_1","positive_active_power_W_2","positive_active_power_W_3","positive_active_power_W_4"],
+    negative_active_power_W: ["negative_active_power_W_1","negative_active_power_W_2","negative_active_power_W_3","negative_active_power_W_4"],
+    positive_reactive_power_W: ["positive_reactive_power_W_1","positive_reactive_power_W_2","positive_reactive_power_W_3","positive_reactive_power_W_4"],
+    negative_reactive_power_W: ["negative_reactive_power_W_1","negative_reactive_power_W_2","negative_reactive_power_W_3","negative_reactive_power_W_4"],
+    Vrms: ["Vrms_1","Vrms_2","Vrms_3","Vrms_4"],
+    Irms: ["Irms_1","Irms_2","Irms_3","Irms_4"],
+    phase_angle: ["phase_angle_1","phase_angle_2","phase_angle_3","phase_angle_4"],
+    analog:["4-20_mA","0-5_V_1","0-5_V_2 ","ratiometric_0-5_V_1","ratiometric_0-5_V_2"],
+    count:["index_1","index_2","index_3"],
+    pin_state:["state_1","state_2","state_3"],
+
 }
 function strToDecimalArray(str) {
     let arr = [];
@@ -51,6 +55,12 @@ function decodeUplink(input) {
         return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
     }
     if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0B) {
+        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    }
+    if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0C) {
+        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    }
+    if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0F) {
         return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
     }
     return result = watteco.watteco_decodeUplink(input,batch_param);
