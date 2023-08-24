@@ -1,6 +1,5 @@
 let watteco = require("../../codec/decode_uplink.js");
 
-
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }

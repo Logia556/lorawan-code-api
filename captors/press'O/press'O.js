@@ -11,6 +11,9 @@ let endpointCorresponder={
     analog:["4_20_mA","0_10_V"]
 }
 function decodeUplink(input) {
+    if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0C) {
+        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    }
     return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 
 }

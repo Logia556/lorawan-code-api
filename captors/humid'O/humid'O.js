@@ -7,7 +7,13 @@ let batch_param = [3, [{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4-20_mA
     { taglbl: 3, resol: 100, sampletype: 6,lblname: "external_powerVoltage", divide: 1000},
     { taglbl: 4, resol: 1, sampletype: 10,lblname: "index", divide: 1}]];
 
+let endpointCorresponder={
+    analog:["4-20_mA","0-10_V"],
+}
 function decodeUplink(input) {
+    if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0C) {
+        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    }
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
 
