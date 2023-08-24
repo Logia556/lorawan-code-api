@@ -1,15 +1,15 @@
 let watteco = require("../../codec/decode_uplink.js")
 
 let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 4,lblname: "occupancy", divide: 1},
-    { taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature", divide: 100},
-    { taglbl: 2, resol: 100, sampletype: 6,lblname: "humidity", divide: 100},
+    { taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature_0", divide: 100},
+    { taglbl: 2, resol: 100, sampletype: 6,lblname: "humidity_0", divide: 100},
     { taglbl: 3, resol: 10, sampletype: 6,lblname: "CO2", divide: 1},
-    { taglbl: 4, resol: 10, sampletype: 6,lblname: "VOC", divide: 1}]];
+    { taglbl: 4, resol: 10, sampletype: 6,lblname: "TVOC", divide: 1}]];
 
 let endpointCorresponder = {
     Concentration: ["TVOC", "CO2"],
-    temperature: ["temperature: +/- 0,5°C [1/100 °C]","temperature: +/-0,2°C [1/100 °C]"],
-    humidity: ["humidity: +/- 3% [1/100 %]","humidity: +/- 2% [1/100 %]"]
+    temperature: ["temperature_0","temperature_1"],
+    humidity: ["humidity_0","humidity_1"]
 }
 function strToDecimalArray(str) {
     let arr = [];

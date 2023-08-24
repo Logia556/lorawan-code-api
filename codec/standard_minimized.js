@@ -208,10 +208,12 @@ function Decoder(bytes, port) {
 
                 if ((clustID === 0x0000 ) && (attID === 0x0002)){
                     decoded.data.firmware=""
-                    for (let i = 0; i < 6; i++) {
+                    for (let i = 0; i < 3; i++) {
                         decoded.data.firmware += String(bytes[i1 + i]);
-                        if (i !== 5) decoded.data.firmware += ".";
+                        if (i < 2) decoded.data.firmware += "."
                     }
+                    let rcbuild = bytes[i1+3]*256*256+bytes[i1+4]*256+bytes[i1+5]
+                    decoded.data.firmware += "."+rcbuild.toString()
 
                 }
                 if ((clustID === 0x0000 ) && (attID === 0x0003)){
@@ -253,9 +255,9 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID === 0x0000 ) && (attID === 0x8001)){
                     let length = bytes[i1];
-                    decoded.data.application=""
+                    decoded.data.application_name=""
                     for (let i = 0; i < length; i++) {
-                        decoded.data.application += String.fromCharCode(bytes[i1 + 1 + i]);
+                        decoded.data.application_name += String.fromCharCode(bytes[i1 + 1 + i]);
                     }
                 }
 
@@ -979,6 +981,8 @@ function Decoder(bytes, port) {
 function normalisation_standard(input, endpoint_parameters){
     let warning = "";
     let bytes = input.bytes;
+    let flagstandard = true;
+    let indent = 0;
     console.log(input)
     let decoded = Decoder(bytes, input.fPort);
     console.log(decoded)
@@ -1002,12 +1006,23 @@ function normalisation_standard(input, endpoint_parameters){
     }
     else if (bytes[1] === 0x01){
         if(decoded.zclheader.data === undefined){
-            let firstKey = Object.keys(decoded.data)[0];
+            let data = []
+            while(flagstandard){
+                let firstKey = Object.keys(decoded.data)[indent];
+                if (firstKey === undefined){
+                    flagstandard = false;
+                    break;
+                }
+                else{
+                    data +={variable: firstKey,
+                        value: decoded.data[firstKey],
+                        date: input.recvTime
+                    }
+                    indent++;
+                }
+            }
             return {
-                data:{variable: firstKey,
-                    value: decoded.data[firstKey],
-                    date: input.recvTime
-                },
+                data: data,
                 type: "standard",
                 warning: warning
             }
@@ -1025,27 +1040,56 @@ function normalisation_standard(input, endpoint_parameters){
     if (decoded.zclheader !== undefined){
         if (endpoint_parameters !== undefined) {
             let access = decoded.zclheader.endpoint;
-            let firstKey = Object.keys(decoded.data)[0];
-            let type = endpoint_parameters[firstKey][access];
+            let flagstandard = true;
+            let indent = 0;
+            let data = []
+            while (flagstandard) {
+                let firstKey = Object.keys(decoded.data)[indent];
+                if (firstKey === undefined) {
+                    flagstandard = false;
+                    break;
+                } else {
+                    let type = endpoint_parameters[firstKey][access];
+                    data += {
+                        variable: type,
+                        value: decoded.data[firstKey],
+                        date: input.recvTime
+                    }
+                    indent++;
+                }
+            }
             return {
-                data: {variable: type,
-                    value: decoded.data[firstKey],
-                    date: input.recvTime
-                },
+                data: data,
                 type: "standard",
                 warning: warning
             }
         }
         else{
-            let firstKey = Object.keys(decoded.data)[0];
+            let flagstandard = true;
+            let indent = 0;
+            let data = []
+            while(flagstandard){
+                let firstKey = Object.keys(decoded.data)[indent];
+
+                if (firstKey === undefined){
+                    flagstandard = false;
+                    break;
+                }
+                else{
+                    data.push({variable: firstKey,
+                        value: decoded.data[firstKey],
+                        date: input.recvTime
+                    })
+                    indent++;
+                }
+            }
+
             return {
-                data:{variable: firstKey,
-                    value: decoded.data[firstKey],
-                    date: input.recvTime
-                },
+                data:data,
                 type: "standard",
                 warning: warning
             }
+
         }
     }
     return {
