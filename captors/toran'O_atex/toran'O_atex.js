@@ -28,6 +28,11 @@ let endpointCorresponder ={
     analog:["4-20_mA","0-5_V_1","0-5_V_2 ","ratiometric_0-5_V_1","ratiometric_0-5_V_2"],
     count:["index_1","index_2","index_3"],
     pin_state:["state_1","state_2","state_3"],
+    polarity:["polarity_1","polarity_2","polarity_3"],
+    edgeselection:["edge_1","edge_2","edge_3"],
+    debounceperiod:["debounce_1","debounce_2","debounce_3"],
+    pollperiod:["poll_1","poll_2","poll_3"],
+    forcenotify:["force_1","force_2","force_3"],
 
 }
 function strToDecimalArray(str) {
