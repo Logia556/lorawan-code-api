@@ -13,7 +13,48 @@ let batch_param = [4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "index_1", di
     {taglbl: 10, resol: 1, sampletype: 12, lblname: "ratio_[2]", divide: 1},
     {taglbl: 11, resol: 100, sampletype: 6, lblname: "battery_voltage", divide: 1}]];
 
+let endpointCorresponder ={
+    sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_0","sum_positive_active_energy_Wh_1","sum_positive_active_energy_Wh_2","sum_positive_active_energy_Wh_3"],
+    sum_negative_active_energy_Wh: ["sum_negative_active_energy_Wh_0","sum_negative_active_energy_Wh_1","sum_negative_active_energy_Wh_2","sum_negative_active_energy_Wh_3"],
+    sum_positive_reactive_energy_Wh: ["sum_positive_reactive_energy_Wh_0","sum_positive_reactive_energy_Wh_1","sum_positive_reactive_energy_Wh_2","sum_positive_reactive_energy_Wh_3"],
+    sum_negative_reactive_energy_Wh: ["sum_negative_reactive_energy_Wh_0","sum_negative_reactive_energy_Wh_1","sum_negative_reactive_energy_Wh_2","sum_negative_reactive_energy_Wh_3"],
+    positive_active_power_W: ["positive_active_power_W_0","positive_active_power_W_1","positive_active_power_W_2","positive_active_power_W_3"],
+    negative_active_power_W: ["negative_active_power_W_0","negative_active_power_W_1","negative_active_power_W_2","negative_active_power_W_3"],
+    positive_reactive_power_W: ["positive_reactive_power_W_0","positive_reactive_power_W_1","positive_reactive_power_W_2","positive_reactive_power_W_3"],
+    negative_reactive_power_W: ["negative_reactive_power_W_0","negative_reactive_power_W_1","negative_reactive_power_W_2","negative_reactive_power_W_3"],
+    Vrms: ["Vrms_0","Vrms_1","Vrms_2","Vrms_3"],
+    Irms: ["Irms_0","Irms_1","Irms_2","Irms_3"],
+    phase_angle: ["phase_angle_0","phase_angle_1","phase_angle_2","phase_angle_3"],
+}
+function strToDecimalArray(str) {
+    let arr = [];
+    for (let i = 0; i < str.length; i += 2) {
+        arr.push(parseInt(str.substr(i, 2), 16));
+    }
+    return arr;
+}
+let argv= process.argv.slice(2);
+
+let bytes = [];
+bytes = strToDecimalArray(argv[1]);
+let date = argv[2];
+
+let input = {
+    bytes: bytes,
+    fPort: Number(argv[0]),
+    recvTime: date,
+
+};
+console.log(input);
 function decodeUplink(input) {
+    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0A) {
+        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    }
+    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0B) {
+        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
+    }
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
 module.exports.decodeUplink = decodeUplink;
+let a = decodeUplink(input);
+console.log(a);
