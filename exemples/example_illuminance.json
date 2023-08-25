@@ -1,0 +1,25 @@
+[
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing illuminance value | payload:110A04000000210745",
+    "input": {
+      "bytes": [
+        17, 10, 4,  0, 0,
+        0, 33, 7, 69
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "Illuminance",
+          "value": 1861,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
+
+  }
+]
