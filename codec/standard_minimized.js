@@ -1247,6 +1247,8 @@ function Decoder(bytes, port) {
                     i2 = i2 + 2;
                     decoded.data.sag_voltage = UintToInt(bytes[i2 + 1] * 256 + bytes[i2 + 2], 2);
                 }
+
+
                 if (  (clustID === 0x800f) ) {
                     let i = i1+1;
                     if (attID === 0x0000) {
