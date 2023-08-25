@@ -16,6 +16,10 @@ function Bytes2Float32(bytes) {
     } else signi = (signi | (1 << 23)) / (1 << 23);
     return sign * signi * Math.pow(2, exp);
 }
+function Int32UnsignedToSigned(Int32) {
+    if (Int32 > 0x7FFFFFFF) Int32 -= 0x100000000;
+    return Int32;
+}
 function BytesToInt64(InBytes, Starti1, Type, LiEnd)
 {
     if(typeof(LiEnd) == 'undefined') LiEnd = false;

@@ -1,0 +1,63 @@
+[
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing report of the 3 phases | payload:110a8010000041200000010000000200000003000000040000000500000006000000070000000800",
+    "input": {
+      "bytes": [
+        17, 10, 128, 16, 0, 0, 65, 32, 0, 0,
+        1,  0,   0,  0, 2, 0,  0,  0, 3, 0,
+        0,  0,   4,  0, 0, 0,  5,  0, 0, 0,
+        6,  0,   0,  0, 7, 0,  0,  0, 8, 0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "ActiveEnergyWhPhaseA",
+          "value": 256,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "ReactiveEnergyWhPhaseA",
+          "value": 512,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "ActiveEnergyWhPhaseB",
+          "value": 768,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "ReactiveEnergyWhPhaseB",
+          "value": 1024,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "ActiveEnergyWhPhaseC",
+          "value": 1280,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "ReactiveEnergyWhPhaseC",
+          "value": 1536,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "ActiveEnergyWhPhaseABC",
+          "value": 1792,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "ReactiveEnergyWhPhaseABC",
+          "value": 2048,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
+
+  }
+]
