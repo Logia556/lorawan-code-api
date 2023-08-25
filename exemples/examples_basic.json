@@ -1,0 +1,80 @@
+[
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing firmware version | payload:110100000002000D0305020015E2",
+    "input": {
+      "bytes": [
+        17,
+        1,
+        0,
+        0,
+        0,
+        2,
+        0,
+        13,
+        3,
+        5,
+        2,
+        0,
+        21,
+        226
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "firmware",
+          "value": "3.5.2.5602",
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [
+        ""
+      ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing kernel version | payload:11010000000300420B436F6E74696B6920332E78",
+    "input": {
+      "bytes": [
+        17,
+        1,
+        0,
+        0,
+        0,
+        3,
+        0,
+        66,
+        11,
+        67,
+        111,
+        110,
+        116,
+        105,
+        107,
+        105,
+        32,
+        51,
+        46,
+        120
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "kernel",
+          "value": "Contiki 3.x",
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [
+        ""
+      ]
+    }
+  }
+]
