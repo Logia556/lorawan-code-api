@@ -214,7 +214,6 @@ function Decoder(bytes, port) {
                     }
                     let rcbuild = bytes[i1+3]*256*256+bytes[i1+4]*256+bytes[i1+5]
                     decoded.data.firmware += "."+rcbuild.toString()
-
                 }
                 if ((clustID === 0x0000 ) && (attID === 0x0003)){
                     let length = bytes[i1];
@@ -301,9 +300,6 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x0405 ) && (attID === 0x0000)){
                     decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
                     if (cmdID===0x8a) {
-                        if (bytes[i1 + 2] !== undefined) {
-                            let rc = decimalToBitString(bytes[i1 + 2])
-                        }
                         let listMess = []
                         let flag = 0
                         let divider = 100
@@ -333,8 +329,66 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID === 0x0405 ) && (attID === 0x0001)) decoded.data.min_humidity = (bytes[i1]*256+bytes[i1+1])/100;
                 if ((clustID === 0x0405 ) && (attID === 0x0002)) decoded.data.max_humidity = (bytes[i1]*256+bytes[i1+1])/100;
-                if ((clustID === 0x000f ) && (attID === 0x0402)) decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
-                if ((clustID === 0x000f ) && (attID === 0x0055)) decoded.data.pin_state = !(!bytes[i1]);
+                if ((clustID === 0x000f ) && (attID === 0x0402)) {
+                    decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 4] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 4])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 8
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
+                if ((clustID === 0x000f ) && (attID === 0x0055)) {
+                    decoded.data.pin_state = !(!bytes[i1]);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 1] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 1])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 5
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
                 if ((clustID === 0x000f ) && (attID === 0x0054)){
                     if (bytes[i1] === 0) decoded.data.polarity = "normal";
                     if (bytes[i1] === 1) decoded.data.polarity = "reverse";
@@ -352,8 +406,39 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x000f ) && (attID === 0x0403)) decoded.data.pollperiod = bytes[i1]
                 if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.forcenotify = bytes[i1]
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) decoded.data.value = bytes[i1];
-                if ((clustID === 0x0006 ) && (attID === 0x0000)) {let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ; }
-                if ((clustID === 0x8008 ) && (attID === 0x0000)) decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
+                if ((clustID === 0x0006 ) && (attID === 0x0000)) {
+                    let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ;
+                }
+                if ((clustID === 0x8008 ) && (attID === 0x0000)){
+                    decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 8
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
                 if ((clustID === 0x8005 ) && (attID === 0x0000))
                 {
                     decoded.data.pin_state_1 = ((bytes[i1+1]&0x01) === 0x01);
@@ -366,6 +451,33 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_8 = ((bytes[i1+1]&0x80) === 0x80);
                     decoded.data.pin_state_9 = ((bytes[i1]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[i1]&0x02) === 0x02);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 5
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 }
                 if ((clustID===0x8006)&&(attID===0x0000)) decoded.data.speed = bytes[i1]*256*256+bytes[i1+1]*256+bytes[i1+2];
                 if ((clustID===0x8006)&&(attID===0x0001)) decoded.data.databit = bytes[i1]
@@ -374,19 +486,16 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x000c ) && (attID === 0x0055)){
                     decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
                     if (cmdID===0x8a) {
-                        if (bytes[i1 + 2] !== undefined) {
-                            let rc = decimalToBitString(bytes[i1 + 2])
-                        }
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
+                        if (bytes[i1 + 4] === undefined) {
                             rc = "none"
                             console.log("je suis dans le test undefined")
 
                         } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
+                            rc = decimalToBitString(bytes[i1 + 4])
                             console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
@@ -761,6 +870,33 @@ function Decoder(bytes, port) {
                     if ((bytes[i1+2] &0x04) === 0x04) {decoded.data.disposable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 }
                 if ((clustID === 0x0050) && (firsthalfattID === 0xFF)){
                     console.log("je suis dans le 0xFF")
@@ -792,6 +928,33 @@ function Decoder(bytes, port) {
                     decoded.data.positive_reactive_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
                     decoded.data.negative_reactive_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1
+                        let rc = ""
+                        if (bytes[i2 + 5] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i2 + 5])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 8
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 }
                 if (  (clustID === 0x8010) && (attID === 0x0000)) {
                     decoded.data.ActiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
@@ -802,6 +965,33 @@ function Decoder(bytes, port) {
                     decoded.data.ReactiveEnergyWhPhaseC=Int32UnsignedToSigned(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
                     decoded.data.ActiveEnergyWhPhaseABC=Int32UnsignedToSigned(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
                     decoded.data.ReactiveEnergyWhPhaseABC=Int32UnsignedToSigned(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1
+                        let rc = ""
+                        if (bytes[i1 + 33] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 33])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 8
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 } else if (  (clustID === 0x8010) && (attID === 0x0001)) {
                     decoded.data.ActivePowerWPhaseA= Int32UnsignedToSigned(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
                     decoded.data.ReactivePowerWPhaseA= Int32UnsignedToSigned(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
@@ -811,6 +1001,33 @@ function Decoder(bytes, port) {
                     decoded.data.ReactivePowerWPhaseC=Int32UnsignedToSigned(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
                     decoded.data.ActivePowerWPhaseABC=Int32UnsignedToSigned(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
                     decoded.data.ReactivePowerWPhaseABC=Int32UnsignedToSigned(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1
+                        let rc = ""
+                        if (bytes[i1 + 33] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 33])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 8
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 }
                 if (  (clustID === 0x800b) && (attID === 0x0000)) {
                     let i2 = i1;
@@ -819,6 +1036,33 @@ function Decoder(bytes, port) {
                     decoded.data.Irms = UintToInt(bytes[i2+1]*256+bytes[i2+2],2)/10;
                     i2 = i2 + 2;
                     decoded.data.phase_angle = UintToInt(bytes[i2+1]*256+bytes[i2+2],2);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 10
+                        let rc = ""
+                        if (bytes[i2 + 3] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i2 + 3])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 }
                 if (  (clustID === 0x800d) && (attID === 0x0000)) {
                     decoded.data.VrmsA=UintToInt(bytes[i1+1]*256+bytes[i1+2],2)/10;
@@ -830,13 +1074,37 @@ function Decoder(bytes, port) {
                     decoded.data.VrmsC=UintToInt(bytes[i1+13]*256+bytes[i1+14],2)/10;
                     decoded.data.IrmsC=UintToInt(bytes[i1+15]*256+bytes[i1+16],2)/10;
                     decoded.data.PhaseC=UintToInt(bytes[i1+17]*256+bytes[i1+18],2);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 10
+                        let rc = ""
+                        if (bytes[i1 + 19] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 19])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 }
                 if ((clustID === 0x800c) && (attID === 0x0000)){
                     decoded.data.Concentration = (bytes[i1]*256+bytes[i1+1]);
                     if (cmdID===0x8a) {
-                        if (bytes[i1 + 2] !== undefined) {
-                            let rc = decimalToBitString(bytes[i1 + 2])
-                        }
                         let listMess = []
                         let flag = 0
                         let divider = 1
@@ -865,9 +1133,96 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID===0x800C)&&(attID===0x0001)) decoded.data.analog=bytes[i1];
                 if ((clustID===0x800C)&&(attID===0x0002)) decoded.data.analog=bytes[i1];
-                if ((clustID === 0x0400) && (attID === 0x0000)) decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
-                if ((clustID === 0x0403) && (attID === 0x0000)) decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
-                if ((clustID === 0x0406) && (attID === 0x0000)) decoded.data.Occupancy = !(!bytes[i1]);
+                if ((clustID === 0x0400) && (attID === 0x0000)) {
+                    decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
+                if ((clustID === 0x0403) && (attID === 0x0000)) {
+                    decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 2] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 2])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
+                if ((clustID === 0x0406) && (attID === 0x0000)) {
+                    decoded.data.Occupancy = !(!bytes[i1]);
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        if (bytes[i1 + 1] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 1])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 5
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
                 if ((clustID === 0x8052) && (attID === 0x0000)) {
                     let i2 = i1;
                     decoded.data.frequency = (UintToInt(bytes[i2 + 1] * 256 + bytes[i2 + 2],2) + 22232) / 1000;
