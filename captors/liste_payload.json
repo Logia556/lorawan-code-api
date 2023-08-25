@@ -14,9 +14,9 @@
   "payload_standard_V/A/P_1": ["110A800B00004106094C030E0163","remplacer le 1 par 3 ou 5 pour _2 ou _3"],
   "payload_standard_E/P_1": ["710A800A000041200003A96A00000000000092990000705000007C7F00000000000000C000000F6F","remplacer le 1 par 3,5,7 pour _2 _3 _4"],
   "payload_standard_pressure": ["110A04030000290045"],
-  "payload_standard_occupancy": ["110A040600002901"],
-  "payload_standard_illuminance": ["110A04000000290745"],
-  "payload_standard_ON/OFF": ["110A000600002901"],
+  "payload_standard_occupancy": ["110A040600001801"],
+  "payload_standard_illuminance": ["110A04000000210745"],
+  "payload_standard_ON/OFF": ["110A000600001001"],
   "payload_standard_differential_pressure": ["110A80080000290018"]
 
 
