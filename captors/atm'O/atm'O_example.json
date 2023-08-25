@@ -1,6 +1,7 @@
 [{
   "name": "atm'O",
   "version": "1.0.0",
+  "clusters": "[\"temperature:0402\",\"humidity:0405\",\"basic:0000\",\"lorawan:8004\",\"configuration:0050\",\"pressure:0403\"]",
   "dependencies": {
   }
 },

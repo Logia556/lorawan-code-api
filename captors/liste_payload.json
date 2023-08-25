@@ -1,0 +1,73 @@
+[
+  {
+  "type": "payload_standard",
+  "payload_standard_humidity": ["110A04050000210E89"],
+  "payload_standard_temperature": ["110A04020000290B89"],
+  "payload_standard_temperature2": ["310A04020000290A7C"],
+  "payload_standard_battery": ["110A00500006410503040E6804"],
+  "payload_standard_bin": ["110A000F00551001"],
+  "payload_standard_count": ["110A000F04022300000000"],
+  "payload_standard_TVOC": ["110A800C0000210019"],
+  "payload_standard_CO2": ["310A800C00002107A5"],
+  "payload_standard_ampère": ["110A000C00553941500000"],
+  "payload_standard_volt": ["310A000C00553941500000"],
+  "payload_standard_V/A/P_1": ["110A800B00004106094C030E0163","remplacer le 1 par 3 ou 5 pour _2 ou _3"],
+  "payload_standard_E/P_1": ["710A800A000041200003A96A00000000000092990000705000007C7F00000000000000C000000F6F","remplacer le 1 par 3,5,7 pour _2 _3 _4"],
+  "payload_standard_pressure": ["110A04030000290045"],
+  "payload_standard_occupancy": ["110A040600002901"],
+  "payload_standard_illuminance": ["110A04000000290745"],
+  "payload_standard_ON/OFF": ["110A000600002901"],
+  "payload_standard_differential_pressure": ["110A80080000290018"]
+
+
+
+
+  },
+  {
+    "type": "payload_basic_cluster",
+    "payload_firmaware_version": ["110100000002000D0305020015E2"],
+    "payload_kernel_version": ["11010000000300420B436F6E74696B6920332E78"],
+    "payload_model_identifier": ["11010000000500420D37312D37302D3130332D303030"],
+    "payload_date_production": ["1101000000060042083235313132303231"],
+    "payload_app_name": ["110100008001004220332E352E322E353630325F6970732D6963742D74682E73687463332E6C656473"]
+  },
+  {
+    "type": "payload_lorawan",
+    "payload_message_type_dataUP": ["110180040000000800"],
+    "payload_message_retry_dataUP": ["110180040001002007"],
+    "payload_datarate": ["11018004000300410201FF"],
+    "payload_ABP": ["110180040004004104FFFFFFFF"]
+  },
+  {
+    "TIC_frames_examples": [
+      "110a005601004113240205144515040c0a09210001968200f17fc5",
+      "110a00540000410c0000000000000040242d0e6a",
+      "110a005700004115650328292a0c0415093b3527f7e5a0000004064410",
+      "110a005700004125488007000000100e06041636028464040c0415093b1a0e27f7e5a000000003f2be0000420b",
+      "110a0056010041170410003445140a0313000283494e440000462c00233f4c",
+      "110a0056010041132402051445140a180525190001a81401cd4593",
+      "110a00540000410c80000000000000401535d2f6",
+      "110a00570000411e6802030c28292a37040c0415093b3a0e27f7e5a00000260b47920000570b",
+      "110a00570000411e6802030c28292a37040c0415093b350e27f7e5a00000000443ba00002c0b",
+      "110a005700004115650328292a0c0415093b3127f7e5a00000000807a3",
+      "110a00570000411e6802030c28292a37040c0415093b2a0e27f7e5a000000005cdd500003c0b",
+      "110a00570000411e6802030c28292a37040c0415093b290e27f7e5a00000000409550000280b",
+      "110a00540000411d0000000180100180018480a3036af7c148502e2e000000150100001130"
+    ]
+  },
+  {
+    "type": "payload_alarm",
+    "temperature": {
+      "threshold": {
+        "none": ["118A04020000290C13"],
+        "short": ["118A0402000029075590B0B1"],
+        "long": ["118a0402000029010ea0b008fc000001b10834000001b207d0000001"]
+      },
+      "delta": {
+        "none": ["118A04020000290ADE"],
+        "short": [""],
+        "long": [""]
+      }
+    }
+  }
+]
