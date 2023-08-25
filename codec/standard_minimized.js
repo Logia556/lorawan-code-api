@@ -16,10 +16,6 @@ function Bytes2Float32(bytes) {
     } else signi = (signi | (1 << 23)) / (1 << 23);
     return sign * signi * Math.pow(2, exp);
 }
-function Int32UnsignedToSigned(Int32) {
-    if (Int32 > 0x7FFFFFFF) Int32 -= 0x100000000;
-    return Int32;
-}
 function BytesToInt64(InBytes, Starti1, Type, LiEnd)
 {
     if(typeof(LiEnd) == 'undefined') LiEnd = false;
@@ -961,14 +957,14 @@ function Decoder(bytes, port) {
                     }
                 }
                 if (  (clustID === 0x8010) && (attID === 0x0000)) {
-                    decoded.data.ActiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
-                    decoded.data.ReactiveEnergyWhPhaseA=Int32UnsignedToSigned(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
-                    decoded.data.ActiveEnergyWhPhaseB=Int32UnsignedToSigned(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
-                    decoded.data.ReactiveEnergyWhPhaseB=Int32UnsignedToSigned(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
-                    decoded.data.ActiveEnergyWhPhaseC=Int32UnsignedToSigned(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
-                    decoded.data.ReactiveEnergyWhPhaseC=Int32UnsignedToSigned(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
-                    decoded.data.ActiveEnergyWhPhaseABC=Int32UnsignedToSigned(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
-                    decoded.data.ReactiveEnergyWhPhaseABC=Int32UnsignedToSigned(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    decoded.data.ActiveEnergyWhPhaseA=UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
+                    decoded.data.ReactiveEnergyWhPhaseA=UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
+                    decoded.data.ActiveEnergyWhPhaseB=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
+                    decoded.data.ReactiveEnergyWhPhaseB=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
+                    decoded.data.ActiveEnergyWhPhaseC=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
+                    decoded.data.ReactiveEnergyWhPhaseC=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
+                    decoded.data.ActiveEnergyWhPhaseABC=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
+                    decoded.data.ReactiveEnergyWhPhaseABC=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
@@ -997,14 +993,14 @@ function Decoder(bytes, port) {
                         }
                     }
                 } else if (  (clustID === 0x8010) && (attID === 0x0001)) {
-                    decoded.data.ActivePowerWPhaseA= Int32UnsignedToSigned(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
-                    decoded.data.ReactivePowerWPhaseA= Int32UnsignedToSigned(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
-                    decoded.data.ActivePowerWPhaseB=Int32UnsignedToSigned(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
-                    decoded.data.ReactivePowerWPhaseB=Int32UnsignedToSigned(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
-                    decoded.data.ActivePowerWPhaseC=Int32UnsignedToSigned(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
-                    decoded.data.ReactivePowerWPhaseC=Int32UnsignedToSigned(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
-                    decoded.data.ActivePowerWPhaseABC=Int32UnsignedToSigned(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
-                    decoded.data.ReactivePowerWPhaseABC=Int32UnsignedToSigned(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    decoded.data.ActivePowerWPhaseA= UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
+                    decoded.data.ReactivePowerWPhaseA= UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
+                    decoded.data.ActivePowerWPhaseB=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
+                    decoded.data.ReactivePowerWPhaseB=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
+                    decoded.data.ActivePowerWPhaseC=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
+                    decoded.data.ReactivePowerWPhaseC=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
+                    decoded.data.ActivePowerWPhaseABC=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
+                    decoded.data.ReactivePowerWPhaseABC=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
