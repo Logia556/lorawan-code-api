@@ -27,7 +27,7 @@ let date = argv[2];
 let input = {
     bytes: bytes,
     fPort: Number(argv[0]),
-    recvTime: new Date(),
+    recvTime: date,
 };
 console.log(input)
 function decodeUplink(input) {
