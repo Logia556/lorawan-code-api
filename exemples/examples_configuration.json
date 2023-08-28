@@ -22,11 +22,11 @@
       "recvTime": "2023-07-19T07:51:25.508306410Z"
     },
     "output": {
-      "data": {
+      "data": [{
         "variable": "disposable_battery_voltage",
         "value": 3.688,
         "date": "2023-07-19T07:51:25.508306410Z"
-      },
+      }],
       "warnings": [
         ""
       ]
