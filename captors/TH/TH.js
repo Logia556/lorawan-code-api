@@ -34,5 +34,6 @@ function decodeUplink(input) {
 }
 let a = decodeUplink(input);
 console.log(a)
+console.log(JSON.stringify(a))
 
 
