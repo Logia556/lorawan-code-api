@@ -7,7 +7,7 @@ module.exports={
         "bundle.js":[path.resolve(__dirname,'../../codec/standard_minimized.js'),
             path.resolve(__dirname,'../../codec/batch_minimized.js'),
             path.resolve(__dirname,'../../codec/decode_uplink.js'),
-            path.resolve(__dirname,"../../captors/humid'o/humid'o.js"),
+            path.resolve(__dirname,"../../captors/remote_temperature/remote_temperature.js"),
         ]
     },
     output: {
