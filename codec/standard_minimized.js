@@ -1303,12 +1303,48 @@ function Decoder(bytes, port) {
             if(cmdID === 0x07){
                 attID = bytes[6]*256 + bytes[7];decoded.zclheader.attID = decimalToHex(attID,4);
                 decoded.zclheader.status = bytes[4];
-                decoded.zclheader.batch = bytes[5];
+                decoded.zclheader.batch = {}
+                let bits = decimalToBitString(bytes[5]);
+                decoded.zclheader.batch.new_mode_configuration = bits[0];
+                if ((bits[2]==="0") && (bits[3]==="0")){
+                    decoded.zclheader.batch.cause_request = "none";
+                }
+                if ((bits[2]==="0") && (bits[3]==="1")){
+                    decoded.zclheader.batch.cause_request = "short";
+                }
+                if ((bits[2]==="1") && (bits[3]==="0")){
+                    decoded.zclheader.batch.cause_request = "long";
+                }
+                if ((bits[2]==="1") && (bits[3]==="1")){
+                    decoded.zclheader.batch.cause_request = "reserved";
+                }
+                decoded.zclheader.batch.secured_if_alarm = bits[4];
+                decoded.zclheader.batch.secured = bits[5];
+                decoded.zclheader.batch.no_hearde_port = bits[6];
+                decoded.zclheader.batch.batch = bits[7];
             }
             if(cmdID === 0x09){
                 attID = bytes[6]*256 + bytes[7];decoded.zclheader.attID = decimalToHex(attID,4);
                 decoded.zclheader.status = bytes[4];
-                decoded.zclheader.batch = bytes[5];
+                decoded.zclheader.batch = {}
+                let bits = decimalToBitString(bytes[5]);
+                decoded.zclheader.batch.new_mode_configuration = bits[0];
+                if ((bits[2]==="0") && (bits[3]==="0")){
+                    decoded.zclheader.batch.cause_request = "none";
+                }
+                if ((bits[2]==="0") && (bits[3]==="1")){
+                    decoded.zclheader.batch.cause_request = "short";
+                }
+                if ((bits[2]==="1") && (bits[3]==="0")){
+                    decoded.zclheader.batch.cause_request = "long";
+                }
+                if ((bits[2]==="1") && (bits[3]==="1")){
+                    decoded.zclheader.batch.cause_request = "reserved";
+                }
+                decoded.zclheader.batch.secured_if_alarm = bits[4];
+                decoded.zclheader.batch.secured = bits[5];
+                decoded.zclheader.batch.no_hearde_port = bits[6];
+                decoded.zclheader.batch.batch = bits[7];
                 decoded.zclheader.attribut_type = bytes[8];
                 decoded.zclheader.min = {}
                 if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unit = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unit = "seconds";}
