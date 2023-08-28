@@ -101,7 +101,6 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
     let i = 0
     let check = 0
-    let baseLength = length
     let countUp=0
     let countDown=0
     while(flag===0) {
@@ -112,38 +111,20 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
             flag = 1
             break
         }
-        if(length!== baseLength){
-            length=baseLength
-        }
         let csd = decimalToBitString(bi)
         let index = int(csd[5])*4+int(csd[6])*2+int(csd[7])
         if ((csd[3] === "1") && (csd[4] === "0")) {
-            let countCheck = decimalToBitString(bytes[i1 + 6 + (length*i)])
-            if(countCheck[0] === "1"){
-                check = 1
-                length+=2
-            }
             let mode = "threshold"
             let qual = ""
             if (csd[1] === "1") {
                 qual = "exceed"
                 countUp= decimalToBitString(bytes[i1 + 7 + (length*i)]) + decimalToBitString(bytes[i1 + 8 + (length*i)])
                 countUp = parseInt(countUp, 2)
-                if(check===1){
-                    countDown= decimalToBitString(bytes[i1 + 9 + (length*i)]) + decimalToBitString(bytes[i1 + 10 + (length*i)])
-                    countDown = parseInt(countDown, 2)
-                }
             } else {
                 qual = "fall"
-                if(check===1){
-                    countUp= decimalToBitString(bytes[i1 + 7 + (length*i)]) + decimalToBitString(bytes[i1 + 8 + (length*i)])
-                    countUp = parseInt(countUp, 2)
-                    countDown= decimalToBitString(bytes[i1 + 9 + (length*i)]) + decimalToBitString(bytes[i1 + 10 + (length*i)])
-                    countDown = parseInt(countDown, 2)
-                }else {
-                    countDown = decimalToBitString(bytes[i1 + 7 + (length * i)]) + decimalToBitString(bytes[i1 + 8 + (length * i)])
-                    countDown = parseInt(countDown, 2)
-                }
+                countDown = decimalToBitString(bytes[i1 + 7 + (length * i)]) + decimalToBitString(bytes[i1 + 8 + (length * i)])
+                countDown = parseInt(countDown, 2)
+
 
             }
             let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
@@ -151,10 +132,6 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
 
             let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             listMess.push(mess)
-            if (check ===1){
-                length-=2
-                check = 0
-            }
 
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {

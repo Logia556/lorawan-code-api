@@ -24,7 +24,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing CO2 value | payload:110A800C0000210019",
+    "description": "uplink standard report containing CO2 value | payload:310A800C00002107A5",
     "input": {
       "bytes": [
         49, 10, 128,  12, 0,
