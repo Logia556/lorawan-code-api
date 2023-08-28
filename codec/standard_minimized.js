@@ -932,7 +932,6 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
     while(flag === 0) {
         let bi = bytes[(i1 + 3 +(length*i))]
         if (bi === undefined){
-            console.log(listMess)
             decoded.zclheader.alarmmess = listMess
             flag = 1
             break
@@ -968,7 +967,6 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
     while(flag===0) {
         let bi = bytes[(i1 + 3 +(length*i))]
         if (bi === undefined){
-            console.log(listMess)
             decoded.zclheader.alarmmess = listMess
             flag = 1
             break
@@ -1046,12 +1044,10 @@ function Decoder(bytes, port) {
             decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
             cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
             clustID = bytes[2]*256 + bytes[3]; decoded.zclheader.clustID = decimalToHex(clustID,4);
-            console.log(clustID)
             if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
                 decoded.data = {};
                 attID = bytes[4]*256 + bytes[5];decoded.zclheader.attID = decimalToHex(attID,4);
                 let firsthalfattID = bytes[4]
-                console.log(firsthalfattID)
                 let i1 = 0
                 if ((cmdID === 0x0a) || (cmdID === 0x8a)) i1 = 7;
                 if (cmdID === 0x8a) decoded.zclheader.alarm = 1;
@@ -1073,7 +1069,6 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x0000 ) && (attID === 0x0003)){
                     let length = bytes[i1];
                     decoded.data.kernel=""
-                    console.log(decoded.data.kernel)
                     for (let i = 0; i < length; i++) {
                         decoded.data.kernel += String.fromCharCode(bytes[i1 + 1 + i]);
 
@@ -1125,11 +1120,9 @@ function Decoder(bytes, port) {
                         let divider = 100
                         if(bytes[i1+2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         }else{
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none"){
                             listMess.push("alarm triggered")
@@ -1161,11 +1154,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1193,11 +1184,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 4] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 4])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1223,11 +1212,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 1] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 1])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1269,11 +1256,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 1] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 1])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1302,11 +1287,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1342,11 +1325,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1376,11 +1357,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 4] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 4])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1685,11 +1664,9 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 1] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
 
                         } else {
                             rc = decimalToBitString(bytes[i1 + 1])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1768,11 +1745,6 @@ function Decoder(bytes, port) {
                         configuration[i] = endpoint;
                     }
                     decoded.data.configuration = configuration;
-                    console.log("configuration",configuration)
-                    console.log(configuration[0].input_clusters)
-
-
-
                 }
                 if ((clustID === 0x0050 ) && (attID === 0x0006)) {
                     let i2 = i1 + 3;
@@ -1788,11 +1760,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1810,8 +1779,6 @@ function Decoder(bytes, port) {
                     }
                 }
                 if ((clustID === 0x0050) && (firsthalfattID === 0xFF)){
-                    console.log("je suis dans le 0xFF")
-
                     let secondhalfattID = bytes[5];
                     let action = "action "+secondhalfattID.toString();
                     decoded.data[action]=""
@@ -1846,11 +1813,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i2 + 5] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i2 + 5])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1883,11 +1847,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 33] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 33])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1919,11 +1880,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 33] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 33])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1954,11 +1912,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i2 + 3] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i2 + 3])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -1992,11 +1947,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 19] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 19])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -2053,11 +2005,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -2083,11 +2032,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 2])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
@@ -2113,11 +2059,8 @@ function Decoder(bytes, port) {
                         let rc = ""
                         if (bytes[i1 + 1] === undefined) {
                             rc = "none"
-                            console.log("je suis dans le test undefined")
-
                         } else {
                             rc = decimalToBitString(bytes[i1 + 1])
-                            console.log("je suis dans le test defined")
                         }
                         if (rc === "none") {
                             listMess.push("alarm triggered")
