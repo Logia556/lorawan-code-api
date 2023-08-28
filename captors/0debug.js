@@ -1,18 +1,24 @@
 let watteco = require("../codec/watteco_decodeUplink.js")
 
-
+function strToDecimalArray(str){
+    let hexArray = [];
+    for (let i=0; i<str.length; i+=2) {
+        hexArray.push(parseInt(str.substring(i, i+2), 16));
+    }
+    return hexArray;
+}
 let argv= process.argv.slice(2);
 
 
 let bytes = [];
-bytes = watteco.strToDecimalArray(argv[1]);
+bytes = strToDecimalArray(argv[1]);
 
 let date = argv[2];
 
 let input = {
     bytes: bytes,
     fPort: Number(argv[0]),
-    recvTime: new Date(),
+    recvTime: date,
 };
 console.log(input)
 

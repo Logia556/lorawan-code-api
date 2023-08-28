@@ -12,60 +12,64 @@
     "payload_standard_battery": ["110A00500006410501040E3704"],
     "payload_batch": ["10020020611B0000C0220854A7CE1E"]
   },
+
   {
-    "type": "uplinkdecode",
-    "description": "uplink frame on flash'O captor parameters",
-    "input_standard_bin": {
+    "type": "uplink",
+    "description": "uplink standard report containing open detection value | payload:110A000F00551001",
+    "input": {
       "bytes": [
-        17, 10,  0, 15,
-        0, 85, 16,  0
+        17,
+        10,
+        0,
+        15,
+        0,
+        85,
+        16,
+        1
       ],
       "fPort": 125,
       "recvTime": "2023-07-19T07:51:25.508306410Z"
     },
-    "output_standard_bin": {
-      "data": {
+    "output": {
+      "data": [{
         "variable": "pin_state",
-        "value": false,
+        "value": true,
         "date": "2023-07-19T07:51:25.508306410Z"
-      },
-      "warnings": []
-    },
-
-    "input_standard_count": {
+      }],
+      "warnings": [
+        ""
+      ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing number of open detection | payload:110A000F04022300000000",
+    "input": {
       "bytes": [
-        17, 10,  0, 15,
-        4,  2, 35,  0,
-        0,  0, 22, 22
+        17,
+        10,
+        0,
+        15,
+        4,
+        2,
+        35,
+        0,
+        0,
+        0,
+        0
       ],
       "fPort": 125,
       "recvTime": "2023-07-19T07:51:25.508306410Z"
     },
-    "output_standard_count": {
-      "data": {
-        "variable": "count",
-        "value": 22,
-        "date": "2023-07-19T07:51:25.508306410Z"
-      },
-      "warnings": []
-    },
-
-    "input_standard_battery": {
-      "bytes": [17, 10, 0,  80, 0, 6, 65,  5,  1, 4, 14, 55,  4],
-      "fPort": 125,
-      "recvTime": "2023-07-19T07:51:25.508306410Z"
-    },
-
-    "output_standard_battery": {
-      "data": {
-        "variable": "disposable_battery_voltage",
-        "value": 3.639,
-        "date": "2023-07-19T07:51:25.508306410Z"
-      },
-      "warnings": []
+    "output": {
+      "data": [
+        {
+          "variable": "counter",
+          "value": 0,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [""]
     }
-
-
-
   }
 ]

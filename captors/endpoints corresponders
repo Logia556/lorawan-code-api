@@ -4,7 +4,7 @@ monit'o: analog:["0-100_mV","0-70_V"]
 
 vaqa'o: temperature:["+/- 0,5°C [1/100 °C]","+/-0,2°C [1/100 °C]"] / humidity:["+/- 2% [1/100%]","+/- 3% [1/100%]"] / Concentration: ["TVOC", "CO2"]
 
-in'o: binary:["index_1", "index_1", "index_2", "index_3", "index_4", "index_5", "index_6", "index_7", "index_8"] / ON/OFF:["output_1", "output_2", "output_3", "output_4"]
+in'o: binary:["index_1", "index_1", "index_2", "index_3", "index_4", "index_5", "index_6", "index_7", "index_8", "index_9", "index_10"] / ON/OFF:["output_1", "output_2", "output_3", "output_4"]
 
 modbus: serial_master_slave_protocol["1","2","3","4","5","6","7","8","9"] //peut-être inutile
 
