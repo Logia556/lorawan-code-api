@@ -2,7 +2,8 @@
   "name": "monit'O",
   "version": "1.0.0",
   "dependencies": {
-  }
+  },
+  "clusters":["basic:0000","lorawan:8004","configuration:0050","analoginput:000C/*2"]
 },
   {
     "payload_standard_analoginput": "110A000C0055393EEF5004",

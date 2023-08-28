@@ -22,4 +22,3 @@ let endpointCorresponder ={
 
 }
 
-let clusters=["binary:000F","basic:0000","lorawan:8004","configuration:0050","ON/OFF:0006","energy/power metering:800A/*4","voltage/courrant mettering:800B/*3","multienergy/powermetering:8010","multivoltage/courant:800D"]

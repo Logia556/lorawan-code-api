@@ -2,7 +2,8 @@
   "name": "intens'O",
   "version": "1.0.0",
   "dependencies": {
-  }
+  },
+  "clusters":["analoginput:000C","basic:0000","lorawan:8004","configuration:0050"]
 },
 {
   "payload_standard_measure": "310A000C00553900000000"

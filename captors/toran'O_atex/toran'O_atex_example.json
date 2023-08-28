@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
   },
+  "clusters":["binary:000F/*3","basic:0000","lorawan:8004","configuration:0050","analoginput:000C/*5","multibinary:8005"],
   "type": "uplinkdecode",
   "description": "uplink frame on toran'O captor parameters",
   "input_standard":{

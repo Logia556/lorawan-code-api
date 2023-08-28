@@ -4,6 +4,7 @@
     "version": "1.0.0",
     "dependencies": {
     },
+    "clusters":["temperature:0402","basic:0000","lorawan:8004","configuration:0050"],
     "type": "uplinkdecode",
     "description": "uplink frame on remote temperature captor parameters",
     "input_standard": {

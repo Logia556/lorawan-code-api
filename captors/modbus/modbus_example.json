@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "sourceMap": true
+    "sourceMap": true,
+    "clusters":["basic:0000","lorawan:8004","configuration:0050","serailMS:8007/*10","serialinterface:8006","mutliMS:8009"]
   },
   "exclude": [
     "node_modules"

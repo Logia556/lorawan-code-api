@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "sourceMap": true
+    "sourceMap": true,
+    "clusters":["binary:000F/*2","basic:0000","lorawan:8004","configuration:0050"]
   },
   "exclude": [
     "node_modules"

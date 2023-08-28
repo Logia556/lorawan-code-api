@@ -3,7 +3,8 @@
   "name": "TH",
   "version": "1.0.0",
   "dependencies": {
-    }
+    },
+    "clusters":["temperature:0402","humidity:0405","binary:000F","basic:0000","lorawan:8004","configuration:0050"]
   },
   {
     "payload_batch": ["362100808098c31ecb824d7b07ba3d"],

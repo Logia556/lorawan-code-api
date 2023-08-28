@@ -6,6 +6,7 @@
   },
   "type": "uplinkdecode",
   "description": "uplink frame on remote temperature 2 captor parameters",
+    "clusters":["temperature:0402/*2","basic:0000","lorawan:8004","configuration:0050"],
   "input_standard": {
     "bytes": [ 17, 10,  4,  2,  0,  0, 41,  0, 100],
     "fPort": 125,

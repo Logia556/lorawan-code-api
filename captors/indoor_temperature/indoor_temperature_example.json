@@ -2,5 +2,6 @@
   "name": "indoor_temperature",
   "version": "1.0.0",
   "dependencies": {
-  }
+  },
+  "clusters":["temperature:0402","basic:0000","lorawan:8004","configuration:0050"]
 }

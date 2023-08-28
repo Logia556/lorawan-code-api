@@ -2,5 +2,6 @@
   "name": "lev'O",
   "version": "1.0.0",
   "dependencies": {
-  }
+  },
+  "clusters":["analog:000C","basic:0000","lorawan:8004","configuration:0050"]
 }

@@ -2,6 +2,7 @@
   {
   "name": "flash'O",
   "version": "1.0.0",
+    "clusters":["basic:0000","lorawan:8004","configuration:0050","binary:000F"],
   "dependencies": {
   }
 },

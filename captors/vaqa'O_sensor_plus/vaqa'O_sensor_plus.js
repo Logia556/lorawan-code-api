@@ -39,4 +39,3 @@ function decodeUplink(input) {
 }
 module.exports.decodeUplink = decodeUplink;
 
-let clusters=["temperature:0402/*2","humidity:0405/*2","basic:0000","lorawan:8004","configuration:0050","concentration:800C/*2","binary:000F","occupency:0406","illuminance:0400","pressure:0403"]

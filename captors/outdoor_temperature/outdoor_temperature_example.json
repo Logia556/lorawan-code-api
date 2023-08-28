@@ -2,7 +2,9 @@
   "name": "outdoor_temperature",
   "version": "1.0.0",
   "dependencies": {
-  }},
+  },
+  "clusters":["temperature:0402","basic:0000","lorawan:8004","configuration:0050"]
+},
   {
     "payload_standard_battery": "110A00500006410501040E5404",
     "paylaod_standard_temperature": "110A04020000290A5C",

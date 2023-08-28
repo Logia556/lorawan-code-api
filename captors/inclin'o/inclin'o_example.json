@@ -2,5 +2,6 @@
   "name": "skydome",
   "version": "1.0.0",
   "dependencies": {
-  }
+  },
+  "clusters":["basic:0000","lorawan:8004","configuration:0050","analoginput(angle):000C","chock:800E","occupency:0406"]
 }

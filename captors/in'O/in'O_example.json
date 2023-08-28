@@ -1,6 +1,7 @@
 {
   "name": "in'O",
   "version": "1.0.0",
+  "clusters":["basic:0000","lorawan:8004","configuration:0050","binary:000F/*10","ON/OFF:0006/*4","multibinary:8005"],
   "dependencies": {
   }
 }
