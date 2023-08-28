@@ -964,6 +964,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
     let check = 0
     let countUp=0
     let countDown=0
+    let div = divider
     while(flag===0) {
         let bi = bytes[(i1 + 3 +(length*i))]
         if (bi === undefined){
@@ -988,7 +989,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
 
 
             }
-            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / div).toString()
 
 
             let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
@@ -997,7 +998,7 @@ function alarmLong(length, listMess, flag, bytes, decoded, i1,divider){
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
-            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / divider).toString()
+            let temp = ((bytes[i1 + 4 + (length*i)] * 256 + bytes[i1 + 5 + (length*i)]) / div).toString()
             let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
 
@@ -1188,7 +1189,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 4] === undefined) {
                             rc = "none"
@@ -1218,7 +1219,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 1] === undefined) {
                             rc = "none"
@@ -1259,7 +1260,36 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x000f ) && (attID === 0x0401)) decoded.data.debounceperiod = bytes[i1]
                 if ((clustID === 0x000f ) && (attID === 0x0403)) decoded.data.pollperiod = bytes[i1]
                 if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.forcenotify = bytes[i1]
-                if ((clustID === 0x0013 ) && (attID === 0x0055)) decoded.data.value = bytes[i1];
+                if ((clustID === 0x0013 ) && (attID === 0x0055)) {
+                    decoded.data.value = bytes[i1]
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1
+                        let rc = ""
+                        if (bytes[i1 + 1] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 1])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 5
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
+                }
                 if ((clustID === 0x0006 ) && (attID === 0x0000)) {
                     let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ;
                 }
@@ -1268,7 +1298,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
@@ -1308,7 +1338,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
@@ -1648,6 +1678,33 @@ function Decoder(bytes, port) {
                         }
                         i2 += decoded.data.multimodbus_EP6_datasize;
                     }
+                    if (cmdID===0x8a) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1
+                        let rc = ""
+                        if (bytes[i1 + 1] === undefined) {
+                            rc = "none"
+                            console.log("je suis dans le test undefined")
+
+                        } else {
+                            rc = decimalToBitString(bytes[i1 + 1])
+                            console.log("je suis dans le test defined")
+                        }
+                        if (rc === "none") {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        ;
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 5
+                            alarmLong(length, listMess, flag, bytes, decoded, i1, divider)
+                        }
+                    }
                 }
                 if (  (clustID === 0x0052 ) && (attID === 0x0000)) {
                     decoded.data.active_energy_Wh = UintToInt(bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3],3);
@@ -1727,7 +1784,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1000
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
@@ -1893,7 +1950,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 10
+                        let divider = 1
                         let rc = ""
                         if (bytes[i2 + 3] === undefined) {
                             rc = "none"
@@ -1931,7 +1988,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 10
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 19] === undefined) {
                             rc = "none"
@@ -1992,7 +2049,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 2] === undefined) {
                             rc = "none"
@@ -2052,7 +2109,7 @@ function Decoder(bytes, port) {
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
-                        let divider = 100
+                        let divider = 1
                         let rc = ""
                         if (bytes[i1 + 1] === undefined) {
                             rc = "none"
