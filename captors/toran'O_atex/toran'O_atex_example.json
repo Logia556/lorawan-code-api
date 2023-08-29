@@ -1,34 +1,193 @@
-[{
-  "name": "toran'O_atex",
-  "version": "1.0.0",
-  "dependencies": {
-  },
-  "clusters":["binary:000F/*3","basic:0000","lorawan:8004","configuration:0050","analoginput:000C/*5","multibinary:8005"],
-  "type": "uplinkdecode",
-  "description": "uplink frame on toran'O captor parameters",
-  "input_standard":{
-    "bytes": [ 17, 10,  0, 15,  0, 85, 16,  1],
-    "fPort": 125,
-    "recvTime": "undefined"
-  },
-  "output_standard": {
-    "data": {
-      "lora": {
-        "port": 125,
-        "payload": "110A000F00551001",
-        "date": "2023-07-17T08:07:37.621Z"
-      },
-      "zclheader": {
-        "report": "standard",
-        "endpoint": 0,
-        "cmdID": "0x0A",
-        "clusterdID": "0x000F",
-        "attributID": "0x0055"
-      },
-      "data": { "pin_state": true }
+[
+  {
+    "name": "toran'O_atex",
+    "version": "1.0.0",
+    "dependencies": {
     },
-    "warnings": []
+    "clusters": [
+      "binary:000F/*3",
+      "basic:0000",
+      "lorawan:8004",
+      "configuration:0050",
+      "analoginput:000C/*5",
+      "multibinary:8005"
+    ]
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing open detection value | payload:110A000F00551001",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        0,
+        15,
+        0,
+        85,
+        16,
+        1
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [{
+        "variable": "pin_state_1",
+        "value": true,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      }],
+      "warnings": [
+        ""
+      ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing number of open detection | payload:110A000F04022300000000",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        0,
+        15,
+        4,
+        2,
+        35,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "index_1",
+          "value": 0,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [""]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing volt value | payload:310A000C00553941500000",
+    "input": {
+      "bytes": [
+        49, 10,  0, 12, 0,
+        85, 57, 65, 80, 0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "0-5_V_1",
+          "value": 13,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
 
+  },
+
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing amp value | payload:110A000C00553941500000",
+    "input": {
+      "bytes": [
+        17, 10,  0, 12, 0,
+        85, 57, 65, 80, 0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "4-20_mA",
+          "value": 13,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing 10 state values | payload:110A80050000190371",
+    "input": {
+      "bytes": [
+        17, 10, 128,   5, 0,
+        0, 25,   3, 113
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "pin_state_1",
+          "value": true,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_2",
+          "value": false,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_3",
+          "value": false,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_4",
+          "value": false,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_5",
+          "value": true,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_6",
+          "value": true,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_7",
+          "value": true,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_8",
+          "value": false,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_9",
+          "value": true,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "pin_state_10",
+          "value": true,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
   }
-}
 ]

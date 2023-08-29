@@ -8,5 +8,56 @@
   {
     "payload_standard_analoginput": "110A000C0055393EEF5004",
     "payload_batch": "3620000000230708EC7DD60B3DB20F4204005800"
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing volt value | payload:310A000C00553941500000",
+    "input": {
+      "bytes": [
+        49, 10,  0, 12, 0,
+        85, 57, 65, 80, 0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "0-70_V",
+          "value": 13,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
+
+  },
+
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing amp value | payload:110A000C00553941500000",
+    "input": {
+      "bytes": [
+        17, 10,  0, 12, 0,
+        85, 57, 65, 80, 0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "0-100_mV",
+          "value": 13,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
   }
 ]

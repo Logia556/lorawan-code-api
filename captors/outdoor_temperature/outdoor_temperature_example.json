@@ -11,6 +11,33 @@
     "payload_standard_alarm_delta": "118A040200002909BEA0C80064",
     "payload_standard_alarm_threshold_long": "118A04020000290B8EA0D005DC000001",
     "payload_batch": "20010000017D0585A8E9401708F07703FCD903"
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing temperature value | payload:110A04020000290B89",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        4,
+        2,
+        0,
+        0,
+        41,
+        11,
+        137
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:31.598957793Z"
+    },
+    "output": {
+      "data": [{
+        "variable": "temperature",
+        "value": 29.53,
+        "date": "2023-07-19T07:51:31.598957793Z"
+      }],
+      "warnings": [""]
+    }
   }
 
 ]

@@ -1,5 +1,27 @@
 let watteco = require("../../codec/decode_uplink")
 
+let batch_param=[]
+function strToDecimalArray(str){
+    let hexArray = [];
+    for (let i=0; i<str.length; i+=2) {
+        hexArray.push(parseInt(str.substring(i, i+2), 16));
+    }
+    return hexArray;
+}
+let argv= process.argv.slice(2);
+
+
+let bytes = [];
+bytes = strToDecimalArray(argv[1]);
+
+let date = argv[2];
+
+let input = {
+    bytes: bytes,
+    fPort: Number(argv[0]),
+    recvTime: date,
+};
+console.log(input)
 
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
@@ -7,18 +29,20 @@ function decodeUplink(input) {
 module.exports.decodeUplink = decodeUplink;
 
 let endpointCorresponder ={
-    sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_1","sum_positive_active_energy_Wh_2","sum_positive_active_energy_Wh_3","sum_positive_active_energy_Wh_4"],
-    sum_negative_active_energy_Wh: ["sum_negative_active_energy_Wh_1","sum_negative_active_energy_Wh_2","sum_negative_active_energy_Wh_3","sum_negative_active_energy_Wh_4"],
-    sum_positive_reactive_energy_Wh: ["sum_positive_reactive_energy_Wh_1","sum_positive_reactive_energy_Wh_2","sum_positive_reactive_energy_Wh_3","sum_positive_reactive_energy_Wh_4"],
-    sum_negative_reactive_energy_Wh: ["sum_negative_reactive_energy_Wh_1","sum_negative_reactive_energy_Wh_2","sum_negative_reactive_energy_Wh_3","sum_negative_reactive_energy_Wh_4"],
-    positive_active_power_W: ["positive_active_power_W_1","positive_active_power_W_2","positive_active_power_W_3","positive_active_power_W_4"],
-    negative_active_power_W: ["negative_active_power_W_1","negative_active_power_W_2","negative_active_power_W_3","negative_active_power_W_4"],
-    positive_reactive_power_W: ["positive_reactive_power_W_1","positive_reactive_power_W_2","positive_reactive_power_W_3","positive_reactive_power_W_4"],
-    negative_reactive_power_W: ["negative_reactive_power_W_1","negative_reactive_power_W_2","negative_reactive_power_W_3","negative_reactive_power_W_4"],
-    Vrms: ["Vrms_1","Vrms_2","Vrms_3","Vrms_4"],
-    Irms: ["Irms_1","Irms_2","Irms_3","Irms_4"],
-    phase_angle: ["phase_angle_1","phase_angle_2","phase_angle_3","phase_angle_4"],
+    sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_A","sum_positive_active_energy_Wh_B","sum_positive_active_energy_Wh_C","sum_positive_active_energy_Wh_ABC"],
+    sum_negative_active_energy_Wh: ["sum_negative_active_energy_Wh_A","sum_negative_active_energy_Wh_B","sum_negative_active_energy_Wh_C","sum_negative_active_energy_Wh_ABC"],
+    sum_positive_reactive_energy_Wh: ["sum_positive_reactive_energy_Wh_A","sum_positive_reactive_energy_Wh_B","sum_positive_reactive_energy_Wh_C","sum_positive_reactive_energy_Wh_ABC"],
+    sum_negative_reactive_energy_Wh: ["sum_negative_reactive_energy_Wh_A","sum_negative_reactive_energy_Wh_B","sum_negative_reactive_energy_Wh_C","sum_negative_reactive_energy_Wh_ABC"],
+    positive_active_power_W: ["positive_active_power_W_A","positive_active_power_W_B","positive_active_power_W_C","positive_active_power_W_ABC"],
+    negative_active_power_W: ["negative_active_power_W_A","negative_active_power_W_B","negative_active_power_W_C","negative_active_power_W_ABC"],
+    positive_reactive_power_W: ["positive_reactive_power_W_A","positive_reactive_power_W_B","positive_reactive_power_W_C","positive_reactive_power_W_ABC"],
+    negative_reactive_power_W: ["negative_reactive_power_W_A","negative_reactive_power_W_B","negative_reactive_power_W_C","negative_reactive_power_W_ABC"],
+    Vrms: ["Vrms_A","Vrms_B","Vrms_C"],
+    Irms: ["Irms_A","Irms_B","Irms_C"],
+    phase_angle: ["phase_angle_A","phase_angle_B","phase_angle_C"],
 
 
 }
+let a = decodeUplink(input);
+console.log(a);
 

@@ -4,32 +4,38 @@
     "version": "1.0.0",
     "dependencies": {
     },
-    "clusters":["temperature:0402","basic:0000","lorawan:8004","configuration:0050"],
-    "type": "uplinkdecode",
-    "description": "uplink frame on remote temperature captor parameters",
-    "input_standard": {
-      "bytes": [ 17, 10,  4,  2,  0,  0, 41,  0, 100],
+    "clusters": [
+      "temperature:0402",
+      "basic:0000",
+      "lorawan:8004",
+      "configuration:0050"
+    ]
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing temperature value | payload:110A04020000290B89",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        4,
+        2,
+        0,
+        0,
+        41,
+        11,
+        137
+      ],
       "fPort": 125,
-      "recvTime": "undefined"
-
+      "recvTime": "2023-07-19T07:51:31.598957793Z"
     },
-    "output_standard": {
-      "data": {
-        "lora": {
-          "port": 125,
-          "payload": "110A04020000290064",
-          "date": "2023-07-17T07:34:04.559Z"
-        },
-        "zclheader": {
-          "report": "standard",
-          "endpoint": 0,
-          "cmdID": "0x0A",
-          "clusterdID": "0x0402",
-          "attributID": "0x0000"
-        },
-        "data": { "temperature": 1 }
-      },
-      "warnings": []
+    "output": {
+      "data": [{
+        "variable": "temperature",
+        "value": 29.53,
+        "date": "2023-07-19T07:51:31.598957793Z"
+      }],
+      "warnings": [""]
     }
   }
 ]

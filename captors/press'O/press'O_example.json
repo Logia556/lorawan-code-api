@@ -5,62 +5,115 @@
   },
   "clusters":["basic:0000","lorawan:8004","configuration:0050","analoginput:000C/*2","binary:000F"]
 },
+
   {
-    "type": "uplinkdecode",
-    "description": "uplink frame on press'O captor parameters",
-    "input_standard": {
-      "bytes": [17, 10,  0, 12, 0, 85, 57, 65, 80, 0, 0],
-      "fport": 125,
-      "recvTime": "TODO"
+    "type": "uplink",
+    "description": "uplink standard report containing open detection value | payload:110A000F00551001",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        0,
+        15,
+        0,
+        85,
+        16,
+        1
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
     },
-    "output_standard": {
+    "output": {
+      "data": [{
+        "variable": "pin_state",
+        "value": true,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      }],
+      "warnings": [
+        ""
+      ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing number of open detection | payload:110A000F04022300000000",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        0,
+        15,
+        4,
+        2,
+        35,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "counter",
+          "value": 0,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [""]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing volt value | payload:310A000C00553941500000",
+    "input": {
+      "bytes": [
+        49, 10,  0, 12, 0,
+        85, 57, 65, 80, 0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "0_10_V",
+          "value": 13,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
 
-      "data": {
-        "lora": {
-          "port": 125,
-          "payload": "110A000C00553941500000",
-          "date": "2023-07-12T08:12:47.858Z"
-        },
-        "zclheader": {
-          "report": "standard",
-          "endpoint": 0,
-          "cmdID": "0x0A",
-          "clusterdID": "0x000C",
-          "attributID": "0x0055"
-        },
-        "data": { "analog": 13 }
-      },
-      "warnings": []
-    },
-    "input_batch": {
-      "bytes": [32,  21,   0, 128,   1, 244, 162, 78, 112, 128, 210, 222, 1,  66, 18,  16, 249, 174,  41,  85,  64, 187, 101, 105,   4],
-      "fport": 125,
-      "recvTime": "TODO"
-    },
-    "output_batch": {
+  },
 
-      "data": {
-        "batch_counter": 5,
-        "batch_relative_timestamp": 1605,
-        "dataset": [   {
-          "data_relative_timestamp": 1000,
-          "data": { "value": 5052, "label": 1, "label_name": "0_10V" }
-        },
-          {
-            "data_relative_timestamp": 1120,
-            "data": { "value": 7520, "label": 1, "label_name": "0_10V" }
-          },
-          {
-            "data_relative_timestamp": 1000,
-            "data": { "value": 3.6, "label": 2, "label_name": "BatteryVoltage" }
-          },
-          {
-            "data_relative_timestamp": 1600,
-            "data": { "value": 3.5, "label": 2, "label_name": "BatteryVoltage" }
-          }
-        ]
-      },
-      "warnings": []
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing amp value | payload:110A000C00553941500000",
+    "input": {
+      "bytes": [
+        17, 10,  0, 12, 0,
+        85, 57, 65, 80, 0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "4_20_mA",
+          "value": 13,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
     }
   }
 ]

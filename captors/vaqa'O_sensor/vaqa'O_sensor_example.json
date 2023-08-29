@@ -38,228 +38,167 @@
       "payload_batch": [
         "424500000111008FC85EC128B4872088AD060442001E3322118A98782B"
       ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing temperature value | payload:110A04020000290B89",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        4,
+        2,
+        0,
+        0,
+        41,
+        11,
+        137
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:31.598957793Z"
     },
-    "meta": {
-      "input_standard_battery": {
-        "bytes": [
-          17, 10, 0, 80,  0,  6,
-          65,  5, 1,  4, 13, 70,
-          4
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-        "output_standard_battery": {
-            "data": {
-              "variable": "disposable_battery_voltage",
-              "value": 3.398,
-              "date": "2023-07-19T07:51:25.508306410Z"
-            },
-            "warnings": []
-        },
-
-      "input_standard_temperature": {
-        "bytes": [
-          17,
-          10,
-          4,
-          2,
-          0,
-          0,
-          41,
-          10,
-          69
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-      "output_standard_temperature": {
-        "data": {
-          "variable": "temperature",
-          "value": 26.29,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        "warnings": []
-      },
-      "input_standard_temperature2": {
-        "bytes": [
-          49,
-          10,
-          4,
-          2,
-          0,
-          0,
-          41,
-          10,
-          124
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-      "output_standard_temperature2": {
-        "data": {
-          "variable": "temperature",
-          "value": 26.84,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        "warnings": []
-      },
-      "input_standard_humidity": {
-        "bytes": [
-          17,
-          10,
-          4,
-          5,
-          0,
-          0,
-          33,
-          20,
-          190
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-      "output_standard_humidity": {
-        "data": {
-          "variable": "humidity",
-          "value": 53.1,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        "warnings": []
-      },
-      "input_standard_CO2": {
-        "bytes": [
-          49,
-          10,
-          128,
-          12,
-          0,
-          0,
-          33,
-          7,
-          165
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-      "output_standard_CO2": {
-        "data": {
-          "variable": "CO2",
-          "value": 1957,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        "warnings": []
-      },
-      "input_standard_TVOC": {
-        "bytes": [
-          17,
-          10,
-          128,
-          12,
-          0,
-          0,
-          33,
-          0,
-          25
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-      "output_standard_TVOC": {
-        "data": {
+    "output": {
+      "data": [{
+        "variable": "temperature_1",
+        "value": 29.53,
+        "date": "2023-07-19T07:51:31.598957793Z"
+      }],
+      "warnings": [""]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing humidity value | payload:110A04050000210E89",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        4,
+        5,
+        0,
+        0,
+        33,
+        14,
+        137
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [{
+        "variable": "humidity_1",
+        "value": 37.21,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      }],
+      "warnings": [
+        ""
+      ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing TVOC value | payload:110A800C0000210019",
+    "input": {
+      "bytes": [
+        17, 10, 128, 12, 0,
+        0, 33,   0, 25
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": [
+        {
           "variable": "TVOC",
           "value": 25,
           "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        "warnings": []
-      },
-      "input_standard_bin": {
-        "bytes": [
-          17,
-          10,
-          0,
-          15,
-          0,
-          85,
-          16,
-          0
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-      "output_standard_bin": {
-        "data": {
-          "variable": "pin_state",
-          "value": false,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        "warnings": []
-      },
-      "input_standard_count": {
-        "bytes": [
-          17,
-          10,
-          0,
-          15,
-          4,
-          2,
-          35,
-          0,
-          0,
-          0,
-          0
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-      "output_standard_count": {
-        "data": {
-          "variable": "count",
+        }
+      ],
+      "warnings": [ "" ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing open detection value | payload:110A000F00551001",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        0,
+        15,
+        0,
+        85,
+        16,
+        1
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [{
+        "variable": "pin_state",
+        "value": true,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      }],
+      "warnings": [
+        ""
+      ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing number of open detection | payload:110A000F04022300000000",
+    "input": {
+      "bytes": [
+        17,
+        10,
+        0,
+        15,
+        4,
+        2,
+        35,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "counter",
           "value": 0,
           "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        "warnings": []
-      },
-
-      "input_batch": {
-        "bytes": [
-          66,  69,   0,   0,   1,  17,  0, 143,
-          200,  94, 193,  40, 180, 135, 32, 136,
-          173,   6,   4,  66,   0,  30, 51,  34,
-          17, 138, 152, 120,  43
-        ],
-        "fPort": 125,
-        "recvTime": "2023-07-19T07:51:25.508306410Z"
-      },
-        "output_batch": {
-          "data": [
-            {
-              "variable": "Temperature",
-              "value": 26.3,
-              "date": "2023-07-19T07:51:16.508Z"
-            },
-            {
-              "variable": "Temperature",
-              "value": 26.3,
-              "date": "2023-07-19T07:51:21.508Z"
-            },
-            {
-              "variable": "Humidity",
-              "value": 41,
-              "date": "2023-07-19T07:51:16.508Z"
-            },
-            {
-              "variable": "Humidity",
-              "value": 41,
-              "date": "2023-07-19T07:51:21.508Z"
-            },
-            { "variable": "CO2", "value": 1540, "date": "2023-07-19T07:51:18.508Z" },
-            { "variable": "CO2", "value": 1500, "date": "2023-07-19T07:51:23.508Z" },
-            { "variable": "VOC", "value": 30, "date": "2023-07-19T07:51:16.508Z" },
-            { "variable": "VOC", "value": 30, "date": "2023-07-19T07:51:21.508Z" }
-          ],
-          "warnings": []
         }
+      ],
+      "warnings": [""]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing pressure value | payload:110A04030000290045",
+    "input": {
+      "bytes": [
+        17, 10, 4,  3, 0,
+        0, 41, 0, 69
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    }
+  ,
+    "output": {
+      "data": [
+        {
+          "variable": "Pressure",
+          "value": 69,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
     }
   }
 
