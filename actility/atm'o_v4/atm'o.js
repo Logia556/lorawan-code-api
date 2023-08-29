@@ -8,7 +8,7 @@ let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 7,lblname: "temperature"
     { taglbl: 5, resol: 1, sampletype: 6,lblname: "battery_voltage", divide: 1000}]];
 
 let endpointCorresponder={
-    count:["index_1","index_2","index_3"],
+    count:["index_1","index_2"],
 }
 
 function decodeUplink(input) {
@@ -18,3 +18,4 @@ function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
 module.exports.decodeUplink = decodeUplink;
+

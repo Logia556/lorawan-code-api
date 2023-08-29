@@ -1,11 +1,10 @@
 let watteco = require("../../codec/decode_uplink")
 
+let batch_param = []
 function decodeUplink(input) {
 
-    return result = watteco.watteco_decodeUplink(input);
+    return result = watteco.watteco_decodeUplink(input,batch_param);
 
 }
-
 module.exports.decodeUplink = decodeUplink;
 
-let clusters=["binary:000F/*2","basic:0000","lorawan:8004","configuration:0050",]
