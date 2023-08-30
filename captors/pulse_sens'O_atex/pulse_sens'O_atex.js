@@ -12,12 +12,30 @@ let batch_param = [4, [{taglbl: 0,resol: 1, sampletype: 10,lblname: "index_1", d
 let endpointCorresponder={
     count:["index_1","index_2","index_3"],
     pin_state:["pin_state_1","pin_state_2","pin_state_3"],
-    polarity:["polarity_1","polarity_2","polarity_3"],
-    edgeselection:["edge_1","edge_2","edge_3"],
-    debounceperiod:["debounce_1","debounce_2","debounce_3"],
-    pollperiod:["poll_1","poll_2","poll_3"],
-    forcenotify:["force_1","force_2","force_3"],
+
 }
+function strToDecimalArray(str){
+    let hexArray = [];
+    for (let i=0; i<str.length; i+=2) {
+        hexArray.push(parseInt(str.substring(i, i+2), 16));
+    }
+    return hexArray;
+}
+let argv= process.argv.slice(2);
+
+
+let bytes = [];
+bytes = strToDecimalArray(argv[1]);
+
+let date = argv[2];
+
+let input = {
+    bytes: bytes,
+    fPort: Number(argv[0]),
+    recvTime: date,
+};
+console.log(input)
+
 function decodeUplink(input) {
     if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0F) {
         return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
@@ -25,4 +43,7 @@ function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
 module.exports.decodeUplink = decodeUplink;
+let a = decodeUplink(input);
+console.log(a);
+
 

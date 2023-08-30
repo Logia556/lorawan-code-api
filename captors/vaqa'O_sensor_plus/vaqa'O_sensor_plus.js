@@ -13,18 +13,6 @@ let endpointCorresponder = {
     temperature: ["temperature_0","temperature_1"],
     humidity: ["humidity_0","humidity_1"]
 }
-let argv= process.argv.slice(2);
-
-let bytes = [];
-bytes = watteco.strToDecimalArray(argv[1]);
-let date = argv[2];
-
-let input = {
-    bytes: bytes,
-    fPort: Number(argv[0]),
-    recvTime: date,
-
-};
 function decodeUplink(input) {
     if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0C) {
         return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);

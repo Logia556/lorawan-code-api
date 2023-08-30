@@ -14,34 +14,10 @@ let batch_param = [4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "index_1", di
     {taglbl: 11, resol: 100, sampletype: 6, lblname: "battery_voltage", divide: 1}]];
 
 
-function strToDecimalArray(str) {
-    let arr = [];
-    for (let i = 0; i < str.length; i += 2) {
-        arr.push(parseInt(str.substr(i, 2), 16));
-    }
-    return arr;
-}
-let argv= process.argv.slice(2);
-
-let bytes = [];
-bytes = strToDecimalArray(argv[1]);
-let date = argv[2];
-
-let input = {
-    bytes: bytes,
-    fPort: Number(argv[0]),
-    recvTime: date,
-
-};
 let endpointCorresponder = {
     analog:["4-20_mA","0-5_V_1","0-5_V_2 ","ratiometric_0-5_V_1","ratiometric_0-5_V_2"],
     count:["index_1","index_2","index_3"],
     pin_state:["pin_state_1","pin_state_2","pin_state_3"],
-    polarity:["polarity_1","polarity_2","polarity_3"],
-    edgeselection:["edge_1","edge_2","edge_3"],
-    debounceperiod:["debounce_1","debounce_2","debounce_3"],
-    pollperiod:["poll_1","poll_2","poll_3"],
-    forcenotify:["force_1","force_2","force_3"],
 }
 
 console.log(input);
@@ -55,6 +31,4 @@ function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param);
 }
 module.exports.decodeUplink = decodeUplink;
-let a = decodeUplink(input);
-console.log(a);
 
