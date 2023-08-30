@@ -964,43 +964,72 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider){
     let countDown=0
     let div = divider
     let i2 = 0
-    if (i1>8){
-        i2=2
+    if (i1>10){
+        length+=1
+        i2=1
+    }
+    let bi = bytes[(i1+(length*i))]
+    if (bi === undefined){
+        decoded.zclheader.alarmmess = listMess
+        flag = 1
     }
     while(flag===0) {
-        let bi = bytes[(i1 + 3 +(length*i))]
-        if (bi === undefined){
-            decoded.zclheader.alarmmess = listMess
-            flag = 1
-            break
-        }
         let csd = decimalToBitString(bi)
         let index = int(csd[5])*4+int(csd[6])*2+int(csd[7])
+
         if ((csd[3] === "1") && (csd[4] === "0")) {
-            let mode = "threshold"
             let qual = ""
             if (csd[1] === "1") {
                 qual = "exceed"
-                countUp= decimalToBitString(bytes[i1 + 7 + (length*i) + i2]*256) + decimalToBitString(bytes[i1 + 8 + (length*i) +i2])
-                countUp = parseInt(countUp, 2)
+                if (i2===0){
+                    countUp= decimalToBitString(bytes[i1 + 4 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 5 + ((length)*i)])
+                    countUp = parseInt(countUp, 2)
+                } else {
+                    countUp= decimalToBitString(bytes[i1 + 5 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 6 + ((length)*i)])
+                    countUp = parseInt(countUp, 2)
+                }
             } else {
                 qual = "fall"
-                countDown = decimalToBitString(bytes[i1 + 7 + (length * i)+i2]*256) + decimalToBitString(bytes[i1 + 8 + (length * i)+i2])
-                countDown = parseInt(countDown, 2)
+                if(i2===0){
+                    countDown = decimalToBitString(bytes[i1 + 4 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 5 + ((length)*i)])
+                    countDown = parseInt(countDown, 2)
+                } else {
+                    countDown = decimalToBitString(bytes[i1 + 5 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 6 + ((length)*i)])
+                    countDown = parseInt(countDown, 2)
+                }
             }
-            let temp = ((bytes[i1 + 4 + (length*i)+i2] * 256 + bytes[i1 + 5 + (length*i)+i2]) / div).toString()
+            let temp = ""
+            if (i2===0){
+                temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+            } else {
+                temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+            }
+
             let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             listMess.push(mess)
 
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
-            let temp = ((bytes[i1 + 4 + (length*i)+i2] * 256 + bytes[i1 + 5 + (length*i)+i2]) / div).toString()
+            let temp=""
+            if (i2===0){
+                temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+            } else {
+                temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+            }
             let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
 
         }
         i+=1
+        countDown=0
+        countUp=0
+        bi = bytes[(i1+((length)*i))]
+        if (bi === undefined){
+            decoded.zclheader.alarmmess = listMess
+            flag = 1
+            break
+        }
     }
 }
 
@@ -1009,8 +1038,13 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider){
     let countUp=0
     let countDown=0
     let div = divider
+    let i2 = 0
+    if (i1>13){
+        i2=1
+    }
+    console.log(i2)
     while(flag===0) {
-        let bi = bytes[(i1 + 3 +(length*i))]
+        let bi = bytes[(i1 +(length*i))]
         if (bi === undefined){
             decoded.zclheader.alarmmess = listMess
             flag = 1
@@ -1023,14 +1057,14 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider){
             let qual = ""
             if (csd[1] === "1") {
                 qual = "exceed"
-                countUp= decimalToBitString(bytes[i1 + 8 + (length*i)]*256) + decimalToBitString(bytes[i1 + 9 + (length*i)])
+                countUp= decimalToBitString(bytes[i1 + 6 + (length*i)+i2]*256) + decimalToBitString(bytes[i1 + 7 + (length*i)+i2])
                 countUp = parseInt(countUp, 2)
             } else {
                 qual = "fall"
-                countDown = decimalToBitString(bytes[i1 + 8 + (length * i)]*256) + decimalToBitString(bytes[i1 + 9 + (length * i)])
+                countDown = decimalToBitString(bytes[i1 + 6 + (length * i)+i2]*256) + decimalToBitString(bytes[i1 + 7 + (length * i)+i2])
                 countDown = parseInt(countDown, 2)
             }
-            let temp = ((bytes[i1+4+(length*i)]*256*256*256 + bytes[i1+5+(length*i)]*256*256 + bytes[i1+6+(length*i)]*256 + bytes[i1+7+(length*i)]) / div).toString()
+            let temp = ((bytes[i1+1+(length*i)+i2]*256*256*256 + bytes[i1+2+(length*i)+i2]*256*256 + bytes[i1+3+(length*i)+i2]*256 + bytes[i1+4+(length*i)+i2]) / div).toString()
 
 
             let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
@@ -1039,7 +1073,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider){
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
-            let temp = ((bytes[i1+4+(length*i)]*256*256*256 + bytes[i1+5+(length*i)]*256*256 + bytes[i1+6+(length*i)]*256 + bytes[i1+7+(length*i)]) / div).toString()
+            let temp = ((bytes[i1+1+(length*i)+i2]*256*256*256 + bytes[i1+2+(length*i)+i2]*256*256 + bytes[i1+3+(length*i)+i2]*256 + bytes[i1+4+(length*i)]+i2) / div).toString()
             let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
 
@@ -1161,19 +1195,19 @@ function Decoder(bytes, port) {
                         let listMess=[]
                         let flag = 0
                         let divider = 100
-                        rc = decimalToBitString(bytes[i1 + 2])
-
+                        rc = decimalToBitString(bytes[i2])
+                        i2+=1
                         if ((rc[2] === "0") && (rc[3] === "0")){
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")){
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, i2)
                         }
                         if ((rc[2]==="1") &&(rc[3]==="0")){
                             let length = 6
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i2, divider)
                         }
                     }
                 }
@@ -1978,22 +2012,18 @@ function Decoder(bytes, port) {
                     decoded.data.VrmsC=UintToInt(bytes[i1+13]*256+bytes[i1+14],2)/10;
                     decoded.data.IrmsC=UintToInt(bytes[i1+15]*256+bytes[i1+16],2)/10;
                     decoded.data.PhaseC=UintToInt(bytes[i1+17]*256+bytes[i1+18],2);
-                    if (cmdID===0x8a) {
+                    let i2 = i1 + 19
+                    if ((cmdID===0x8a)||(bytes[i2]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        let i2 = i1 + 18
-                        if (bytes[i1 + 19] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 19])
-                        }
-                        if (rc === "none") {
+                        rc = decimalToBitString(bytes[i1 + 19])
+                        i2+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
                             alarmShort(length, listMess, flag, bytes, decoded, i2)
