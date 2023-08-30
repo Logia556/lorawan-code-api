@@ -1039,33 +1039,46 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider){
     let countDown=0
     let div = divider
     let i2 = 0
-    if (i1>13){
+    if (i1>12){
+        length+=1
         i2=1
     }
-    console.log(i2)
+    let bi = bytes[(i1+(length*i))]
+    if (bi === undefined){
+        decoded.zclheader.alarmmess = listMess
+        flag = 1
+    }
     while(flag===0) {
-        let bi = bytes[(i1 +(length*i))]
-        if (bi === undefined){
-            decoded.zclheader.alarmmess = listMess
-            flag = 1
-            break
-        }
         let csd = decimalToBitString(bi)
         let index = int(csd[5])*4+int(csd[6])*2+int(csd[7])
+
         if ((csd[3] === "1") && (csd[4] === "0")) {
-            let mode = "threshold"
             let qual = ""
             if (csd[1] === "1") {
                 qual = "exceed"
-                countUp= decimalToBitString(bytes[i1 + 6 + (length*i)+i2]*256) + decimalToBitString(bytes[i1 + 7 + (length*i)+i2])
-                countUp = parseInt(countUp, 2)
+                if (i2===0){
+                    countUp= decimalToBitString(bytes[i1 + 6 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 7 + ((length)*i)])
+                    countUp = parseInt(countUp, 2)
+                } else {
+                    countUp= decimalToBitString(bytes[i1 + 7 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 8 + ((length)*i)])
+                    countUp = parseInt(countUp, 2)
+                }
             } else {
                 qual = "fall"
-                countDown = decimalToBitString(bytes[i1 + 6 + (length * i)+i2]*256) + decimalToBitString(bytes[i1 + 7 + (length * i)+i2])
-                countDown = parseInt(countDown, 2)
+                if(i2===0){
+                    countDown = decimalToBitString(bytes[i1 + 6 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 7 + ((length)*i)])
+                    countDown = parseInt(countDown, 2)
+                } else {
+                    countDown = decimalToBitString(bytes[i1 + 7 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 8 + ((length)*i)])
+                    countDown = parseInt(countDown, 2)
+                }
             }
-            let temp = ((bytes[i1+1+(length*i)+i2]*256*256*256 + bytes[i1+2+(length*i)+i2]*256*256 + bytes[i1+3+(length*i)+i2]*256 + bytes[i1+4+(length*i)+i2]) / div).toString()
-
+            let temp = ""
+            if (i2===0){
+                temp = ((bytes[i1 + 1 + ((length)*i)]*256*256*256 + bytes[i1 + 2 + ((length)*i)]*256*256 + bytes[i1 + 3 + ((length)*i)]*256 + bytes[i1 + 4 + ((length)*i)]) / div).toString()
+            } else {
+                temp = ((bytes[i1 + 2 + ((length)*i)]*256*256*256 + bytes[i1 + 3 + ((length)*i)]*256*256 + bytes[i1 + 4 + ((length)*i)]*256 + bytes[i1 + 5 + ((length)*i)]) / div).toString()
+            }
 
             let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             listMess.push(mess)
@@ -1073,12 +1086,25 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider){
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
-            let temp = ((bytes[i1+1+(length*i)+i2]*256*256*256 + bytes[i1+2+(length*i)+i2]*256*256 + bytes[i1+3+(length*i)+i2]*256 + bytes[i1+4+(length*i)]+i2) / div).toString()
+            let temp=""
+            if (i2===0){
+                temp = ((bytes[i1 + 1 + ((length)*i)]*256*256*256 + bytes[i1 + 2 + ((length)*i)]*256*256 + bytes[i1 + 3 + ((length)*i)]*256 + bytes[i1 + 4 + ((length)*i)]) / div).toString()
+            } else {
+                temp = ((bytes[i1 + 2 + ((length)*i)]*256*256*256 + bytes[i1 + 3 + ((length)*i)]*256*256 + bytes[i1 + 4 + ((length)*i)]*256 + bytes[i1 + 5 + ((length)*i)]) / div).toString()
+            }
             let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
 
         }
         i+=1
+        countDown=0
+        countUp=0
+        bi = bytes[(i1+((length)*i))]
+        if (bi === undefined){
+            decoded.zclheader.alarmmess = listMess
+            flag = 1
+            break
+        }
     }
 }
 
@@ -1878,28 +1904,25 @@ function Decoder(bytes, port) {
                     decoded.data.positive_reactive_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
                     decoded.data.negative_reactive_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
-                    if (cmdID===0x8a) {
+                    i2 =i2+5
+                    if ((cmdID===0x8a)||(bytes[i2]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i2 + 5] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i2 + 5])
-                        }
-                        if (rc === "none") {
+                        rc = decimalToBitString(bytes[i2])
+                        i2+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, i2)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 8
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong4Bytes(length, listMess, flag, bytes, decoded, i2, divider)
                         }
                     }
                 }
@@ -1912,7 +1935,7 @@ function Decoder(bytes, port) {
                     decoded.data.ReactiveEnergyWhPhaseC=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
                     decoded.data.ActiveEnergyWhPhaseABC=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
                     decoded.data.ReactiveEnergyWhPhaseABC=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
-                    if (cmdID===0x8a) {
+                    if ((cmdID===0x8a))  {
                         let listMess = []
                         let flag = 0
                         let divider = 1
