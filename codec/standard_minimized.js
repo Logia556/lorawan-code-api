@@ -87,42 +87,42 @@ let field={
         0x0000:{
             0:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"sum_positive_active_energy_Wh"
             },
             1:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"sum_negative_active_energy_Wh"
             },
             2:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"sum_positive_reactive_energy_Wh"
             },
             3:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"sum_negative_reactive_energy_Wh"
             },
             4:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"positive_active_power_W"
             },
             5:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"negative_active_power_W"
             },
             6:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"positive_reactive_power_W"
             },
             7:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"negative_reactive_power_W"
             },
         }
@@ -131,84 +131,84 @@ let field={
         0x0000:{
             0:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_energy_Wh_phase_a"
             },
             1:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_energy_Wh_phase_a"
             },
             2:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_energy_Wh_phase_b"
             },
             3:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_energy_Wh_phase_b"
             },
             4:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_energy_Wh_phase_c"
             },
             5:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_energy_Wh_phase_c"
             },
             6:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_energy_Wh_phase_abc"
             },
             7:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_energy_Wh_phase_abc"
             },
         },
         0x0001:{
             0:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_power_W_phase_a"
             },
             1:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_power_W_phase_a"
             },
             2:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_power_W_phase_b"
             },
             3:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_power_W_phase_b"
             },
             4:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_power_W_phase_c"
             },
             5:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_power_W_phase_c"
             },
             6:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"active_power_W_phase_abc"
             },
             7:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"reactive_power_W_phase_abc"
             },
         }
@@ -217,17 +217,17 @@ let field={
         0x0000:{
             0:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vrms"
             },
             1:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Irms"
             },
             2:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"phase_angle"
             },
         }
@@ -236,47 +236,47 @@ let field={
         0x0000:{
             0:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vrms_a"
             },
             1:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Irms_a"
             },
             2:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"phase_a"
             },
             3:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vrms_b"
             },
             4:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Irms_b"
             },
             5:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"phase_b"
             },
             6:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vrms_c"
             },
             7:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Irms_c"
             },
             8:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"phase_c"
             },
         }
@@ -285,57 +285,57 @@ let field={
         0x0000:{
             0:{
                 divider:1000,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"frequency"
             },
             1:{
                 divider:1000,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"frequency_min"
             },
             2:{
                 divider:1000,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"frequency_max"
             },
             3:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vrms"
             },
             4:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vrms_min"
             },
             5:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vrms_max"
             },
             6:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vpeak"
             },
             7:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vpeak_min"
             },
             8:{
                 divider:10,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"Vpeak_max"
             },
             9:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"over_voltage"
             },
             10:{
                 divider:1,
-                function_type:"UintToInt",
+                function_type:"int",
                 name:"sag_voltage"
             },
         }
@@ -1356,7 +1356,7 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 
     }
 }
-function alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, i1,attriubte_type,divider, field_index, ftype){
+function alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, i1, attribute_type, divider, ftype, field_index ){
     let type = attribute_types[attriubte_type]
     let function_type = ftype
     if (field_index!==undefined){
@@ -1377,9 +1377,9 @@ function alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, i1,at
 
 }
 
-function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){}
-function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){}
-function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){
+function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type){}
+function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type){}
+function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type){
     let i = 0
     let countUp=0
     let countDown=0
@@ -1389,7 +1389,17 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         length+=1
         i2=1
     }
-
+    if (function_type===undefined){
+        if (name==="single"){
+            function_type = "float"
+        }
+        else if ((name==="int8")||(name==="int16")||(name==="int32")){
+            function_type = "int"
+        }
+        else{
+            function_type = "none"
+        }
+    }
     let bi = bytes[(i1+(length*i))]
     if (bi === undefined){
         decoded.zclheader.alarmmess = listMess
@@ -1413,20 +1423,35 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
             } else {
                 qual = "fall"
                 if(i2===0){
-                    countDown = decimalToBitString(bytes[i1 + 4 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 5 + ((length)*i)])
+                    countDown = decimalToBitString(bytes[i1 + 5 + ((length)*i)])
                     countDown = parseInt(countDown, 2)
                 } else {
-                    countDown = decimalToBitString(bytes[i1 + 5 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 6 + ((length)*i)])
+                    countDown = decimalToBitString(bytes[i1 + 6 + ((length)*i)])
                     countDown = parseInt(countDown, 2)
                 }
             }
             let temp = ""
             if (i2===0){
-                temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                if (function_type==="none"){
+                    temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                }
+                else if (function_type==="int"){
+                    temp = UintToInt(bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]).toString()
+                }
+                else if (function_type==="float"){
+                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                }
             } else {
-                temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                if (function_type==="none"){
+                    temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                }
+                else if (function_type==="int"){
+                    temp = UintToInt(bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]).toString()
+                }
+                else if (function_type==="float"){
+                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                }
             }
-
             let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             listMess.push(mess)
 
@@ -1435,9 +1460,25 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
             length-=3
             let temp=""
             if (i2===0){
-                temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                if (function_type==="none"){
+                    temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                }
+                else if (function_type==="int"){
+                    temp = UintToInt(bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]).toString()
+                }
+                else if (function_type==="float"){
+                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                }
             } else {
-                temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                if (function_type==="none"){
+                    temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                }
+                else if (function_type==="int"){
+                    temp = UintToInt(bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]).toString()
+                }
+                else if (function_type==="float"){
+                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                }
             }
             let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
@@ -1455,7 +1496,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     }
 }
 
-function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){
+function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type){
     let i = 0
     let countUp=0
     let countDown=0
@@ -1666,30 +1707,27 @@ function Decoder(bytes, port) {
                     decoded.data.max_temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
                 }
                 if ((clustID === 0x0405 ) && (attID === 0x0000)){
+                    let attribute_type = bytes[i1-1]
                     decoded.data.humidity = (bytes[i1]*256+bytes[i1+1])/100;
-                    if (cmdID===0x8a) {
+                    let i2 = i1+2
+                    if ((cmdID===0x8a)||(bytes[i2]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 100
                         let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[i2])
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
                             alarmShort(length, listMess, flag, bytes, decoded, i1)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 6
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded,attribute_type, i2, divider,ftype)
                         }
                     }
                 }
