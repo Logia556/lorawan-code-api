@@ -87,42 +87,42 @@ let field={
         0x0000:{
             0:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"sum_positive_active_energy_Wh"
             },
             1:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"sum_negative_active_energy_Wh"
             },
             2:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"sum_positive_reactive_energy_Wh"
             },
             3:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"sum_negative_reactive_energy_Wh"
             },
             4:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"positive_active_power_W"
             },
             5:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"negative_active_power_W"
             },
             6:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"positive_reactive_power_W"
             },
             7:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"negative_reactive_power_W"
             },
         }
@@ -131,84 +131,84 @@ let field={
         0x0000:{
             0:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_energy_Wh_phase_a"
             },
             1:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_energy_Wh_phase_a"
             },
             2:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_energy_Wh_phase_b"
             },
             3:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_energy_Wh_phase_b"
             },
             4:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_energy_Wh_phase_c"
             },
             5:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_energy_Wh_phase_c"
             },
             6:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_energy_Wh_phase_abc"
             },
             7:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_energy_Wh_phase_abc"
             },
         },
         0x0001:{
             0:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_power_W_phase_a"
             },
             1:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_power_W_phase_a"
             },
             2:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_power_W_phase_b"
             },
             3:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_power_W_phase_b"
             },
             4:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_power_W_phase_c"
             },
             5:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_power_W_phase_c"
             },
             6:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"active_power_W_phase_abc"
             },
             7:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"reactive_power_W_phase_abc"
             },
         }
@@ -217,17 +217,17 @@ let field={
         0x0000:{
             0:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vrms"
             },
             1:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Irms"
             },
             2:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"phase_angle"
             },
         }
@@ -236,47 +236,47 @@ let field={
         0x0000:{
             0:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vrms_a"
             },
             1:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Irms_a"
             },
             2:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"phase_a"
             },
             3:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vrms_b"
             },
             4:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Irms_b"
             },
             5:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"phase_b"
             },
             6:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vrms_c"
             },
             7:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Irms_c"
             },
             8:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"phase_c"
             },
         }
@@ -285,57 +285,57 @@ let field={
         0x0000:{
             0:{
                 divider:1000,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"frequency"
             },
             1:{
                 divider:1000,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"frequency_min"
             },
             2:{
                 divider:1000,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"frequency_max"
             },
             3:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vrms"
             },
             4:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vrms_min"
             },
             5:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vrms_max"
             },
             6:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vpeak"
             },
             7:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vpeak_min"
             },
             8:{
                 divider:10,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"Vpeak_max"
             },
             9:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"over_voltage"
             },
             10:{
                 divider:1,
-                function:"UintToInt",
+                function_type:"UintToInt",
                 name:"sag_voltage"
             },
         }
@@ -344,52 +344,52 @@ let field={
         0x0000:{
             0:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_1"
             },
             1:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_2"
             },
             2:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_3"
             },
             3:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_4"
             },
             4:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_5"
             },
             5:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_6"
             },
             6:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_7"
             },
             7:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_8"
             },
             8:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_9"
             },
             9:{
                 divider:1,
-                function:"none",
+                function_type:"none",
                 name:"pin_state_10"
             },
         }
@@ -1356,25 +1356,28 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 
     }
 }
-function alarmLong(length, listMess, flag, bytes, decoded, i1,fieldcorresponder,attriubte_type){
-    let divider=fieldcorresponder[divider]
+function alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, i1,attriubte_type,divider, field_index, ftype){
     let type = attribute_types[attriubte_type]
+    let function_type = ftype
+    if (field_index!==undefined){
+        divider = field[clustID][attID][field_index].divider
+        function_type = field[clustID][attID][field_index].function_type
+    }
     let size = type.size
     let name = type.name
     if (size===2){
-        alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name)
+        alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type)
     } else if (size===4){
-        alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name)
+        alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type)
     } else if (size===1) {
-        alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1, divider,name)
+        alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1, divider,name, function_type)
     } else if (size===3){
-        alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1, divider,name)
+        alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1, divider,name, function_type)
     }
 
 }
 
 function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){}
-
 function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){}
 function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){
     let i = 0
@@ -1386,6 +1389,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         length+=1
         i2=1
     }
+
     let bi = bytes[(i1+(length*i))]
     if (bi === undefined){
         decoded.zclheader.alarmmess = listMess
