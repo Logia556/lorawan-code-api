@@ -1356,20 +1356,26 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 
     }
 }
-function alarmLong(length, listMess, flag, bytes, decoded, i1,datatype,fieldcorresponder){
-    let size = datatype[size]
-    let name = datatype[name]
-    let divider=1
+function alarmLong(length, listMess, flag, bytes, decoded, i1,fieldcorresponder,attriubte_type){
+    let divider=fieldcorresponder[divider]
+    let type = attribute_types[attriubte_type]
+    let size = type.size
+    let name = type.name
     if (size===2){
         alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name)
     } else if (size===4){
         alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name)
     } else if (size===1) {
         alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1, divider,name)
+    } else if (size===3){
+        alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1, divider,name)
     }
+
 }
 
 function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){}
+
+function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){}
 function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){
     let i = 0
     let countUp=0
