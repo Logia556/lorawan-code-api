@@ -1,3 +1,401 @@
+let attribute_types={
+    0x10:{
+        name:"boolean",
+        size:1
+    },
+    0x08:{
+        name:"general8",
+        size:1
+    },
+    0x09:{
+        name:"general16",
+        size:2
+    },
+    0x0A:{
+        name:"general24",
+        size:3
+    },
+    0x0B:{
+        name:"general32",
+        size:4
+    },
+    0x18:{
+        name:"bitmap8",
+        size:1
+    },
+    0x19:{
+        name:"bitmap16",
+        size:2
+    },
+    0x20:{
+        name:"uint8",
+        size:1
+    },
+    0x21:{
+        name:"uint16",
+        size:2
+    },
+    0x22:{
+        name:"uint24",
+        size:3
+    },
+    0x23:{
+        name:"uint32",
+        size:4
+    },
+    0x28:{
+        name:"int8",
+        size:1
+    },
+    0x29:{
+        name:"int16",
+        size:2
+    },
+    0x2B:{
+        name:"int32",
+        size:4
+    },
+    0x30:{
+        name:"enum8",
+        size:1
+    },
+    0x42:{
+        name:"char string",
+        size:1
+    },
+    0x041:{
+        name:"bytes string",
+        size:1
+    },
+    0x43:{
+        name:"long bytes string",
+        size:2
+    },
+    0x4C:{
+        name:"structured ordered sequence",
+        size:2
+    },
+    0x39:{
+        name:"single",
+        size:4
+    }
+
+}
+
+let field={
+    0x800A:{
+        0x0000:{
+            0:{
+                divider:1,
+                function:"UintToInt",
+                name:"sum_positive_active_energy_Wh"
+            },
+            1:{
+                divider:1,
+                function:"UintToInt",
+                name:"sum_negative_active_energy_Wh"
+            },
+            2:{
+                divider:1,
+                function:"UintToInt",
+                name:"sum_positive_reactive_energy_Wh"
+            },
+            3:{
+                divider:1,
+                function:"UintToInt",
+                name:"sum_negative_reactive_energy_Wh"
+            },
+            4:{
+                divider:1,
+                function:"UintToInt",
+                name:"positive_active_power_W"
+            },
+            5:{
+                divider:1,
+                function:"UintToInt",
+                name:"negative_active_power_W"
+            },
+            6:{
+                divider:1,
+                function:"UintToInt",
+                name:"positive_reactive_power_W"
+            },
+            7:{
+                divider:1,
+                function:"UintToInt",
+                name:"negative_reactive_power_W"
+            },
+        }
+    },
+    0x8010:{
+        0x0000:{
+            0:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_energy_Wh_phase_a"
+            },
+            1:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_energy_Wh_phase_a"
+            },
+            2:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_energy_Wh_phase_b"
+            },
+            3:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_energy_Wh_phase_b"
+            },
+            4:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_energy_Wh_phase_c"
+            },
+            5:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_energy_Wh_phase_c"
+            },
+            6:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_energy_Wh_phase_abc"
+            },
+            7:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_energy_Wh_phase_abc"
+            },
+        },
+        0x0001:{
+            0:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_power_W_phase_a"
+            },
+            1:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_power_W_phase_a"
+            },
+            2:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_power_W_phase_b"
+            },
+            3:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_power_W_phase_b"
+            },
+            4:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_power_W_phase_c"
+            },
+            5:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_power_W_phase_c"
+            },
+            6:{
+                divider:1,
+                function:"UintToInt",
+                name:"active_power_W_phase_abc"
+            },
+            7:{
+                divider:1,
+                function:"UintToInt",
+                name:"reactive_power_W_phase_abc"
+            },
+        }
+    },
+    0x800B:{
+        0x0000:{
+            0:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vrms"
+            },
+            1:{
+                divider:10,
+                function:"UintToInt",
+                name:"Irms"
+            },
+            2:{
+                divider:1,
+                function:"UintToInt",
+                name:"phase_angle"
+            },
+        }
+    },
+    0x800D:{
+        0x0000:{
+            0:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vrms_a"
+            },
+            1:{
+                divider:10,
+                function:"UintToInt",
+                name:"Irms_a"
+            },
+            2:{
+                divider:1,
+                function:"UintToInt",
+                name:"phase_a"
+            },
+            3:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vrms_b"
+            },
+            4:{
+                divider:10,
+                function:"UintToInt",
+                name:"Irms_b"
+            },
+            5:{
+                divider:1,
+                function:"UintToInt",
+                name:"phase_b"
+            },
+            6:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vrms_c"
+            },
+            7:{
+                divider:10,
+                function:"UintToInt",
+                name:"Irms_c"
+            },
+            8:{
+                divider:1,
+                function:"UintToInt",
+                name:"phase_c"
+            },
+        }
+    },
+    0x8052:{
+        0x0000:{
+            0:{
+                divider:1000,
+                function:"UintToInt",
+                name:"frequency"
+            },
+            1:{
+                divider:1000,
+                function:"UintToInt",
+                name:"frequency_min"
+            },
+            2:{
+                divider:1000,
+                function:"UintToInt",
+                name:"frequency_max"
+            },
+            3:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vrms"
+            },
+            4:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vrms_min"
+            },
+            5:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vrms_max"
+            },
+            6:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vpeak"
+            },
+            7:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vpeak_min"
+            },
+            8:{
+                divider:10,
+                function:"UintToInt",
+                name:"Vpeak_max"
+            },
+            9:{
+                divider:1,
+                function:"UintToInt",
+                name:"over_voltage"
+            },
+            10:{
+                divider:1,
+                function:"UintToInt",
+                name:"sag_voltage"
+            },
+        }
+    },
+    0x8005:{
+        0x0000:{
+            0:{
+                divider:1,
+                function:"none",
+                name:"pin_state_1"
+            },
+            1:{
+                divider:1,
+                function:"none",
+                name:"pin_state_2"
+            },
+            2:{
+                divider:1,
+                function:"none",
+                name:"pin_state_3"
+            },
+            3:{
+                divider:1,
+                function:"none",
+                name:"pin_state_4"
+            },
+            4:{
+                divider:1,
+                function:"none",
+                name:"pin_state_5"
+            },
+            5:{
+                divider:1,
+                function:"none",
+                name:"pin_state_6"
+            },
+            6:{
+                divider:1,
+                function:"none",
+                name:"pin_state_7"
+            },
+            7:{
+                divider:1,
+                function:"none",
+                name:"pin_state_8"
+            },
+            8:{
+                divider:1,
+                function:"none",
+                name:"pin_state_9"
+            },
+            9:{
+                divider:1,
+                function:"none",
+                name:"pin_state_10"
+            },
+        }
+    }
+}
+
 function UintToInt(Uint, Size) {
     if ((Size === 2) && ((Uint & 0x8000) > 0)) Uint -= 0x10000;
     if ((Size === 3) && ((Uint & 0x800000) > 0)) Uint -= 0x1000000;
@@ -958,7 +1356,21 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 
     }
 }
-function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider){
+function alarmLong(length, listMess, flag, bytes, decoded, i1,datatype,fieldcorresponder){
+    let size = datatype[size]
+    let name = datatype[name]
+    let divider=1
+    if (size===2){
+        alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name)
+    } else if (size===4){
+        alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name)
+    } else if (size===1) {
+        alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1, divider,name)
+    }
+}
+
+function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){}
+function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){
     let i = 0
     let countUp=0
     let countDown=0
@@ -982,10 +1394,10 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider){
             if (csd[1] === "1") {
                 qual = "exceed"
                 if (i2===0){
-                    countUp= decimalToBitString(bytes[i1 + 4 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 5 + ((length)*i)])
+                    countUp = decimalToBitString(bytes[i1 + 5 + ((length)*i)])
                     countUp = parseInt(countUp, 2)
                 } else {
-                    countUp= decimalToBitString(bytes[i1 + 5 + ((length)*i)]*256) + decimalToBitString(bytes[i1 + 6 + ((length)*i)])
+                    countUp= decimalToBitString(bytes[i1 + 6 + ((length)*i)])
                     countUp = parseInt(countUp, 2)
                 }
             } else {
@@ -1033,7 +1445,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider){
     }
 }
 
-function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider){
+function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name){
     let i = 0
     let countUp=0
     let countDown=0
@@ -1927,14 +2339,14 @@ function Decoder(bytes, port) {
                     }
                 }
                 if (  (clustID === 0x8010) && (attID === 0x0000)) {
-                    decoded.data.ActiveEnergyWhPhaseA=UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
-                    decoded.data.ReactiveEnergyWhPhaseA=UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
-                    decoded.data.ActiveEnergyWhPhaseB=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
-                    decoded.data.ReactiveEnergyWhPhaseB=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
-                    decoded.data.ActiveEnergyWhPhaseC=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
-                    decoded.data.ReactiveEnergyWhPhaseC=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
-                    decoded.data.ActiveEnergyWhPhaseABC=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
-                    decoded.data.ReactiveEnergyWhPhaseABC=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    decoded.data.active_energy_Wh_phase_a=UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
+                    decoded.data.reactive_energy_Wh_phase_a=UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
+                    decoded.data.active_energy_Wh_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
+                    decoded.data.reactive_energy_Wh_phase_b=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
+                    decoded.data.active_energy_Wh_phase_c=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
+                    decoded.data.reactive_energy_Wh_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
+                    decoded.data.active_energy_Wh_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
+                    decoded.data.reactive_energy_Wh_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
                     if ((cmdID===0x8a))  {
                         let listMess = []
                         let flag = 0
@@ -1960,14 +2372,14 @@ function Decoder(bytes, port) {
                         }
                     }
                 } else if (  (clustID === 0x8010) && (attID === 0x0001)) {
-                    decoded.data.ActivePowerWPhaseA= UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
-                    decoded.data.ReactivePowerWPhaseA= UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
-                    decoded.data.ActivePowerWPhaseB=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
-                    decoded.data.ReactivePowerWPhaseB=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
-                    decoded.data.ActivePowerWPhaseC=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
-                    decoded.data.ReactivePowerWPhaseC=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
-                    decoded.data.ActivePowerWPhaseABC=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
-                    decoded.data.ReactivePowerWPhaseABC=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    decoded.data.active_power_W_phase_a= UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
+                    decoded.data.reactive_power_W_phase_a= UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
+                    decoded.data.active_power_W_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
+                    decoded.data.reactive_power_W_phase_b=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
+                    decoded.data.active_power_W_phase_c=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
+                    decoded.data.reactive_power_W_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
+                    decoded.data.active_power_W_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
+                    decoded.data.reactive_power_W_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
                     if (cmdID===0x8a) {
                         let listMess = []
                         let flag = 0
@@ -2026,15 +2438,15 @@ function Decoder(bytes, port) {
                     }
                 }
                 if (  (clustID === 0x800d) && (attID === 0x0000)) {
-                    decoded.data.VrmsA=UintToInt(bytes[i1+1]*256+bytes[i1+2],2)/10;
-                    decoded.data.IrmsA=UintToInt(bytes[i1+3]*256+bytes[i1+4],2)/10;
-                    decoded.data.PhaseA=UintToInt(bytes[i1+5]*256+bytes[i1+6],2);
-                    decoded.data.VrmsB=UintToInt(bytes[i1+7]*256+bytes[i1+8],2)/10;
-                    decoded.data.IrmsB=UintToInt(bytes[i1+9]*256+bytes[i1+10],2)/10;
-                    decoded.data.PhaseB=UintToInt(bytes[i1+11]*256+bytes[i1+12],2);
-                    decoded.data.VrmsC=UintToInt(bytes[i1+13]*256+bytes[i1+14],2)/10;
-                    decoded.data.IrmsC=UintToInt(bytes[i1+15]*256+bytes[i1+16],2)/10;
-                    decoded.data.PhaseC=UintToInt(bytes[i1+17]*256+bytes[i1+18],2);
+                    decoded.data.Vrms_a=UintToInt(bytes[i1+1]*256+bytes[i1+2],2)/10;
+                    decoded.data.Irms_a=UintToInt(bytes[i1+3]*256+bytes[i1+4],2)/10;
+                    decoded.data.phase_a=UintToInt(bytes[i1+5]*256+bytes[i1+6],2);
+                    decoded.data.Vrms_b=UintToInt(bytes[i1+7]*256+bytes[i1+8],2)/10;
+                    decoded.data.Irms_b=UintToInt(bytes[i1+9]*256+bytes[i1+10],2)/10;
+                    decoded.data.phase_b=UintToInt(bytes[i1+11]*256+bytes[i1+12],2);
+                    decoded.data.Vrms_c=UintToInt(bytes[i1+13]*256+bytes[i1+14],2)/10;
+                    decoded.data.Irms_c=UintToInt(bytes[i1+15]*256+bytes[i1+16],2)/10;
+                    decoded.data.phase_c=UintToInt(bytes[i1+17]*256+bytes[i1+18],2);
                     let i2 = i1 + 19
                     if ((cmdID===0x8a)||(bytes[i2]!==undefined)) {
                         let listMess = []
