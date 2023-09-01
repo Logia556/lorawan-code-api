@@ -141,49 +141,49 @@ let field={
                 divider:1,
                 function_type:"int",
                 name:"active_energy_Wh_phase_a",
-                size:3
+                size:4
             },
             1:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_energy_Wh_phase_a",
-                size:3
+                size:4
             },
             2:{
                 divider:1,
                 function_type:"int",
                 name:"active_energy_Wh_phase_b",
-                size:3
+                size:4
             },
             3:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_energy_Wh_phase_b",
-                size:3
+                size:4
             },
             4:{
                 divider:1,
                 function_type:"int",
                 name:"active_energy_Wh_phase_c",
-                size:3
+                size:4
             },
             5:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_energy_Wh_phase_c",
-                size:3
+                size:4
             },
             6:{
                 divider:1,
                 function_type:"int",
                 name:"active_energy_Wh_phase_abc",
-                size:3
+                size:4
             },
             7:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_energy_Wh_phase_abc",
-                size:3
+                size:4
             },
         },
         0x0001:{
@@ -191,49 +191,49 @@ let field={
                 divider:1,
                 function_type:"int",
                 name:"active_power_W_phase_a",
-                size:3
+                size:4
             },
             1:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_power_W_phase_a",
-                size:3
+                size:4
             },
             2:{
                 divider:1,
                 function_type:"int",
                 name:"active_power_W_phase_b",
-                size:3
+                size:4
             },
             3:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_power_W_phase_b",
-                size:3
+                size:4
             },
             4:{
                 divider:1,
                 function_type:"int",
                 name:"active_power_W_phase_c",
-                size:3
+                size:4
             },
             5:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_power_W_phase_c",
-                size:3
+                size:4
             },
             6:{
                 divider:1,
                 function_type:"int",
                 name:"active_power_W_phase_abc",
-                size:3
+                size:4
             },
             7:{
                 divider:1,
                 function_type:"int",
                 name:"reactive_power_W_phase_abc",
-                size:3
+                size:4
             },
         }
     },
@@ -1791,6 +1791,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
 }
 
 function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type, field_driven, clustID, attID){
+    console.log("alarmLong4Bytes")
     let i = 0
     let countUp=0
     let countDown=0
@@ -1817,7 +1818,10 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     }
     while(flag===0) {
         if (field_driven===1){
+            console.log("field_driven")
+            console.log((i1+((length)*i))+1)
             let fi =bytes[(i1+((length)*i))+1]
+            console.log(fi)
             divider = field[clustID][attID][fi].divider
             function_type = field[clustID][attID][fi].function_type
         }
@@ -1867,6 +1871,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 }
             }
             let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+            console.log(mess)
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
@@ -2728,12 +2733,13 @@ function Decoder(bytes, port) {
                             alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 6
+                            let length = 8
                             alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia, attribute_type, divider, ftype, field_index)
                         }
                     }
                 }
                 if (  (clustID === 0x8010) && (attID === 0x0000)) {
+                    let attribute_type = bytes[i1-1];
                     decoded.data.active_energy_Wh_phase_a=UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
                     decoded.data.reactive_energy_Wh_phase_a=UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
                     decoded.data.active_energy_Wh_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
@@ -2742,31 +2748,32 @@ function Decoder(bytes, port) {
                     decoded.data.reactive_energy_Wh_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
                     decoded.data.active_energy_Wh_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
                     decoded.data.reactive_energy_Wh_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
-                    if ((cmdID===0x8a))  {
+                    let ia = i1 + 33
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
+                        let ftype = "multistate"
                         let rc = ""
-                        if (bytes[i1 + 33] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 33])
-                        }
-                        if (rc === "none") {
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        console.log("ia:"+ia)
+                        let field_index = bytes[ia+1]
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 8
-                            alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia, attribute_type, divider, ftype, field_index)
                         }
                     }
                 } else if (  (clustID === 0x8010) && (attID === 0x0001)) {
+                    let attribute_type = bytes[i1-1];
                     decoded.data.active_power_W_phase_a= UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
                     decoded.data.reactive_power_W_phase_a= UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
                     decoded.data.active_power_W_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
@@ -2775,28 +2782,28 @@ function Decoder(bytes, port) {
                     decoded.data.reactive_power_W_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
                     decoded.data.active_power_W_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
                     decoded.data.reactive_power_W_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
-                    if (cmdID===0x8a) {
+                    let ia = i1 + 33
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
+                        let ftype = "multistate"
                         let rc = ""
-                        if (bytes[i1 + 33] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 33])
-                        }
-                        if (rc === "none") {
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        console.log("ia:"+ia)
+                        let field_index = bytes[ia+1]
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 8
-                            alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia, attribute_type, divider, ftype, field_index)
                         }
                     }
                 }
@@ -2852,7 +2859,7 @@ function Decoder(bytes, port) {
                         let divider = 1
                         let ftype = "multistate"
                         let rc = ""
-                        rc = decimalToBitString(bytes[i1 + 19])
+                        rc = decimalToBitString(bytes[ia])
                         ia+=1
                         console.log("ia:"+ia)
                         let field_index = bytes[ia+1]
