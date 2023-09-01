@@ -65,7 +65,7 @@ let attribute_types={
     },
     0x41:{
         name:"bytes string",
-        size:2
+        size:1
     },
     0x43:{
         name:"long bytes string",
@@ -88,42 +88,50 @@ let field={
             0:{
                 divider:1,
                 function_type:"int",
-                name:"sum_positive_active_energy_Wh"
+                name:"sum_positive_active_energy_Wh",
+                size:4
             },
             1:{
                 divider:1,
                 function_type:"int",
-                name:"sum_negative_active_energy_Wh"
+                name:"sum_negative_active_energy_Wh",
+                size:4
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"sum_positive_reactive_energy_Wh"
+                name:"sum_positive_reactive_energy_Wh",
+                size:4
             },
             3:{
                 divider:1,
                 function_type:"int",
-                name:"sum_negative_reactive_energy_Wh"
+                name:"sum_negative_reactive_energy_Wh",
+                size:4
             },
             4:{
                 divider:1,
                 function_type:"int",
-                name:"positive_active_power_W"
+                name:"positive_active_power_W",
+                size:4
             },
             5:{
                 divider:1,
                 function_type:"int",
-                name:"negative_active_power_W"
+                name:"negative_active_power_W",
+                size:4
             },
             6:{
                 divider:1,
                 function_type:"int",
-                name:"positive_reactive_power_W"
+                name:"positive_reactive_power_W",
+                size:4
             },
             7:{
                 divider:1,
                 function_type:"int",
-                name:"negative_reactive_power_W"
+                name:"negative_reactive_power_W",
+                size:4
             },
         }
     },
@@ -132,84 +140,100 @@ let field={
             0:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_a"
+                name:"active_energy_Wh_phase_a",
+                size:3
             },
             1:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_a"
+                name:"reactive_energy_Wh_phase_a",
+                size:3
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_b"
+                name:"active_energy_Wh_phase_b",
+                size:3
             },
             3:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_b"
+                name:"reactive_energy_Wh_phase_b",
+                size:3
             },
             4:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_c"
+                name:"active_energy_Wh_phase_c",
+                size:3
             },
             5:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_c"
+                name:"reactive_energy_Wh_phase_c",
+                size:3
             },
             6:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_abc"
+                name:"active_energy_Wh_phase_abc",
+                size:3
             },
             7:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_abc"
+                name:"reactive_energy_Wh_phase_abc",
+                size:3
             },
         },
         0x0001:{
             0:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_a"
+                name:"active_power_W_phase_a",
+                size:3
             },
             1:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_a"
+                name:"reactive_power_W_phase_a",
+                size:3
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_b"
+                name:"active_power_W_phase_b",
+                size:3
             },
             3:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_b"
+                name:"reactive_power_W_phase_b",
+                size:3
             },
             4:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_c"
+                name:"active_power_W_phase_c",
+                size:3
             },
             5:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_c"
+                name:"reactive_power_W_phase_c",
+                size:3
             },
             6:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_abc"
+                name:"active_power_W_phase_abc",
+                size:3
             },
             7:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_abc"
+                name:"reactive_power_W_phase_abc",
+                size:3
             },
         }
     },
@@ -218,17 +242,20 @@ let field={
             0:{
                 divider:10,
                 function_type:"int",
-                name:"Vrms"
+                name:"Vrms",
+                size:2
             },
             1:{
                 divider:10,
                 function_type:"int",
-                name:"Irms"
+                name:"Irms",
+                size:2
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"phase_angle"
+                name:"phase_angle",
+                size:2
             },
         }
     },
@@ -237,47 +264,56 @@ let field={
             0:{
                 divider:10,
                 function_type:"int",
-                name:"Vrms_a"
+                name:"Vrms_a",
+                size:2
             },
             1:{
                 divider:10,
                 function_type:"int",
-                name:"Irms_a"
+                name:"Irms_a",
+                size:2
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"phase_a"
+                name:"phase_a",
+                size:2
             },
             3:{
                 divider:10,
                 function_type:"int",
-                name:"Vrms_b"
+                name:"Vrms_b",
+                size:2
             },
             4:{
                 divider:10,
                 function_type:"int",
-                name:"Irms_b"
+                name:"Irms_b",
+                size:2
             },
             5:{
                 divider:1,
                 function_type:"int",
-                name:"phase_b"
+                name:"phase_b",
+                size:2
             },
             6:{
                 divider:10,
                 function_type:"int",
-                name:"Vrms_c"
+                name:"Vrms_c",
+                size:2
             },
             7:{
                 divider:10,
                 function_type:"int",
-                name:"Irms_c"
+                name:"Irms_c",
+                size:2
             },
             8:{
                 divider:1,
                 function_type:"int",
-                name:"phase_c"
+                name:"phase_c",
+                size:2
             },
         }
     },
@@ -286,57 +322,68 @@ let field={
             0:{
                 divider:1000,
                 function_type:"int",
-                name:"frequency"
+                name:"frequency",
+                size:2
             },
             1:{
                 divider:1000,
                 function_type:"int",
-                name:"frequency_min"
+                name:"frequency_min",
+                size:2
             },
             2:{
                 divider:1000,
                 function_type:"int",
-                name:"frequency_max"
+                name:"frequency_max",
+                size:2
             },
             3:{
                 divider:10,
                 function_type:"int",
-                name:"Vrms"
+                name:"Vrms",
+                size:2
             },
             4:{
                 divider:10,
                 function_type:"int",
-                name:"Vrms_min"
+                name:"Vrms_min",
+                size:2
             },
             5:{
                 divider:10,
                 function_type:"int",
-                name:"Vrms_max"
+                name:"Vrms_max",
+                size:2
             },
             6:{
                 divider:10,
                 function_type:"int",
-                name:"Vpeak"
+                name:"Vpeak",
+                size:2
             },
             7:{
                 divider:10,
                 function_type:"int",
-                name:"Vpeak_min"
+                name:"Vpeak_min",
+                size:2
             },
             8:{
                 divider:10,
                 function_type:"int",
-                name:"Vpeak_max"
+                name:"Vpeak_max",
+                size:2
             },
             9:{
                 divider:1,
                 function_type:"int",
-                name:"over_voltage"
+                name:"over_voltage",
+                size:2
             },
             10:{
                 divider:1,
                 function_type:"int",
-                name:"sag_voltage"
+                name:"sag_voltage",
+                size:2
             },
         }
     },
@@ -345,52 +392,62 @@ let field={
             0:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_1"
+                name:"pin_state_1",
+                size:1
             },
             1:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_2"
+                name:"pin_state_2",
+                size:1
             },
             2:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_3"
+                name:"pin_state_3",
+                size:1
             },
             3:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_4"
+                name:"pin_state_4",
+                size:1
             },
             4:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_5"
+                name:"pin_state_5",
+                size:1
             },
             5:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_6"
+                name:"pin_state_6",
+                size:1
             },
             6:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_7"
+                name:"pin_state_7",
+                size:1
             },
             7:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_8"
+                name:"pin_state_8",
+                size:1
             },
             8:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_9"
+                name:"pin_state_9",
+                size:1
             },
             9:{
                 divider:1,
                 function_type:"none",
-                name:"pin_state_10"
+                name:"pin_state_10",
+                size:1
             },
         }
     }
@@ -1361,14 +1418,16 @@ function alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, i1, a
     let function_type = ftype
     let field_driven = 0
     console.log(divider)
-    if (field_index!==undefined){
-        field_driven = 1
-    }
     let size = type.size
     console.log("size:"+size)
     let name = type.name
     console.log("name:"+name)
     console.log("i1:"+i1)
+    if (field_index!==undefined){
+        field_driven = 1
+        size=field[clustID][attID][field_index].size
+    }
+
     if (size===2){
         alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type, field_driven, clustID, attID)
 
@@ -1482,23 +1541,23 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
             let temp=""
             if (i2===0){
                 if (function_type==="none"){
-                    temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                    temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
                 }
                 else if (function_type==="int"){
-                    temp = UintToInt((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)])/div).toString()
+                    temp = UintToInt((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)])/divider).toString()
                 }
                 else if (function_type==="float"){
-                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / div).toString()
+                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
                 }
             } else {
                 if (function_type==="none"){
-                    temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                    temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
                 }
                 else if (function_type==="int"){
-                    temp = UintToInt((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)])/div).toString()
+                    temp = UintToInt((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)])/divider).toString()
                 }
                 else if (function_type==="float"){
-                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / div).toString()
+                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
                 }
             }
             let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
