@@ -450,6 +450,52 @@ let field={
                 size:1
             },
         }
+    },
+    0x0050:{
+        0x0006:{
+            0:{
+                divider:1000,
+                function_type:"none",
+                name:"power_modes",
+                size:2
+            },
+            1:{
+                divider:1000,
+                function_type:"none",
+                name:"current_power_source",
+                size:2
+            },
+            2:{
+                divider:1000,
+                function_type:"none",
+                name:"constant_power",
+                size:2
+            },
+            3:{
+                divider:1000,
+                function_type:"none",
+                name:"rechargeable_battery",
+                size:2
+            },
+            4:{
+                divider:1000,
+                function_type:"none",
+                name:"disposable_battery",
+                size:2
+            },
+            5:{
+                divider:1000,
+                function_type:"none",
+                name:"solar_harvesting",
+                size:2
+            },
+            6:{
+                divider:1000,
+                function_type:"none",
+                name:"TIC_harvesting",
+                size:2
+            },
+        }
     }
 }
 
@@ -1817,6 +1863,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     let i2 = 0
     if (field_driven===1){
         length+=1
+        console.log("length:"+length)
         i2=1
     }
     if (function_type===undefined){
@@ -1839,8 +1886,8 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         if (field_driven===1){
             console.log("field_driven")
             console.log((i1+((length)*i))+1)
-            let fi =bytes[(i1+((length)*i))+1]
-            console.log(fi)
+            let fi =bytes[(i1+((length)*i)+1)]
+            console.log("fi:"+fi)
             divider = field[clustID][attID][fi].divider
             function_type = field[clustID][attID][fi].function_type
         }
@@ -2053,7 +2100,7 @@ function Decoder(bytes, port) {
                         let flag = 0
                         let divider = 100
                         let rc = ""
-                        let ftype="none"
+                        let ftype="int"
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
@@ -2667,21 +2714,26 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID === 0x0050 ) && (attID === 0x0006)) {
                     let i2 = i1 + 3;
-                    let attribute_type = bytes[i2-1];
+                    let attribute_type = bytes[i1-1];
+                    console.log(i2)
+                    console.log("attribute_type",attribute_type)
                     if ((bytes[i1+2] &0x01) === 0x01) {decoded.data.main_or_external_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x04) === 0x04) {decoded.data.disposable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
-                    let ia = i2
+                    let ia = i2+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
-                        let divider = 1000
+                        let divider = 1
+                        let ftype = "multistate"
                         let rc = ""
-                        let ftype="none"
                         rc = decimalToBitString(bytes[ia])
+                        console.log(rc)
                         ia+=1
+                        console.log("ia:"+ia)
+                        let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
@@ -2692,7 +2744,7 @@ function Decoder(bytes, port) {
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 6
-                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia, attribute_type, divider, ftype, field_index)
                         }
                     }
                 }
@@ -2781,7 +2833,7 @@ function Decoder(bytes, port) {
                             alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 8
+                            let length = 10
                             alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia, attribute_type, divider, ftype, field_index)
                         }
                     }
@@ -2815,7 +2867,7 @@ function Decoder(bytes, port) {
                             alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 8
+                            let length = 10
                             alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia, attribute_type, divider, ftype, field_index)
                         }
                     }
