@@ -1395,7 +1395,6 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
         let csd = decimalToBitString(bi)
         let index = int(csd[5])*4+int(csd[6])*2+int(csd[7])
         if ((csd[3] === "1") && (csd[4] === "0")) {
-            let mode = "threshold"
             let qual = ""
             if (csd[1] === "1") {
                 qual = "exceed"
@@ -1407,7 +1406,7 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
-            let mess = "alarm, delta "+index+" triggered"
+            let mess = "alarm, criterion_index: "+ index + ", mode: delta"
             listMess.push(mess)
         }
         i+=1
