@@ -1493,6 +1493,7 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 }
             }
             let temp = ""
+            let mess = ""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)] ) / divider).toString()
@@ -1503,7 +1504,9 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] ) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)] ) / divider).toString()
                 }
@@ -1513,13 +1516,14 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] ) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field_index: " + fi
             }
-            let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
             let temp=""
+            let mess=""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)] ) / divider).toString()
@@ -1530,7 +1534,9 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] ) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)] ) / divider).toString()
                 }
@@ -1540,8 +1546,8 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] ) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field_index: " + fi
             }
-            let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
         }
         i+=1
@@ -1610,6 +1616,7 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 }
             }
             let temp = ""
+            let mess=""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)] + bytes[i1+3+((length)*i)]) / divider).toString()
@@ -1620,7 +1627,9 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)] + bytes[i1+3+((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)] + bytes[i1+4+((length)*i)]) / divider).toString()
                 }
@@ -1630,13 +1639,14 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]+ bytes[i1+4+((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field_index: "+ fi
             }
-            let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
             let temp=""
+            let mess = ""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)] *256*256 + bytes[i1 + 2 + ((length)*i)]*256 + bytes[i1+3+((length)*i)]) / divider).toString()
@@ -1647,7 +1657,9 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)] + bytes[i1+3+((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)] + bytes[i1+4+((length)*i)]) / divider).toString()
                 }
@@ -1657,8 +1669,8 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)] + bytes[i1+4+((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field_index: "+ fi
             }
-            let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
         }
         i+=1
@@ -1727,6 +1739,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 }
             }
             let temp = ""
+            let mess = ""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
@@ -1737,7 +1750,9 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
                 }
@@ -1747,13 +1762,15 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field_index:" + fi
             }
-            let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
             let temp=""
+            let mess=""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
@@ -1764,7 +1781,9 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
                 }
@@ -1774,8 +1793,9 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field_index:" + fi
             }
-            let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
+
             listMess.push(mess)
         }
         i+=1
@@ -1849,6 +1869,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 }
             }
             let temp = ""
+            let mess = ""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)]*256*256*256 + bytes[i1 + 2 + ((length)*i)]*256*256 + bytes[i1 + 3 + ((length)*i)]*256 + bytes[i1 + 4 + ((length)*i)]) / divider).toString()
@@ -1859,7 +1880,9 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)]*256*256*256 + bytes[i1 + 2 + ((length)*i)]*256*256 + bytes[i1 + 3 + ((length)*i)]*256 + bytes[i1 + 4 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)]*256*256*256 + bytes[i1 + 3 + ((length)*i)]*256*256 + bytes[i1 + 4 + ((length)*i)]*256 + bytes[i1 + 5 + ((length)*i)]) / divider).toString()
                 }
@@ -1869,14 +1892,16 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)]*256*256*256 + bytes[i1 + 3 + ((length)*i)]*256*256 + bytes[i1 + 4 + ((length)*i)]*256 + bytes[i1 + 5 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field_index:" + fi
             }
-            let mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+
             console.log(mess)
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
             length-=3
             let temp=""
+            let mess=""
             if (i2===0){
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 1 + ((length)*i)]*256*256*256 + bytes[i1 + 2 + ((length)*i)]*256*256 + bytes[i1 + 3 + ((length)*i)]*256 + bytes[i1 + 4 + ((length)*i)]) / divider).toString()
@@ -1887,7 +1912,9 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)]*256*256*256 + bytes[i1 + 2 + ((length)*i)]*256*256 + bytes[i1 + 3 + ((length)*i)]*256 + bytes[i1 + 4 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             } else {
+                let fi =bytes[(i1+((length)*i))+1]
                 if (function_type==="none"){
                     temp = ((bytes[i1 + 2 + ((length)*i)]*256*256*256 + bytes[i1 + 3 + ((length)*i)]*256*256 + bytes[i1 + 4 + ((length)*i)]*256 + bytes[i1 + 5 + ((length)*i)]) / divider).toString()
                 }
@@ -1897,8 +1924,8 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)]*256*256*256 + bytes[i1 + 3 + ((length)*i)]*256*256 + bytes[i1 + 4 + ((length)*i)]*256 + bytes[i1 + 5 + ((length)*i)]) / divider).toString()
                 }
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field_index:" + fi
             }
-            let mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             listMess.push(mess)
         }
         i+=1
