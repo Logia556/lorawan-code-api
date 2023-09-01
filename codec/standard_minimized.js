@@ -2107,58 +2107,54 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x0405 ) && (attID === 0x0001)) decoded.data.min_humidity = (bytes[i1]*256+bytes[i1+1])/100;
                 if ((clustID === 0x0405 ) && (attID === 0x0002)) decoded.data.max_humidity = (bytes[i1]*256+bytes[i1+1])/100;
                 if ((clustID === 0x000f ) && (attID === 0x0402)) {
+                    let attribute_type = bytes[i1-1]
                     decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
-                    if (cmdID===0x8a) {
+                    let ia = i1+4
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i1 + 4] === undefined) {
-                            rc = "none"
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 4])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 8
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            let length = 7
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
                 if ((clustID === 0x000f ) && (attID === 0x0055)) {
+                    let attribute_type = bytes[i1-1]
                     decoded.data.pin_state = !(!bytes[i1]);
-                    if (cmdID===0x8a) {
+                    let ia = i1+1
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i1 + 1] === undefined) {
-                            rc = "none"
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 1])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 5
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
@@ -2179,30 +2175,28 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x000f ) && (attID === 0x0403)) decoded.data.pollperiod = bytes[i1]
                 if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.forcenotify = bytes[i1]
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) {
+                    let attribute_type = bytes[i1-1]
                     decoded.data.value = bytes[i1]
-                    if (cmdID===0x8a) {
+                    let ia = i1+1
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i1 + 1] === undefined) {
-                            rc = "none"
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 1])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 5
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
@@ -2210,35 +2204,34 @@ function Decoder(bytes, port) {
                     let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ;
                 }
                 if ((clustID === 0x8008 ) && (attID === 0x0000)){
+                    let attribute_type = bytes[i1-1]
                     decoded.data.differential_pressure =bytes[i1]*256+bytes[i1+1];
-                    if (cmdID===0x8a) {
+                    let ia = i1+2
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 8
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            let length = 6
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
                 if ((clustID === 0x8005 ) && (attID === 0x0000))
                 {
+                    let attribute_type = bytes[i1-1]
                     decoded.data.pin_state_1 = ((bytes[i1+1]&0x01) === 0x01);
                     decoded.data.pin_state_2 = ((bytes[i1+1]&0x02) === 0x02);
                     decoded.data.pin_state_3 = ((bytes[i1+1]&0x04) === 0x04);
@@ -2249,29 +2242,26 @@ function Decoder(bytes, port) {
                     decoded.data.pin_state_8 = ((bytes[i1+1]&0x80) === 0x80);
                     decoded.data.pin_state_9 = ((bytes[i1]&0x01) === 0x01);
                     decoded.data.pin_state_10 = ((bytes[i1]&0x02) === 0x02);
-                    if (cmdID===0x8a) {
+                    let ia = i1+1
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
-                        let divider = 1
+                        let divider = 100
                         let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 5
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            let length = 6
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
@@ -2280,30 +2270,28 @@ function Decoder(bytes, port) {
                 if ((clustID===0x8006)&&(attID===0x0002)) decoded.data.parity = bytes[i1];
                 if ((clustID===0x8006)&&(attID===0x0003)) decoded.data.stopbit = bytes[i1];
                 if ((clustID === 0x000c ) && (attID === 0x0055)){
+                    let attribute_type = bytes[i1-1]
                     decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
-                    if (cmdID===0x8a) {
+                    let ia = i1+4
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i1 + 4] === undefined) {
-                            rc = "none"
-
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 4])
-                        }
-                        if (rc === "none") {
+                        let ftype="float"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 8
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
@@ -2679,33 +2667,32 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID === 0x0050 ) && (attID === 0x0006)) {
                     let i2 = i1 + 3;
+                    let attribute_type = bytes[i2-1];
                     if ((bytes[i1+2] &0x01) === 0x01) {decoded.data.main_or_external_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x04) === 0x04) {decoded.data.disposable_battery_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
                     if ((bytes[i1+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[i2]*256+bytes[i2+1])/1000;i2=i2+2;}
-                    if (cmdID===0x8a) {
+                    let ia = i2
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1000
                         let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 6
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
@@ -2904,114 +2891,108 @@ function Decoder(bytes, port) {
                     }
                 }
                 if ((clustID === 0x800c) && (attID === 0x0000)){
+                    let attribute_type = bytes[i1-1]
                     decoded.data.Concentration = (bytes[i1]*256+bytes[i1+1]);
-                    if (cmdID===0x8a) {
-                        let listMess = []
-                        let flag = 0
-                        let divider = 1
-                        let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        if (rc === "none") {
-                            listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
-                        }
-                        ;
-                        if ((rc[2] === "0") && (rc[3] === "1")) {
-                            let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
-                        }
-                        if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 6
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
-                        }
-                    }
-
-
-                }
-                if ((clustID===0x800C)&&(attID===0x0001)) decoded.data.analog=bytes[i1];
-                if ((clustID===0x800C)&&(attID===0x0002)) decoded.data.analog=bytes[i1];
-                if ((clustID === 0x0400) && (attID === 0x0000)) {
-                    decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
-                    if (cmdID===0x8a) {
-                        let listMess = []
-                        let flag = 0
-                        let divider = 1
-                        let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        if (rc === "none") {
-                            listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
-                        }
-                        ;
-                        if ((rc[2] === "0") && (rc[3] === "1")) {
-                            let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
-                        }
-                        if ((rc[2] === "1") && (rc[3] === "0")) {
-                            let length = 6
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
-                        }
-                    }
-                }
-                if ((clustID === 0x0403) && (attID === 0x0000)) {
-                    decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
-                    if (cmdID===0x8a) {
+                    let ia = i1+2
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 100
                         let rc = ""
-                        if (bytes[i1 + 2] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 2])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 6
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
-                if ((clustID === 0x0406) && (attID === 0x0000)) {
-                    decoded.data.Occupancy = !(!bytes[i1]);
-                    if (cmdID===0x8a) {
+                if ((clustID===0x800C)&&(attID===0x0001)) decoded.data.analog=bytes[i1];
+                if ((clustID===0x800C)&&(attID===0x0002)) decoded.data.analog=bytes[i1];
+                if ((clustID === 0x0400) && (attID === 0x0000)) {
+                    let attribute_type = bytes[i1-1]
+                    decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
+                    let ia = i1+2
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
                         let divider = 1
                         let rc = ""
-                        if (bytes[i1 + 1] === undefined) {
-                            rc = "none"
-                        } else {
-                            rc = decimalToBitString(bytes[i1 + 1])
-                        }
-                        if (rc === "none") {
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
                             decoded.zclheader.alarmmess = listMess
                         }
-                        ;
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
-                            alarmShort(length, listMess, flag, bytes, decoded, i1)
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
+                        }
+                    }
+                }
+                if ((clustID === 0x0403) && (attID === 0x0000)) {
+                    let attribute_type = bytes[i1-1]
+                    decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
+                    let ia = i1+2
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 1
+                        let rc = ""
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
+                        }
+                        if ((rc[2] === "1") && (rc[3] === "0")) {
+                            let length = 6
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
+                        }
+                    }
+                }
+                if ((clustID === 0x0406) && (attID === 0x0000)) {
+                    let attribute_type = bytes[i1-1]
+                    decoded.data.Occupancy = !(!bytes[i1]);
+                    let ia = i1+1
+                    if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
+                        let listMess = []
+                        let flag = 0
+                        let divider = 100
+                        let rc = ""
+                        let ftype="none"
+                        rc = decimalToBitString(bytes[ia])
+                        ia+=1
+                        if ((rc[2] === "0") && (rc[3] === "0")) {
+                            listMess.push("alarm triggered")
+                            decoded.zclheader.alarmmess = listMess
+                        }
+                        if ((rc[2] === "0") && (rc[3] === "1")) {
+                            let length = 1
+                            alarmShort(length, listMess, flag, bytes, decoded, ia)
                         }
                         if ((rc[2] === "1") && (rc[3] === "0")) {
                             let length = 5
-                            alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1, divider)
+                            alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, ia,attribute_type, divider, ftype)
                         }
                     }
                 }
