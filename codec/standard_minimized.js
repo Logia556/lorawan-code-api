@@ -3209,7 +3209,7 @@ function Decoder(bytes, port) {
     return decoded;
 }
 function normalisation_standard(input, endpoint_parameters){
-    let warning = "";
+    let warning = [""];
     let bytes = input.bytes;
     let flagstandard = true;
     let indent = 0;
