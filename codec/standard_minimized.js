@@ -1732,7 +1732,7 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)] + bytes[i1+4+((length)*i)]) / divider).toString()
                 }
-                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field " + alarm_field
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field
             }
             listMess.push(mess)
         }
@@ -1865,7 +1865,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
                 }
-                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field " + alarm_field
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field
             }
             listMess.push(mess)
         }
@@ -2004,7 +2004,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)]*256*256*256 + bytes[i1 + 3 + ((length)*i)]*256*256 + bytes[i1 + 4 + ((length)*i)]*256 + bytes[i1 + 5 + ((length)*i)]) / divider).toString()
                 }
-                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp +", field " + alarm_field
+                mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp +", field: " + alarm_field
             }
             listMess.push(mess)
         }
