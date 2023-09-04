@@ -3221,53 +3221,55 @@ function normalisation_standard(input, endpoint_parameters){
             warning = decoded.zclheader.alarmmess
             console.log(warning)
         }
-    }
-    if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
-        return{
-            data: decoded.zclheader,
-            warning: warning
+
+        if (bytes[1] === 0x07 && bytes[0]%2 !== 0){
+            return{
+                data: decoded.zclheader,
+                warning: warning
+            }
         }
-    }
-    else if (bytes[1] === 0x09){
-        return{
-            data: decoded.zclheader,
-            warning: warning
+        else if (bytes[1] === 0x09){
+            return{
+                data: decoded.zclheader,
+                warning: warning
+            }
         }
-    }
-    else if (bytes[1] === 0x01){
-        if(decoded.zclheader.data === undefined){
-            let data = []
-            while(flagstandard){
-                let firstKey = Object.keys(decoded.data)[indent];
-                if (firstKey === undefined){
-                    flagstandard = false;
-                    break;
+        else if (bytes[1] === 0x01) {
+            if (decoded.zclheader.data === undefined) {
+                let data = []
+                while (flagstandard) {
+                    let firstKey = Object.keys(decoded.data)[indent];
+                    if (firstKey === undefined) {
+                        flagstandard = false;
+                        break;
+                    } else {
+                        data.push({
+                            variable: firstKey,
+                            value: decoded.data[firstKey],
+                            date: input.recvTime
+                        })
+                        indent++;
+                    }
                 }
-                else{
-                    data.push({variable: firstKey,
-                        value: decoded.data[firstKey],
+                return {
+                    data: data,
+                    type: "standard",
+                    warning: warning
+                }
+            } else {
+                return {
+                    data: {
+                        variable: "read reporting configuration response status",
+                        value: decoded.zclheader.data,
                         date: input.recvTime
-                    })
-                    indent++;
+                    },
+                    warning: warning
                 }
-            }
-            return {
-                data: data,
-                type: "standard",
-                warning: warning
-            }
-        }
-        else{
-            return {
-                data: {variable: "read reporting configuration response status",
-                    value: decoded.zclheader.data,
-                    date: input.recvTime
-                },
-                warning: warning
             }
         }
     }
     if (decoded.zclheader !== undefined){
+        console.log("je rentre dans le zclheader")
         if (endpoint_parameters !== undefined) {
             let access = decoded.zclheader.endpoint;
             let flagstandard = true;
@@ -3320,6 +3322,7 @@ function normalisation_standard(input, endpoint_parameters){
             }
         }
     }
+    console.log("je sort en batch")
     return {
         type: decoded.batch.report,
         payload: decoded.lora.payload,
