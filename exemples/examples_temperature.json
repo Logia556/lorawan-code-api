@@ -28,29 +28,6 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing a none threshold alarm on temperature value | payload:118A04020000290C13",
-    "input": {
-      "bytes": [
-        17, 138,  4,  2, 0,
-        0,  41, 12, 19
-      ],
-      "fPort": 125,
-      "recvTime": "2023-07-19T07:51:25.508306410Z"
-    }
-  ,
-    "output": {
-      "data": [
-        {
-          "variable": "temperature",
-          "value": 30.91,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        }
-      ],
-      "warnings": [ [ "alarm triggered" ] ]
-    }
-  },
-  {
-    "type": "uplink",
     "description": "uplink standard report containing 2 short threshold alarms on temperature value | payload:118A0402000029075590B0B1",
     "input": {
       "bytes": [
@@ -69,12 +46,12 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
-      "warnings": [
+      "warnings":
         [
           "alarm, criterion_index: 0, mode: threshold, crossing: fall",
           "alarm, criterion_index: 1, mode: threshold, crossing: fall"
         ]
-      ]
+
     }
   },
   {
@@ -89,8 +66,7 @@
       ],
       "fPort": 125,
       "recvTime": "2023-07-19T07:51:25.508306410Z"
-    }
-  ,
+    },
     "output":{
       "data": [
         {
@@ -100,13 +76,12 @@
         }
       ],
       "warnings": [
-        [
-          "alarm, criterion_index: 0, mode: threshold, crossing: fall, value: 23, occurences_up: 0, occurences_down: 1",
-          "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 21, occurences_up: 0, occurences_down: 1",
-          "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 20, occurences_up: 0, occurences_down: 1"
-        ]
+        "alarm, criterion_index: 0, mode: threshold, crossing: fall, value: 23, gap: 0, occurences_up: 0, occurences_down: 1",
+        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 21, gap: 0, occurences_up: 0, occurences_down: 1",
+        "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 20, gap: 0, occurences_up: 0, occurences_down: 1"
       ]
     }
+
   },
   {
     "type": "uplink",
@@ -128,7 +103,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
-      "warnings": [ [ "alarm, criterion_index: 0, mode: delta, value: 0.2" ] ]
+      "warnings":  [ "alarm, criterion_index: 0, mode: delta, value: 0.2" ]
     }
   }
 ]

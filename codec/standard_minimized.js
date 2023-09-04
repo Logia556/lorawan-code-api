@@ -2127,7 +2127,6 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x0402 ) && (attID === 0x0000)) {
                     let attribute_type = bytes[i1-1]
                     decoded.data.temperature = (UintToInt(bytes[i1]*256+bytes[i1+1],2))/100;
-                    //getions des alarmes
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
