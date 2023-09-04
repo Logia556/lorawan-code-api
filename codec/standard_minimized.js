@@ -1461,6 +1461,7 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
 }
 function alarmLong(clustID, attID, length, listMess, flag, bytes, decoded, i1, attribute_type, divider, ftype, field_index){
     console.log("alarmLong")
+    console.log(ftype)
     let type = attribute_types[attribute_type]
     let function_type = ftype
     let field_driven = 0
@@ -1748,9 +1749,13 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     }
 }
 function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name, function_type, field_driven, clustID, attID){
+    console.log("alarmLong2Bytes")
+    console.log(function_type)
     let i = 0
+    let count = 0
     let countUp=0
     let countDown=0
+    let shift=0
     let i2 = 0
     if (field_driven===1){
         length+=1
@@ -1781,61 +1786,80 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         let csd = decimalToBitString(bi)
         let index = int(csd[5])*4+int(csd[6])*2+int(csd[7])
         if ((csd[3] === "1") && (csd[4] === "0")) {
-            let qual = ""
-            if (csd[1] === "1") {
-                qual = "exceed"
-                if (i2===0){
-                    countUp = decimalToBitString(bytes[i1 + 5 + ((length)*i)])
-                    countUp = parseInt(countUp, 2)
-                } else {
-                    countUp= decimalToBitString(bytes[i1 + 6 + ((length)*i)])
-                    countUp = parseInt(countUp, 2)
-                }
-            } else {
-                qual = "fall"
-                if(i2===0){
-                    countDown = decimalToBitString(bytes[i1 + 5 + ((length)*i)])
-                    countDown = parseInt(countDown, 2)
-                } else {
-                    countDown = decimalToBitString(bytes[i1 + 6 + ((length)*i)])
-                    countDown = parseInt(countDown, 2)
-                }
-            }
             let temp = ""
             let mess = ""
             let gap = ""
+            let qual = ""
+            if (csd[1]==="1"){
+                let qual = "exceed"
+            }else{
+                let qual = "fall"
+            }
             if (i2===0){
+
                 if (function_type==="none"){
-                    temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
-                    gap = ((bytes[i1 + 3 + ((length)*i)] * 256 + bytes[i1 + 4 + ((length)*i)]) / divider).toString()
+                    temp = ((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)+shift]) / divider).toString()
+                    console.log(bytes[i1 + 1 + ((length)*i)+shift])
+
+                    gap = ((bytes[i1 + 3 + ((length)*i)+shift] * 256 + bytes[i1 + 4 + ((length)*i)+shift]) / divider).toString()
+                    console.log(bytes[i1 + 3 + ((length)*i)+shift])
+                    console.log(bytes[i1 + 4 + ((length)*i)+shift])
+
                 }
                 else if (function_type==="int"){
-                    temp = UintToInt((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)])/divider).toString()
-                    gap = UintToInt((bytes[i1 + 3 + ((length)*i)] * 256 + bytes[i1 + 4 + ((length)*i)])/divider).toString()
+                    temp = UintToInt((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)+shift])/divider).toString()
+                    console.log(bytes[i1 + 1 + ((length)*i)+shift])
+                    gap = UintToInt((bytes[i1 + 3 + ((length)*i)+shift] * 256 + bytes[i1 + 4 + ((length)*i)+shift])/divider).toString()
+                    console.log(bytes[i1 + 3 + ((length)*i)+shift])
+
                 }
                 else if (function_type==="float"){
-                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
-                    gap = Bytes2Float32((bytes[i1 + 3 + ((length)*i)] * 256 + bytes[i1 + 4 + ((length)*i)]) / divider).toString()
+                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)]+shift) / divider).toString()
+                    gap = Bytes2Float32((bytes[i1 + 3 + ((length)*i)+shift] * 256 + bytes[i1 + 4 + ((length)*i)]+shift) / divider).toString()
                 }
-                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+                count = decimalToBitString(bytes[i1 + 5 + ((length)*i)])
+                count = parseInt(count, 2)
+                if (count>=128){
+                    shift+=4
+                    countUp=decimalToBitString(bytes[i1 + 6 + ((length)*i)]*256+bytes[i1 + 7 + ((length)*i)])
+                    countUp=parseInt(countUp,2)
+                    countDown=decimalToBitString(bytes[i1 + 8 + ((length)*i)]*256+bytes[i1 + 9 + ((length)*i)])
+                    countDown=parseInt(countDown,2)
+
+                    mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+                }else{
+                    mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count
+                }
+
             } else {
                 let fi =bytes[(i1+((length)*i))+1]
                 let alarm_field = field[clustID][attID][fi].name
                 if (function_type==="none"){
-                    temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
-                    gap = ((bytes[i1 + 4 + ((length)*i)] * 256 + bytes[i1 + 5 + ((length)*i)]) / divider).toString()
+                    temp = ((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift]) / divider).toString()
+                    gap = ((bytes[i1 + 4 + ((length)*i)+shift] * 256 + bytes[i1 + 5 + ((length)*i)+shift]) / divider).toString()
                 }
                 else if (function_type==="int"){
-                    temp = UintToInt((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)])/divider).toString()
-                    gap = UintToInt((bytes[i1 + 4 + ((length)*i)] * 256 + bytes[i1 + 5 + ((length)*i)])/divider).toString()
+                    temp = UintToInt((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift])/divider).toString()
+                    gap = UintToInt((bytes[i1 + 4 + ((length)*i)+shift] * 256 + bytes[i1 + 5 + ((length)*i)+shift])/divider).toString()
                 }
                 else if (function_type==="float"){
-                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
-                    gap = Bytes2Float32((bytes[i1 + 4 + ((length)*i)] * 256 + bytes[i1 + 5 + ((length)*i)]) / divider).toString()
+                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift]) / divider).toString()
+                    gap = Bytes2Float32((bytes[i1 + 4 + ((length)*i)+shift] * 256 + bytes[i1 + 5 + ((length)*i)+shift]) / divider).toString()
                 }
-                mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field
-            }
+                count = decimalToBitString(bytes[i1 + 6 + ((length)*i)])
+                count = parseInt(count, 2)
+                if(count>=128){
+                    shift+=4
+                    countUp=decimalToBitString(bytes[i1 + 7 + ((length)*i)]*256+bytes[i1 + 8 + ((length)*i)])
+                    countUp=parseInt(countUp,4)
+                    countDown=decimalToBitString(bytes[i1 + 9 + ((length)*i)]*256+bytes[i1 + 10 + ((length)*i)])
+                    countDown=parseInt(countDown,4)
 
+                    mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field
+                } else {
+                    mess = "alarm, criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field
+                }
+            }
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
@@ -1844,35 +1868,36 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
             let mess=""
             if (i2===0){
                 if (function_type==="none"){
-                    temp = ((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
+                    temp = ((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)+shift]) / divider).toString()
                 }
                 else if (function_type==="int"){
-                    temp = UintToInt((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)])/divider).toString()
+                    temp = UintToInt((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)+shift])/divider).toString()
                 }
                 else if (function_type==="float"){
-                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)] * 256 + bytes[i1 + 2 + ((length)*i)]) / divider).toString()
+                    temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)+shift]) / divider).toString()
                 }
                 mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
             } else {
                 let fi =bytes[(i1+((length)*i))+1]
                 let alarm_field = field[clustID][attID][fi].name
                 if (function_type==="none"){
-                    temp = ((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
+                    temp = ((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift]) / divider).toString()
                 }
                 else if (function_type==="int"){
-                    temp = UintToInt((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)])/divider).toString()
+                    temp = UintToInt((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift])/divider).toString()
                 }
                 else if (function_type==="float"){
-                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)] * 256 + bytes[i1 + 3 + ((length)*i)]) / divider).toString()
+                    temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift]) / divider).toString()
                 }
                 mess = "alarm, criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field
             }
             listMess.push(mess)
         }
         i+=1
+        count=0
         countDown=0
         countUp=0
-        bi = bytes[(i1+((length)*i))]
+        bi = bytes[(i1+((length)*i))+shift]
         if (bi === undefined){
             decoded.zclheader.alarmmess = listMess
             flag = 1
