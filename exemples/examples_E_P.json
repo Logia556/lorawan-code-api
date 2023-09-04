@@ -58,6 +58,68 @@
       ],
       "warnings": [ "" ]
     }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing energy/power long threshold alarm | payload:118A800A000041200010760A0000020400005A6E000A210D000018A20000000000000000000003A6A0B1060000000F0000000002",
+    "input": {
+      "bytes": [
+        17, 138, 128, 10,  0,   0,  65,  32,   0, 16, 118,
+        10,   0,   0,  2,  4,   0,   0,  90, 110,  0,  10,
+        33,  13,   0,  0, 24, 162,   0,   0,   0,  0,   0,
+        0,   0,   0,  0,  0,   3, 166, 160, 177,  6,   0,
+        0,   0,  15,  0,  0,   0,   0,   2
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "sum_positive_active_energy_Wh_A",
+          "value": 1078794,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "sum_negative_active_energy_Wh_A",
+          "value": 516,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "sum_positive_reactive_energy_Wh_A",
+          "value": 23150,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "sum_negative_reactive_energy_Wh_A",
+          "value": 663821,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "positive_active_power_W_A",
+          "value": 6306,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "negative_active_power_W_A",
+          "value": 0,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "positive_reactive_power_W_A",
+          "value": 0,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "negative_reactive_power_W_A",
+          "value": 934,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [
+        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences_up: 0, occurences_down: 2, field: positive_reactive_power_W"
+      ]
+    }
 
   }
 ]
