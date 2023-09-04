@@ -7,6 +7,29 @@ let batch_param = [3, [{taglbl: 0,resol: 0.02, sampletype: 12,lblname: "0-100_mV
 let endpointCorresponder = {
     analog:["0-100_mV","0-70_V"]
 }
+
+function strToDecimalArray(str){
+    let hexArray = [];
+    for (let i=0; i<str.length; i+=2) {
+        hexArray.push(parseInt(str.substring(i, i+2), 16));
+    }
+    return hexArray;
+}
+let argv= process.argv.slice(2);
+
+
+let bytes = [];
+bytes = strToDecimalArray(argv[1]);
+
+let date = argv[2];
+
+let input = {
+    bytes: bytes,
+    fPort: Number(argv[0]),
+    recvTime: date,
+};
+console.log(input)
+
 function decodeUplink(input) {
     if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0C) {
         return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
@@ -16,3 +39,5 @@ function decodeUplink(input) {
 
 module.exports.decodeUplink = decodeUplink;
 
+let a = decodeUplink(input);
+console.log(a);
