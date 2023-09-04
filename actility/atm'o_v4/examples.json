@@ -168,5 +168,58 @@
       ],
       "warnings": [ "" ]
     }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink batch report | payload:20220080039281F268D3212D54A0C3E170380AB000",
+    "input": {
+      "bytes": [
+        32,  34,   0, 128,  3, 146, 129,
+        242, 104, 211,  33, 45,  84, 160,
+        195, 225, 112,  56, 10, 176,   0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "pressure",
+          "value": 997,
+          "date": "2023-07-19T07:50:34.508Z"
+        },
+        {
+          "variable": "pressure",
+          "value": 997,
+          "date": "2023-07-19T07:50:44.508Z"
+        },
+        {
+          "variable": "pressure",
+          "value": 997,
+          "date": "2023-07-19T07:50:54.508Z"
+        },
+        {
+          "variable": "pressure",
+          "value": 997,
+          "date": "2023-07-19T07:51:04.508Z"
+        },
+        {
+          "variable": "pressure",
+          "value": 997,
+          "date": "2023-07-19T07:51:14.508Z"
+        },
+        {
+          "variable": "pressure",
+          "value": 997,
+          "date": "2023-07-19T07:51:24.508Z"
+        },
+        {
+          "variable": "battery_voltage",
+          "value": 3.689,
+          "date": "2023-07-19T07:51:24.508Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
   }
 ]
