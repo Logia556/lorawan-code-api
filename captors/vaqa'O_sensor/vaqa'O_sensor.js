@@ -11,6 +11,29 @@ let endpointCorresponder = {
     temperature: ["temperature_1","temperature_2"],
     humidity: ["humidity_1","humidity_2"]
 }
+
+function strToDecimalArray(str){
+    let hexArray = [];
+    for (let i=0; i<str.length; i+=2) {
+        hexArray.push(parseInt(str.substring(i, i+2), 16));
+    }
+    return hexArray;
+}
+let argv= process.argv.slice(2);
+
+
+let bytes = [];
+bytes = strToDecimalArray(argv[1]);
+
+let date = argv[2];
+
+let input = {
+    bytes: bytes,
+    fPort: Number(argv[0]),
+    recvTime: date,
+};
+console.log(input)
+
 function decodeUplink(input) {
     if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0C) {
         return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
@@ -25,5 +48,7 @@ function decodeUplink(input) {
 
 }
 module.exports.decodeUplink = decodeUplink;
+let a = decodeUplink(input);
+console.log(a);
 
 
