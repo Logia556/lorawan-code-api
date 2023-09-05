@@ -3,7 +3,7 @@ name: atmo v4
 # Functional description of the product. Maximum 500 characters.
 description: "The WATTECO atmo sensor measures indoor ambient temperature, humidity and pressure in buildings, apartments, and houses. It transmits data over a public or private LoRaWAN® network."
 # Logo of the device
-logo: watteco-atmo-sensor.png
+logo: watteco-closo-sensor.png
 # ID(s) of the profile that defines the LoRaWAN characteristics of this model.
 deviceProfileId:
   - watteco_RFGroup1_1.0.2b_classA
