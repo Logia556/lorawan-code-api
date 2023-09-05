@@ -1,7 +1,7 @@
 # Commercial name of the model
-name: flasho
+name: flasho v4
 # Functional description of the product. Maximum 500 characters.
-description: "The WATTECO TH sensor measures indoor ambient temperature and humidity in buildings, apartments, and houses. It transmits data over a public or private LoRaWAN® network."
+description: "The WATTECO LoRaWAN® flasho has a pulse sensor for counting the number of light pulses emitted by any type of electronic meter - water, gas, electricity, energy."
 # Logo of the device
 logo: watteco-flasho-sensor.png
 # ID(s) of the profile that defines the LoRaWAN characteristics of this model.
