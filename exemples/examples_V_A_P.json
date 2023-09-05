@@ -97,11 +97,9 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 100, gap: 0, occurences_up: 1, occurences_down: 0, field: Vrms",
-        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences_up: 1, occurences_down: 0, field: Irms"
+        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 100, gap: 0, occurences: 1, field: Vrms",
+        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Irms"
       ]
     }
-
   }
-
 ]

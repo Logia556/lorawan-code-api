@@ -54,7 +54,7 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 3.36, gap: 0, occurences_up: 1, occurences_down: 0, field: disposable_battery"
+        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 3.36, gap: 0, occurences: 1, field: disposable_battery"
       ]
     }
   },

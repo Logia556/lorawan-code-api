@@ -117,9 +117,8 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences_up: 0, occurences_down: 2, field: positive_reactive_power_W"
+        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences: 2, field: positive_reactive_power_W"
       ]
     }
-
   }
 ]

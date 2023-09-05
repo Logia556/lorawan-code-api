@@ -88,10 +88,10 @@
         }
     },
     "configuration": {
-      "threshold": {
+      "delta": {
         "long": ["118A00500006410501040D2704A0C8040001"]
       },
-      "delta": {
+      "threshold": {
         "long": ["118A00500006410501040D2204A0D0040D20000001"]
       }
     },
