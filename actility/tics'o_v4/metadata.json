@@ -1,9 +1,9 @@
 {
-  "name": "smartplug v4",
+  "name": "tics'o v4",
   "version": "1.0.0",
   "main": "main.js",
-  "description": "driver for smartplug v4 sensor",
-  "codecId": "0057",
+  "description": "driver for tics'o v4 sensor",
+  "codecId": "0050",
   "sourceUrl": "https://github.com/actility/device-catalog/tree/main/vendors/watteco",
   "vendorId": "0128",
   "specVersion": "1.0.0",
