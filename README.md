@@ -22,7 +22,7 @@ la commande d'execution est la suivante:</p>
 <p>cette fonction va, dans un premier temps traiter le payload comme si c'était un standard, à l'aide la fonction <code>normalisation()</code> de <strong>standard.js</strong>.<br>
 Dans le cas d'un payload standard, on modifie le résultat de <code>Decoder()</code> pour retourner les donnés dans un format souhaité.<br>
 Si le payload est en fait un batch, on retourne le payload, qui est envoyé dans la fonction <code>normalisation()</code> de <strong>batch.js</strong>.
-De même, on modifie le résultat de [README.md](README.md)<code>brUncompress()</code> pour retourner les donnés dans un format souhaité.</p> 
+De même, on modifie le résultat de <code>brUncompress()</code> pour retourner les donnés dans un format souhaité.</p> 
 
 les fichiers examples.json contiennent des couples entrée-sortie effectuer avec le codec.<br>
 on peut observer leur exactitude en lançant un test JEST comme expliqué [ici](#jest) 
