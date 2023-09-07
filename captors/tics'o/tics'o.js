@@ -1,35 +1,9 @@
 let watteco = require("../../codec/decode_uplink")
 
 let batch_param=[]
-
-function strToDecimalArray(str){
-    let hexArray = [];
-    for (let i=0; i<str.length; i+=2) {
-        hexArray.push(parseInt(str.substring(i, i+2), 16));
-    }
-    return hexArray;
-}
-let argv= process.argv.slice(2);
-
-
-let bytes = [];
-bytes = strToDecimalArray(argv[1]);
-
-let date = argv[2];
-
-let input = {
-    bytes: bytes,
-    fPort: Number(argv[0]),
-    recvTime: date,
-};
-console.log(input)
-
+let endpointCorresponder={}
 function decodeUplink(input) {
-
-    return result = watteco.watteco_decodeUplink(input, batch_param);
+    return result = watteco.watteco_decodeUplink(input, batch_param,endpointCorresponder);
 
 }
-module.exports.decodeUplink = decodeUplink;
-
-let a = decodeUplink(input);
-console.log(a);
+exports.decodeUplink = decodeUplink;

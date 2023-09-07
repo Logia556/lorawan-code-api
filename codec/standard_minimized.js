@@ -1434,7 +1434,7 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
     while(flag === 0) {
         let bi = bytes[(i1+(length*i))]
         if (bi === undefined){
-            decoded.zclheader.alarmmess = listMess
+            decoded.zclheader.alarmmsg = listMess
             flag = 1
             break
         }
@@ -1508,7 +1508,7 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     }
     let bi = bytes[(i1+(length*i))]
     if (bi === undefined){
-        decoded.zclheader.alarmmess = listMess
+        decoded.zclheader.alarmmsg = listMess
         flag = 1
     }
     while(flag===0) {
@@ -1621,7 +1621,7 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         countUp=0
         bi = bytes[(i1+((length)*i))+shift]
         if (bi === undefined){
-            decoded.zclheader.alarmmess = listMess
+            decoded.zclheader.alarmmsg = listMess
             flag = 1
             break
         }
@@ -1651,7 +1651,7 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     }
     let bi = bytes[(i1+(length*i))]
     if (bi === undefined){
-        decoded.zclheader.alarmmess = listMess
+        decoded.zclheader.alarmmsg = listMess
         flag = 1
     }
     while(flag===0) {
@@ -1765,7 +1765,7 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         countUp=0
         bi = bytes[(i1+((length)*i))+shift]
         if (bi === undefined){
-            decoded.zclheader.alarmmess = listMess
+            decoded.zclheader.alarmmsg = listMess
             flag = 1
             break
         }
@@ -1797,7 +1797,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     }
     let bi = bytes[(i1+(length*i))]
     if (bi === undefined){
-        decoded.zclheader.alarmmess = listMess
+        decoded.zclheader.alarmmsg = listMess
         flag = 1
     }
     while(flag===0) {
@@ -1920,7 +1920,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         countUp=0
         bi = bytes[(i1+((length)*i))+shift]
         if (bi === undefined){
-            decoded.zclheader.alarmmess = listMess
+            decoded.zclheader.alarmmsg = listMess
             flag = 1
             break
         }
@@ -1953,7 +1953,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
     }
     let bi = bytes[(i1+(length*i))]
     if (bi === undefined){
-        decoded.zclheader.alarmmess = listMess
+        decoded.zclheader.alarmmsg = listMess
         flag = 1
     }
     while(flag===0) {
@@ -2071,7 +2071,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
         countUp=0
         bi = bytes[(i1+((length)*i))+shift]
         if (bi === undefined){
-            decoded.zclheader.alarmmess = listMess
+            decoded.zclheader.alarmmsg = listMess
             flag = 1
             break
         }
@@ -2196,7 +2196,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2230,7 +2230,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2258,7 +2258,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2284,7 +2284,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2326,7 +2326,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2355,7 +2355,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2391,7 +2391,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2421,7 +2421,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2802,7 +2802,7 @@ function Decoder(bytes, port) {
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2857,7 +2857,7 @@ function Decoder(bytes, port) {
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2892,7 +2892,7 @@ function Decoder(bytes, port) {
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2926,7 +2926,7 @@ function Decoder(bytes, port) {
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2960,7 +2960,7 @@ function Decoder(bytes, port) {
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -2996,7 +2996,7 @@ function Decoder(bytes, port) {
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -3022,7 +3022,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -3050,7 +3050,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -3076,7 +3076,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -3102,7 +3102,7 @@ function Decoder(bytes, port) {
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
                             listMess.push("alarm triggered")
-                            decoded.zclheader.alarmmess = listMess
+                            decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
                             let length = 1
@@ -3275,8 +3275,8 @@ function normalisation_standard(input, endpoint_parameters){
     let decoded = Decoder(bytes, input.fPort);
     console.log(decoded)
     if (decoded.zclheader !== undefined){
-        if (decoded.zclheader.alarmmess !== undefined){
-            warning = decoded.zclheader.alarmmess
+        if (decoded.zclheader.alarmmsg !== undefined){
+            warning = decoded.zclheader.alarmmsg
             console.log(warning)
         }
 

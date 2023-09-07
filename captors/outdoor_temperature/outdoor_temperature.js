@@ -2,33 +2,10 @@ let watteco = require("../../codec/decode_uplink.js")
 
 let batch_param = [3, [{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature", divide: 100},
     { taglbl: 5, resol: 100, sampletype: 6, lblname: "battery_voltage", divide: 1000}]];
-
-function strToDecimalArray(str){
-    let hexArray = [];
-    for (let i=0; i<str.length; i+=2) {
-        hexArray.push(parseInt(str.substring(i, i+2), 16));
-    }
-    return hexArray;
-}
-let argv= process.argv.slice(2);
-
-
-let bytes = [];
-bytes = strToDecimalArray(argv[1]);
-
-let date = argv[2];
-
-let input = {
-    bytes: bytes,
-    fPort: Number(argv[0]),
-    recvTime: date,
-};
-console.log(input)
-
+let endpointCorresponder={}
 function decodeUplink(input) {
-    return result = watteco.watteco_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 }
-module.exports.decodeUplink = decodeUplink;
-let a = decodeUplink(input);
-console.log(a);
+exports.decodeUplink = decodeUplink;
+
 

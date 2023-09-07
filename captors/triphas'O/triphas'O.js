@@ -1,5 +1,4 @@
 let watteco = require("../../codec/decode_uplink")
-
 let batch_param=[]
 let endpointCorresponder ={
     sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_A","sum_positive_active_energy_Wh_B","sum_positive_active_energy_Wh_C","sum_positive_active_energy_Wh_ABC"],
@@ -16,40 +15,9 @@ let endpointCorresponder ={
 
 
 }
-function strToDecimalArray(str){
-    let hexArray = [];
-    for (let i=0; i<str.length; i+=2) {
-        hexArray.push(parseInt(str.substring(i, i+2), 16));
-    }
-    return hexArray;
-}
-let argv= process.argv.slice(2);
-
-
-let bytes = [];
-bytes = strToDecimalArray(argv[1]);
-
-let date = argv[2];
-
-let input = {
-    bytes: bytes,
-    fPort: Number(argv[0]),
-    recvTime: date,
-};
-console.log(input)
-
 function decodeUplink(input) {
-    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0A) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0B) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
     return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 }
-module.exports.decodeUplink = decodeUplink;
+exports.decodeUplink = decodeUplink;
 
-
-let a = decodeUplink(input);
-console.log(a);
 

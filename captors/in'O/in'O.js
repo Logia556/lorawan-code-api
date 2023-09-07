@@ -7,12 +7,6 @@ let endpointCorresponder={
 }
 let batch_param=[]
 function decodeUplink(input) {
-    if ((input.bytes[2]===0x00)&&(input.bytes[3]===0x0F)){
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    if ((input.bytes[2]===0x00)&&(input.bytes[3]===0x06)){
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    return result = watteco.watteco_decodeUplink(input);
+    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 }
-module.exports.decodeUplink = decodeUplink;
+exports.decodeUplink = decodeUplink;

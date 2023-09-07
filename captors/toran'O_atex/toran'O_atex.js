@@ -1,5 +1,4 @@
 let watteco = require("../../codec/decode_uplink")
-
 let batch_param = [4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "index_1", divide: 1},
     { taglbl: 1, resol: 1, sampletype: 10,lblname: "index_2", divide: 1},
     { taglbl: 2, resol: 1, sampletype: 10,lblname: "index_3", divide: 1},
@@ -19,16 +18,8 @@ let endpointCorresponder = {
     count:["index_1","index_2","index_3"],
     pin_state:["pin_state_1","pin_state_2","pin_state_3"],
 }
-
-console.log(input);
 function decodeUplink(input) {
-    if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0C) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0F) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    return result = watteco.watteco_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 }
-module.exports.decodeUplink = decodeUplink;
+exports.decodeUplink = decodeUplink;
 
