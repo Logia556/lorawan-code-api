@@ -41,6 +41,21 @@ on peut observer leur exactitude en lançant un test JEST comme expliqué [ici](
 
 <p>il faudra s'assurer que les dossier spécifiés existes.</p>
 
+<p>notre <strong>webpack.config.js</strong> est spécifique au capteur associé :</p>
+
+    const path = require("path");
+
+    module.exports = {
+    target: "node",
+    mode: "production",
+    entry: "./[captor].js",
+    output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "."),
+    library: "driver",
+        },
+    };
+
 ## JEST
 <p>dans package.json:</p>
 
@@ -51,3 +66,10 @@ on peut observer leur exactitude en lançant un test JEST comme expliqué [ici](
 <p> lancer les tests</p>
 
     npm run test
+
+<p>les test sont fait indirectement avec les fichiers séparé comme le montre le point d'entrée du driver qui est le fichier spécifique au capteur :</p>
+    
+    let driver = require("./[captor].js");
+
+<p>cependant notre packaging webpack crée un fichier main.js qui fonctionne de la même manière.<br>
+cette séparation est dûe à la compression du code dans main.js qui casse les liens logiques entres les fichiers, ainsi que le nom des fonctions ; JEST ne le supporte pas.</p>
