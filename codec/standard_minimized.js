@@ -3339,6 +3339,14 @@ function normalisation_standard(input, endpoint_parameters){
                     flagstandard = false;
                     break;
                 } else {
+                    console.log(endpoint_parameters[firstKey])
+                    if (endpoint_parameters[firstKey] === undefined) {
+                        data.push({variable: firstKey,
+                            value: decoded.data[firstKey],
+                            date: input.recvTime
+                        })
+                        break
+                    }
                     let type = endpoint_parameters[firstKey][access];
                     data.push({
                         variable: type,
