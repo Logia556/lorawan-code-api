@@ -14,10 +14,7 @@ let endpointCorresponder={
     pin_state:["pin_state_1","pin_state_2","pin_state_3"],
 }
 function decodeUplink(input) {
-    if (input.bytes[2] === 0x00 && input.bytes[3] === 0x0F) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    return result = watteco.watteco_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 }
-module.exports.decodeUplink = decodeUplink;
+exports.decodeUplink = decodeUplink;
 

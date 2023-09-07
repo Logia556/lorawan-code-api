@@ -1,5 +1,4 @@
 let watteco = require("../../codec/decode_uplink")
-
 let batch_param=[]
 let endpointCorresponder ={
     sum_positive_active_energy_Wh: ["sum_positive_active_energy_Wh_A","sum_positive_active_energy_Wh_B","sum_positive_active_energy_Wh_C","sum_positive_active_energy_Wh_ABC"],
@@ -17,15 +16,9 @@ let endpointCorresponder ={
 
 }
 function decodeUplink(input) {
-    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0A) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    if (input.bytes[2] === 0x80 && input.bytes[3] === 0x0B) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    return result = watteco.watteco_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 }
-module.exports.decodeUplink = decodeUplink;
+exports.decodeUplink = decodeUplink;
 
 
 

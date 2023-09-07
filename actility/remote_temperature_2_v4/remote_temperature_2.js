@@ -8,11 +8,8 @@ let endpointCorresponder={
     temperature:["temperature_1","temperature_2"],
 }
 function decodeUplink(input) {
-    if (input.bytes[2] === 0x04 && input.bytes[3] === 0x02) {
-        return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
-    }
-    return result = watteco.watteco_decodeUplink(input,batch_param);
+    return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
 }
-module.exports.decodeUplink = decodeUplink;
+exports.decodeUplink = decodeUplink;
 
 
