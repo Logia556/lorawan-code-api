@@ -24,7 +24,7 @@
     "output": {
       "data": [
         {
-          "variable": "analog//replace",
+          "variable": "current",
           "value": 13,
           "date": "2023-07-19T07:51:25.508306410Z"
         }

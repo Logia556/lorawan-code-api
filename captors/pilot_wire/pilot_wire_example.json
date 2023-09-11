@@ -70,39 +70,6 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report  containing battery charge | payload:110A00500006410503040E6804",
-    "input": {
-      "bytes": [
-        17,
-        10,
-        0,
-        80,
-        0,
-        6,
-        65,
-        5,
-        3,
-        4,
-        14,
-        104,
-        4
-      ],
-      "fPort": 125,
-      "recvTime": "2023-07-19T07:51:25.508306410Z"
-    },
-    "output": {
-      "data": [{
-        "variable": "disposable_battery_voltage",
-        "value": 3.688,
-        "date": "2023-07-19T07:51:25.508306410Z"
-      }],
-      "warnings": [
-        ""
-      ]
-    }
-  },
-  {
-    "type": "uplink",
     "description": "uplink standard report containing dataup info | payload:110180040000000800",
     "input": {
       "bytes": [

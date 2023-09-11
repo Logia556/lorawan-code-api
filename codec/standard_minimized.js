@@ -2246,7 +2246,7 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x0405 ) && (attID === 0x0002)) decoded.data.max_humidity = (bytes[i1]*256+bytes[i1+1])/100;
                 if ((clustID === 0x000f ) && (attID === 0x0402)) {
                     let attribute_type = bytes[i1-1]
-                    decoded.data.counter = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
+                    decoded.data.index = (bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
                     let ia = i1+4
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
@@ -2339,7 +2339,7 @@ function Decoder(bytes, port) {
                     }
                 }
                 if ((clustID === 0x0006 ) && (attID === 0x0000)) {
-                    let state = bytes[i1]; if(state === 1) decoded.data.state = "ON"; else decoded.data.state = "OFF" ;
+                    let state = bytes[i1]; if(state === 1) decoded.data.pin_state = "ON"; else decoded.data.pin_state = "OFF" ;
                 }
                 if ((clustID === 0x8008 ) && (attID === 0x0000)){
                     let attribute_type = bytes[i1-1]
