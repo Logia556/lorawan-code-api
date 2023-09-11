@@ -1,19 +1,17 @@
 let watteco = require("../../codec/decode_uplink")
 let batch_param=[]
 let endpointCorresponder ={
-    positive_active_energy: ["sum_positive_active_energy_Wh_A","sum_positive_active_energy_Wh_B","sum_positive_active_energy_Wh_C","sum_positive_active_energy_Wh_ABC"],
-    negative_active_energy: ["sum_negative_active_energy_Wh_A","sum_negative_active_energy_Wh_B","sum_negative_active_energy_Wh_C","sum_negative_active_energy_Wh_ABC"],
-    positive_reactive_energy: ["sum_positive_reactive_energy_Wh_A","sum_positive_reactive_energy_Wh_B","sum_positive_reactive_energy_Wh_C","sum_positive_reactive_energy_Wh_ABC"],
-    negative_reactive_energy: ["sum_negative_reactive_energy_Wh_A","sum_negative_reactive_energy_Wh_B","sum_negative_reactive_energy_Wh_C","sum_negative_reactive_energy_Wh_ABC"],
-    positive_active_power: ["positive_active_power_W_A","positive_active_power_W_B","positive_active_power_W_C","positive_active_power_W_ABC"],
-    negative_active_power: ["negative_active_power_W_A","negative_active_power_W_B","negative_active_power_W_C","negative_active_power_W_ABC"],
-    positive_reactive_power: ["positive_reactive_power_W_A","positive_reactive_power_W_B","positive_reactive_power_W_C","positive_reactive_power_W_ABC"],
-    negative_reactive_power: ["negative_reactive_power_W_A","negative_reactive_power_W_B","negative_reactive_power_W_C","negative_reactive_power_W_ABC"],
-    Vrms: ["Vrms_A","Vrms_B","Vrms_C"],
-    Irms: ["Irms_A","Irms_B","Irms_C"],
-    phase_angle: ["phase_angle_A","phase_angle_B","phase_angle_C"],
-
-
+    positive_active_energy: ["positive_active_energy_a","positive_active_energy_b","positive_active_energy_c","positive_active_energy_abc"],
+    negative_active_energy: ["negative_active_energy_a","negative_active_energy_b","negative_active_energy_c","negative_active_energy_abc"],
+    positive_reactive_energy: ["positive_reactive_energy_a","positive_reactive_energy_b","positive_reactive_energy_c","positive_reactive_energy_abc"],
+    negative_reactive_energy: ["negative_reactive_energy_a","negative_reactive_energy_b","negative_reactive_energy_c","negative_reactive_energy_abc"],
+    positive_active_power: ["positive_active_power_a","positive_active_power_b","positive_active_power_c","positive_active_power_abc"],
+    negative_active_power: ["negative_active_power_a","negative_active_power_b","negative_active_power_c","negative_active_power_abc"],
+    positive_reactive_power: ["positive_reactive_power_a","positive_reactive_power_b","positive_reactive_power_c","positive_reactive_power_abc"],
+    negative_reactive_power: ["negative_reactive_power_a","negative_reactive_power_b","negative_reactive_power_c","negative_reactive_power_abc"],
+    Vrms: ["Vrms_a","Vrms_b","Vrms_c"],
+    Irms: ["Irms_a","Irms_b","Irms_c"],
+    phase_angle: ["phase_angle_a","phase_angle_b","phase_angle_c"],
 }
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);
