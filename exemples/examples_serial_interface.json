@@ -1,7 +1,7 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing speed value | payload:1101800600008822002580",
+    "description": "uplink standard response containing speed value | payload:1101800600008822002580",
     "input": {
       "bytes": [
         17,   1, 128, 6,  0,

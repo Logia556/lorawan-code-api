@@ -2314,9 +2314,8 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.forcenotify = bytes[i1]
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) {
                     let attribute_type = bytes[i1-1]
-                    decoded.data.value = bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]
-                    let ia = i1+4
-                    console.log(ia)
+                    decoded.data.value = bytes[i1]
+                    let ia = i1+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
@@ -2470,14 +2469,14 @@ function Decoder(bytes, port) {
                     chockparammetters.threshold = multiplicator*chockparammetters.range.value
                 }
                 if ((clustID === 0x8007 ) && (attID === 0x0001))
+
                 {
-                    decoded.data.payload = "";
                     decoded.data.modbus_payload = "";
-                    decoded.data.size = bytes[i1];
-                    decoded.data.modbus_float = 0;
-                    for( let j = 0; j < decoded.data.size; j++ )
+                    let size = bytes[i1];
+                    for( let j = 0; j < size; j++ )
                     {
                         temp_hex_str   = bytes[i1+j+1].toString( 16 ).toUpperCase();
+                        console.log("temp_hex_str:"+temp_hex_str)
                         if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
                         decoded.data.payload += temp_hex_str;
                         if (j === 0) decoded.data.modbus_address = bytes[i1+j+1];
@@ -2485,32 +2484,6 @@ function Decoder(bytes, port) {
                         else if (j === 2) decoded.data.modbus_size = bytes[i1+j+1];
                         else{
                             decoded.data.modbus_payload += temp_hex_str;
-                            if (decoded.data.modbus_float === 1){ // big endian
-                                let a = Bytes2Float32(bytes[i1+j+1]*256*256*256+bytes[i1+j+1+1]*256*256+bytes[i1+j+1+2]*256+bytes[i1+j+1+3])
-                                if (j === 3)		decoded.data.fregister_00 = a;
-                                if (j === 7)		decoded.data.fregister_01 = a;
-                                if (j === 11)	decoded.data.fregister_02 = a;
-                                if (j === 15)	decoded.data.fregister_03 = a;
-                                if (j === 19)	decoded.data.fregister_04 = a;
-                                if (j === 23)	decoded.data.fregister_05 = a;
-                                if (j === 27)	decoded.data.fregister_06 = a;
-                                if (j === 31)	decoded.data.fregister_07 = a;
-                                if (j === 35)	decoded.data.fregister_08 = a;
-                                if (j === 35)	decoded.data.fregister_09 = a;
-                            }
-                            if (decoded.data.modbus_float === 2){
-                                let a =Bytes2Float32(bytes[i1+j+1]*256+bytes[i1+j+1+1]+bytes[i1+j+1+2]*256*256*256+bytes[i1+j+1+3]*256*256)
-                                if (j === 3)		decoded.data.fregister_00 = a;
-                                if (j === 7)		decoded.data.fregister_01 = a;
-                                if (j === 11)	decoded.data.fregister_02 = a;
-                                if (j === 15)	decoded.data.fregister_03 = a;
-                                if (j === 19)	decoded.data.fregister_04 = a;
-                                if (j === 23)	decoded.data.fregister_05 = a;
-                                if (j === 27)	decoded.data.fregister_06 = a;
-                                if (j === 31)	decoded.data.fregister_07 = a;
-                                if (j === 35)	decoded.data.fregister_08 = a;
-                                if (j === 35)	decoded.data.fregister_09 = a;
-                            }
                         }
                     }
                 }
@@ -2518,8 +2491,6 @@ function Decoder(bytes, port) {
                 {
                     let b2 = bytes[i1+2]
                     let b3 = bytes[i1+3]
-                    decoded.data.payloads = "";
-                    decoded.data.size = bytes[i1];
                     decoded.data.multimodbus_frame_series_sent = bytes[i1+1];
                     decoded.data.multimodbus_frame_number_in_serie = (b2 & 0xE0) >> 5;
                     decoded.data.multimodbus_last_frame_of_serie = (b2 & 0x1C ) >> 2;
@@ -2717,10 +2688,10 @@ function Decoder(bytes, port) {
                     }
                 }
                 if (  (clustID === 0x0052 ) && (attID === 0x0000)) {
-                    decoded.data.active_energy_Wh = UintToInt(bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3],3);
-                    decoded.data.reactive_energy_Varh = UintToInt(bytes[i1+4]*256*256+bytes[i1+5]*256+bytes[i1+6],3);
+                    decoded.data.active_energy = UintToInt(bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3],3);
+                    decoded.data.reactive_energy = UintToInt(bytes[i1+4]*256*256+bytes[i1+5]*256+bytes[i1+6],3);
                     decoded.data.nb_samples = (bytes[i1+7]*256+bytes[i1+8]);
-                    decoded.data.active_power_W = UintToInt(bytes[i1+9]*256+bytes[i1+10],2);
+                    decoded.data.active_power = UintToInt(bytes[i1+9]*256+bytes[i1+10],2);
                     decoded.data.reactive_power_let = UintToInt(bytes[i1+11]*256+bytes[i1+12],2);
                 }
                 if ((clustID === 0x8004 ) && (attID === 0x0000)) {
@@ -3039,7 +3010,7 @@ function Decoder(bytes, port) {
                 if ((clustID===0x800C)&&(attID===0x0002)) decoded.data.analog=bytes[i1];
                 if ((clustID === 0x0400) && (attID === 0x0000)) {
                     let attribute_type = bytes[i1-1]
-                    decoded.data.Illuminance = (bytes[i1]*256+bytes[i1+1]);
+                    decoded.data.illuminance = (bytes[i1]*256+bytes[i1+1]);
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
@@ -3065,7 +3036,7 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID === 0x0403) && (attID === 0x0000)) {
                     let attribute_type = bytes[i1-1]
-                    decoded.data.Pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
+                    decoded.data.pressure = (UintToInt(bytes[i1]*256+bytes[i1+1],2));
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []

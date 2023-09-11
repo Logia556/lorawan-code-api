@@ -45,28 +45,6 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing number of retry | payload:110180040001002007",
-    "input": {
-      "bytes": [
-        17, 1, 128, 4, 0,
-        1, 0,  32, 7
-      ],
-      "fPort": 125,
-      "recvTime": "2023-07-19T07:51:25.508306410Z"
-    },
-    "output": {
-      "data": [
-        {
-          "variable": "nb_retry",
-          "value": 7,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        }
-      ],
-      "warnings": [ "" ]
-    }
-  },
-  {
-    "type": "uplink",
     "description": "uplink standard report containing abp dev address | payload:110180040004004104FFFFFFFF",
     "input": {
       "bytes": [

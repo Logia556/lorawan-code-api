@@ -14,7 +14,7 @@
     "output": {
       "data": [
         {
-          "variable": "Pressure",
+          "variable": "pressure",
           "value": 69,
           "date": "2023-07-19T07:51:25.508306410Z"
         }

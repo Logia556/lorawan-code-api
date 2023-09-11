@@ -74,7 +74,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing open detection value | payload:110A000F00551001",
+    "description": "uplink standard report containing state of pin 1  | payload:110A000F00551001",
     "input": {
       "bytes": [
         17,
@@ -102,7 +102,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing number of open detection | payload:110A000F04022300000000",
+    "description": "uplink standard report containing number of pulse detection on input 1| payload:110A000F04022300000000",
     "input": {
       "bytes": [
         17,

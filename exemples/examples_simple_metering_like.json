@@ -14,12 +14,12 @@
     "output": {
       "data": [
         {
-          "variable": "active_energy_Wh",
+          "variable": "active_energy",
           "value": 71,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_Varh",
+          "variable": "reactive_energy",
           "value": -66,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -29,7 +29,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_W",
+          "variable": "active_power",
           "value": 47,
           "date": "2023-07-19T07:51:25.508306410Z"
         },

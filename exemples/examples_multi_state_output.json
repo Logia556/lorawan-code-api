@@ -1,12 +1,11 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing multi state value | payload:11010013005500230E002000",
+    "description": "uplink standard response containing multi state value | payload:110100130055002001",
     "input": {
       "bytes": [
         17, 1,  0, 19, 0,
-        85, 0, 35, 14, 0,
-        32, 0
+        85, 0, 32,  1
       ],
       "fPort": 125,
       "recvTime": "2023-07-19T07:51:25.508306410Z"
@@ -15,7 +14,7 @@
       "data": [
         {
           "variable": "value",
-          "value": 234889216,
+          "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
