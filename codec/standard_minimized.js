@@ -3058,7 +3058,7 @@ function Decoder(bytes, port) {
                 }
                 if ((clustID === 0x0406) && (attID === 0x0000)) {
                     let attribute_type = bytes[i1-1]
-                    decoded.data.Occupancy = !(!bytes[i1]);
+                    decoded.data.occupancy = !(!bytes[i1]);
                     let ia = i1+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
@@ -3321,11 +3321,19 @@ function normalisation_standard(input, endpoint_parameters){
                         })
                     }else{
                         type = endpoint_parameters[firstKey][access];
-                        data.push({
-                            variable: type,
-                            value: decoded.data[firstKey],
-                            date: input.recvTime
-                        })
+                        if (type === "NA"){
+                            data.push({
+                                variable: type,
+                                value: "NA",
+                                date: input.recvTime
+                            })
+                        } else{
+                            data.push({
+                                variable: type,
+                                value: decoded.data[firstKey],
+                                date: input.recvTime
+                            })
+                        }
                     }
                     indent++;
                 }
