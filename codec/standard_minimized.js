@@ -2314,8 +2314,9 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.forcenotify = bytes[i1]
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) {
                     let attribute_type = bytes[i1-1]
-                    decoded.data.value = bytes[i1]
-                    let ia = i1+1
+                    decoded.data.value = bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]
+                    let ia = i1+4
+                    console.log(ia)
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
                         let flag = 0
