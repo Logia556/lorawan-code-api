@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
     target: "node",
     mode: "production",
-    entry: "./vaqa'o_sensor.js",
+    entry: "./vaqa'o.js",
     output: {
         filename: "main.js",
         path: path.resolve(__dirname, "."),

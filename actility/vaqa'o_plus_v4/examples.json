@@ -19,7 +19,7 @@
     },
     "output": {
       "data": [{
-        "variable": "temperature_1",
+        "variable": "temperature_0",
         "value": 29.53,
         "date": "2023-07-19T07:51:31.598957793Z"
       }],
@@ -46,7 +46,7 @@
     },
     "output": {
       "data": [{
-        "variable": "humidity_1",
+        "variable": "humidity_0",
         "value": 37.21,
         "date": "2023-07-19T07:51:25.508306410Z"
       }],
