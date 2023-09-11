@@ -8,6 +8,7 @@ let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 4,lblname: "occupancy", 
 let endpointCorresponder={
     temperature:["temperature_1","temperature_2"],
     humidity:["humidity_1","humidity_2"],
+    Concentration:["TVOC","CO2"]
 
 }
 function decodeUplink(input) {
