@@ -16,42 +16,42 @@
     "output": {
       "data": [
         {
-          "variable": "sum_positive_active_energy_Wh",
+          "variable": "positive_active_energy_abc",
           "value": 239978,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "sum_negative_active_energy_Wh",
+          "variable": "negative_active_energy_abc",
           "value": 0,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "sum_positive_reactive_energy_Wh",
+          "variable": "positive_reactive_energy_abc",
           "value": 37529,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "sum_negative_reactive_energy_Wh",
+          "variable": "negative_reactive_energy_abc",
           "value": 28752,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "positive_active_power_W",
+          "variable": "positive_active_power_abc",
           "value": 31871,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "negative_active_power_W",
+          "variable": "negative_active_power_abc",
           "value": 0,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "positive_reactive_power_W",
+          "variable": "positive_reactive_power_abc",
           "value": 192,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "negative_reactive_power_W",
+          "variable": "negative_reactive_power_abc",
           "value": 3951,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -76,48 +76,48 @@
     "output": {
       "data": [
         {
-          "variable": "sum_positive_active_energy_Wh_A",
+          "variable": "positive_active_energy_a",
           "value": 1078794,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "sum_negative_active_energy_Wh_A",
+          "variable": "negative_active_energy_a",
           "value": 516,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "sum_positive_reactive_energy_Wh_A",
+          "variable": "positive_reactive_energy_a",
           "value": 23150,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "sum_negative_reactive_energy_Wh_A",
+          "variable": "negative_reactive_energy_a",
           "value": 663821,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "positive_active_power_W_A",
+          "variable": "positive_active_power_a",
           "value": 6306,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "negative_active_power_W_A",
+          "variable": "negative_active_power_a",
           "value": 0,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "positive_reactive_power_W_A",
+          "variable": "positive_reactive_power_a",
           "value": 0,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "negative_reactive_power_W_A",
+          "variable": "negative_reactive_power_a",
           "value": 934,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences: 2, field: positive_reactive_power_W"
+        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences: 2, field: positive_reactive_power"
       ]
     }
   }

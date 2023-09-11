@@ -14,17 +14,17 @@
     "output": {
       "data": [
         {
-          "variable": "Vrms_A",
+          "variable": "Vrms_a",
           "value": 238,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "Irms_A",
+          "variable": "Irms_a",
           "value": 78.2,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_angle_A",
+          "variable": "phase_angle_a",
           "value": 355,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -34,10 +34,10 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing short threshold alarm | payload:110a800b000041060973010d01629050",
+    "description": "uplink standard report containing short threshold alarm | payload:310a800b000041060973010d01629050",
     "input": {
       "bytes": [
-        17, 10, 128,  11, 0,  0,
+        49, 10, 128,  11, 0,  0,
         65,  6,   9, 115, 1, 13,
         1, 98, 144,  80
       ],
@@ -47,23 +47,24 @@
     "output": {
       "data": [
         {
-          "variable": "Vrms_A",
+          "variable": "Vrms_b",
           "value": 241.9,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "Irms_A",
+          "variable": "Irms_b",
           "value": 26.9,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_angle_A",
+          "variable": "phase_angle_b",
           "value": 354,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
       "warnings": [ "alarm, criterion_index: 0, mode: threshold, crossing: exceed" ]
     }
+
   },
   {
     "type": "uplink",
@@ -81,17 +82,17 @@
     "output": {
       "data": [
         {
-          "variable": "Vrms_A",
+          "variable": "Vrms_a",
           "value": 242.4,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "Irms_A",
+          "variable": "Irms_a",
           "value": 27.7,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_angle_A",
+          "variable": "phase_angle_a",
           "value": 354,
           "date": "2023-07-19T07:51:25.508306410Z"
         }

@@ -88,49 +88,49 @@ let field={
             0:{
                 divider:1,
                 function_type:"int",
-                name:"sum_positive_active_energy_Wh",
+                name:"positive_active_energy",
                 size:4
             },
             1:{
                 divider:1,
                 function_type:"int",
-                name:"sum_negative_active_energy_Wh",
+                name:"negative_active_energy",
                 size:4
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"sum_positive_reactive_energy_Wh",
+                name:"positive_reactive_energy",
                 size:4
             },
             3:{
                 divider:1,
                 function_type:"int",
-                name:"sum_negative_reactive_energy_Wh",
+                name:"negative_reactive_energy",
                 size:4
             },
             4:{
                 divider:1,
                 function_type:"int",
-                name:"positive_active_power_W",
+                name:"positive_active_power",
                 size:4
             },
             5:{
                 divider:1,
                 function_type:"int",
-                name:"negative_active_power_W",
+                name:"negative_active_power",
                 size:4
             },
             6:{
                 divider:1,
                 function_type:"int",
-                name:"positive_reactive_power_W",
+                name:"positive_reactive_power",
                 size:4
             },
             7:{
                 divider:1,
                 function_type:"int",
-                name:"negative_reactive_power_W",
+                name:"negative_reactive_power",
                 size:4
             },
         }
@@ -140,49 +140,49 @@ let field={
             0:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_a",
+                name:"active_energy_phase_a",
                 size:4
             },
             1:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_a",
+                name:"reactive_energy_phase_a",
                 size:4
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_b",
+                name:"active_energy_phase_b",
                 size:4
             },
             3:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_b",
+                name:"reactive_energy_phase_b",
                 size:4
             },
             4:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_c",
+                name:"active_energy_phase_c",
                 size:4
             },
             5:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_c",
+                name:"reactive_energy_phase_c",
                 size:4
             },
             6:{
                 divider:1,
                 function_type:"int",
-                name:"active_energy_Wh_phase_abc",
+                name:"active_energy_phase_abc",
                 size:4
             },
             7:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_energy_Wh_phase_abc",
+                name:"reactive_energy_phase_abc",
                 size:4
             },
         },
@@ -190,49 +190,49 @@ let field={
             0:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_a",
+                name:"active_power_phase_a",
                 size:4
             },
             1:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_a",
+                name:"reactive_power_phase_a",
                 size:4
             },
             2:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_b",
+                name:"active_power_phase_b",
                 size:4
             },
             3:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_b",
+                name:"reactive_power_phase_b",
                 size:4
             },
             4:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_c",
+                name:"active_power_phase_c",
                 size:4
             },
             5:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_c",
+                name:"reactive_power_phase_c",
                 size:4
             },
             6:{
                 divider:1,
                 function_type:"int",
-                name:"active_power_W_phase_abc",
+                name:"active_power_phase_abc",
                 size:4
             },
             7:{
                 divider:1,
                 function_type:"int",
-                name:"reactive_power_W_phase_abc",
+                name:"reactive_power_phase_abc",
                 size:4
             },
         }
@@ -2829,21 +2829,21 @@ function Decoder(bytes, port) {
                 if (  (clustID === 0x800a) && (attID === 0x0000)) {
                     let i2 = i1;
                     let attribute_type = bytes[i2-1];
-                    decoded.data.sum_positive_active_energy_Wh = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.positive_active_energy = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
-                    decoded.data.sum_negative_active_energy_Wh = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.negative_active_energy = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
-                    decoded.data.sum_positive_reactive_energy_Wh = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.positive_reactive_energy = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
-                    decoded.data.sum_negative_reactive_energy_Wh = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.negative_reactive_energy = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
-                    decoded.data.positive_active_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.positive_active_power = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
-                    decoded.data.negative_active_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.negative_active_power = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
-                    decoded.data.positive_reactive_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.positive_reactive_power = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     i2 = i2 + 4;
-                    decoded.data.negative_reactive_power_W = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
+                    decoded.data.negative_reactive_power = UintToInt(bytes[i2+1]*256*256*256+bytes[i2+2]*256*256+bytes[i2+3]*256+bytes[i2+4],4);
                     let ia = i2+5
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
@@ -2872,14 +2872,14 @@ function Decoder(bytes, port) {
                 }
                 if (  (clustID === 0x8010) && (attID === 0x0000)) {
                     let attribute_type = bytes[i1-1];
-                    decoded.data.active_energy_Wh_phase_a=UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
-                    decoded.data.reactive_energy_Wh_phase_a=UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
-                    decoded.data.active_energy_Wh_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
-                    decoded.data.reactive_energy_Wh_phase_b=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
-                    decoded.data.active_energy_Wh_phase_c=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
-                    decoded.data.reactive_energy_Wh_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
-                    decoded.data.active_energy_Wh_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
-                    decoded.data.reactive_energy_Wh_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    decoded.data.active_energy_phase_a=UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
+                    decoded.data.reactive_energy_phase_a=UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
+                    decoded.data.active_energy_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
+                    decoded.data.reactive_energy_phase_b=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
+                    decoded.data.active_energy_phase_c=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
+                    decoded.data.reactive_energy_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
+                    decoded.data.active_energy_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
+                    decoded.data.reactive_energy_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
                     let ia = i1 + 33
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
@@ -2906,14 +2906,14 @@ function Decoder(bytes, port) {
                     }
                 } else if (  (clustID === 0x8010) && (attID === 0x0001)) {
                     let attribute_type = bytes[i1-1];
-                    decoded.data.active_power_W_phase_a= UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
-                    decoded.data.reactive_power_W_phase_a= UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
-                    decoded.data.active_power_W_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
-                    decoded.data.reactive_power_W_phase_b=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
-                    decoded.data.active_power_W_phase_c=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
-                    decoded.data.reactive_power_W_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
-                    decoded.data.active_power_W_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
-                    decoded.data.reactive_power_W_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
+                    decoded.data.active_power_phase_a= UintToInt(bytes[i1+1]*256*256*256+bytes[i1+2]*256*256+bytes[i1+3]*256+bytes[i1+4]);
+                    decoded.data.reactive_power_phase_a= UintToInt(bytes[i1+5]*256*256*256+bytes[i1+6]*256*256+bytes[i1+7]*256+bytes[i1+8]);
+                    decoded.data.active_power_phase_b=UintToInt(bytes[i1+9]*256*256*256+bytes[i1+10]*256*256+bytes[i1+11]*256+bytes[i1+12]);
+                    decoded.data.reactive_power_phase_b=UintToInt(bytes[i1+13]*256*256*256+bytes[i1+14]*256*256+bytes[i1+15]*256+bytes[i1+16]);
+                    decoded.data.active_power_phase_c=UintToInt(bytes[i1+17]*256*256*256+bytes[i1+18]*256*256+bytes[i1+19]*256+bytes[i1+20]);
+                    decoded.data.reactive_power_phase_c=UintToInt(bytes[i1+21]*256*256*256+bytes[i1+22]*256*256+bytes[i1+23]*256+bytes[i1+24]);
+                    decoded.data.active_power_phase_abc=UintToInt(bytes[i1+25]*256*256*256+bytes[i1+26]*256*256+bytes[i1+27]*256+bytes[i1+28]);
+                    decoded.data.reactive_power_phase_abc=UintToInt(bytes[i1+29]*256*256*256+bytes[i1+30]*256*256+bytes[i1+31]*256+bytes[i1+32]);
                     let ia = i1 + 33
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
@@ -3195,48 +3195,48 @@ function Decoder(bytes, port) {
             if(cmdID === 0x07){
                 attID = bytes[6]*256 + bytes[7];decoded.zclheader.attID = decimalToHex(attID,4);
                 decoded.zclheader.status = bytes[4];
-                decoded.zclheader.batch = {}
+                decoded.zclheader.report_parameters = {}
                 let bits = decimalToBitString(bytes[5]);
-                decoded.zclheader.batch.new_mode_configuration = bits[0];
+                decoded.zclheader.report_parameters.new_mode_configuration = bits[0];
                 if ((bits[2]==="0") && (bits[3]==="0")){
-                    decoded.zclheader.batch.cause_request = "none";
+                    decoded.zclheader.report_parameters.cause_request = "none";
                 }
                 if ((bits[2]==="0") && (bits[3]==="1")){
-                    decoded.zclheader.batch.cause_request = "short";
+                    decoded.zclheader.report_parameters.cause_request = "short";
                 }
                 if ((bits[2]==="1") && (bits[3]==="0")){
-                    decoded.zclheader.batch.cause_request = "long";
+                    decoded.zclheader.report_parameters.cause_request = "long";
                 }
                 if ((bits[2]==="1") && (bits[3]==="1")){
-                    decoded.zclheader.batch.cause_request = "reserved";
+                    decoded.zclheader.report_parameters.cause_request = "reserved";
                 }
-                decoded.zclheader.batch.secured_if_alarm = bits[4];
-                decoded.zclheader.batch.secured = bits[5];
-                decoded.zclheader.batch.no_hearde_port = bits[6];
-                decoded.zclheader.batch.batch = bits[7];
+                decoded.zclheader.report_parameters.secured_if_alarm = bits[4];
+                decoded.zclheader.report_parameters.secured = bits[5];
+                decoded.zclheader.report_parameters.no_hearde_port = bits[6];
+                decoded.zclheader.report_parameters.batch = bits[7];
             }
             if(cmdID === 0x09){
                 attID = bytes[6]*256 + bytes[7];decoded.zclheader.attID = decimalToHex(attID,4);
                 decoded.zclheader.status = bytes[4];
-                decoded.zclheader.batch = {}
+                decoded.zclheader.report_parameters = {}
                 let bits = decimalToBitString(bytes[5]);
-                decoded.zclheader.batch.new_mode_configuration = bits[0];
+                decoded.zclheader.report_parameters.new_mode_configuration = bits[0];
                 if ((bits[2]==="0") && (bits[3]==="0")){
-                    decoded.zclheader.batch.cause_request = "none";
+                    decoded.zclheader.report_parameters.cause_request = "none";
                 }
                 if ((bits[2]==="0") && (bits[3]==="1")){
-                    decoded.zclheader.batch.cause_request = "short";
+                    decoded.zclheader.report_parameters.cause_request = "short";
                 }
                 if ((bits[2]==="1") && (bits[3]==="0")){
-                    decoded.zclheader.batch.cause_request = "long";
+                    decoded.zclheader.report_parameters.cause_request = "long";
                 }
                 if ((bits[2]==="1") && (bits[3]==="1")){
-                    decoded.zclheader.batch.cause_request = "reserved";
+                    decoded.zclheader.report_parameters.cause_request = "reserved";
                 }
-                decoded.zclheader.batch.secured_if_alarm = bits[4];
-                decoded.zclheader.batch.secured = bits[5];
-                decoded.zclheader.batch.no_hearde_port = bits[6];
-                decoded.zclheader.batch.batch = bits[7];
+                decoded.zclheader.report_parameters.secured_if_alarm = bits[4];
+                decoded.zclheader.report_parameters.secured = bits[5];
+                decoded.zclheader.report_parameters.no_hearde_port = bits[6];
+                decoded.zclheader.report_parameters.batch = bits[7];
                 decoded.zclheader.attribut_type = bytes[8];
                 decoded.zclheader.min = {}
                 if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unit = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unit = "seconds";}
@@ -3250,6 +3250,7 @@ function Decoder(bytes, port) {
                     let i=0
                     while(nb>0){
                         decoded.zclheader.modepower = bytes[14+i*5];
+                        console.log(bytes[14+i*5])
                         decoded.zclheader.powersource = bytes[15+i*5];
                         decoded.zclheader.delta = bytes[16+i*5]*256+bytes[17+i*5];
                         decoded.zclheader.changedpowersource = bytes[18+i*5];
@@ -3346,6 +3347,7 @@ function normalisation_standard(input, endpoint_parameters){
                     console.log("poucevert")
                     console.log(endpoint_parameters[firstKey])
                     if (endpoint_parameters[firstKey] === undefined) {
+                        console.log("pas de type")
                         data.push({variable: firstKey,
                             value: decoded.data[firstKey],
                             date: input.recvTime

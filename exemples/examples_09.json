@@ -1,7 +1,7 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing cmdID 0x09 response | payload:110900500080000641003C003C0448040000",
+    "description": "uplink standard report containing cmdID 0x09 read reporting configuration response for configuration cluster | payload:110900500080000641003C003C0448040000",
     "input": {
       "bytes": [
         17,  9, 0, 80, 0, 128, 0,
@@ -19,7 +19,7 @@
         "clustID": "0x0050",
         "attID": "0x0006",
         "status": 0,
-        "batch": {
+        "report_parameters": {
           "new_mode_configuration": "1",
           "cause_request": "none",
           "secured_if_alarm": "0",

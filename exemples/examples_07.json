@@ -1,7 +1,7 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing cmdID 0x07 response | payload:1107040200800000",
+    "description": "uplink standard report containing cmdID 0x07 response for temperature cluster | payload:1107040200800000",
     "input": {
       "bytes": [
         17,   7, 4, 2,
@@ -18,7 +18,7 @@
         "clustID": "0x0402",
         "attID": "0x0000",
         "status": 0,
-        "batch": {
+        "report_parameters": {
           "new_mode_configuration": "1",
           "cause_request": "none",
           "secured_if_alarm": "0",

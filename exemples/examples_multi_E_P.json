@@ -15,42 +15,42 @@
     "output": {
       "data": [
         {
-          "variable": "active_energy_Wh_phase_a",
+          "variable": "active_energy_phase_a",
           "value": 256,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_Wh_phase_a",
+          "variable": "reactive_energy_phase_a",
           "value": 512,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_energy_Wh_phase_b",
+          "variable": "active_energy_phase_b",
           "value": 768,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_Wh_phase_b",
+          "variable": "reactive_energy_phase_b",
           "value": 1024,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_energy_Wh_phase_c",
+          "variable": "active_energy_phase_c",
           "value": 1280,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_Wh_phase_c",
+          "variable": "reactive_energy_phase_c",
           "value": 1536,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_energy_Wh_phase_abc",
+          "variable": "active_energy_phase_abc",
           "value": 1792,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_Wh_phase_abc",
+          "variable": "reactive_energy_phase_abc",
           "value": 2048,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -76,49 +76,49 @@
     "output": {
       "data": [
         {
-          "variable": "active_power_W_phase_a",
+          "variable": "active_power_phase_a",
           "value": 6211,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_W_phase_a",
+          "variable": "reactive_power_phase_a",
           "value": 4294966304,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_W_phase_b",
+          "variable": "active_power_phase_b",
           "value": 9418,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_W_phase_b",
+          "variable": "reactive_power_phase_b",
           "value": 4294964495,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_W_phase_c",
+          "variable": "active_power_phase_c",
           "value": 7989,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_W_phase_c",
+          "variable": "reactive_power_phase_c",
           "value": 4294964266,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_W_phase_abc",
+          "variable": "active_power_phase_abc",
           "value": 23618,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_W_phase_abc",
+          "variable": "reactive_power_phase_abc",
           "value": 4294960473,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 50, gap: 1, occurences: 1, field: active_power_W_phase_a",
-        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 20, gap: 0, occurences: 1, field: active_power_W_phase_a"
+        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 50, gap: 1, occurences: 1, field: active_power_phase_a",
+        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 20, gap: 0, occurences: 1, field: active_power_phase_a"
       ]
     }
   }
