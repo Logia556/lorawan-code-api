@@ -191,48 +191,49 @@
     "output": {
       "data": [
         {
-          "variable": "ActiveEnergyWhPhaseA",
+          "variable": "active_energy_Wh_phase_a",
           "value": 256,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseA",
+          "variable": "reactive_energy_Wh_phase_a",
           "value": 512,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ActiveEnergyWhPhaseB",
+          "variable": "active_energy_Wh_phase_b",
           "value": 768,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseB",
+          "variable": "reactive_energy_Wh_phase_b",
           "value": 1024,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ActiveEnergyWhPhaseC",
+          "variable": "active_energy_Wh_phase_c",
           "value": 1280,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseC",
+          "variable": "reactive_energy_Wh_phase_c",
           "value": 1536,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ActiveEnergyWhPhaseABC",
+          "variable": "active_energy_Wh_phase_abc",
           "value": 1792,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseABC",
+          "variable": "reactive_energy_Wh_phase_abc",
           "value": 2048,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
       "warnings": [ "" ]
     }
+
   },
   {
     "type": "uplink",
@@ -250,47 +251,47 @@
     "output": {
       "data": [
         {
-          "variable": "VrmsA",
+          "variable": "Vrms_a",
           "value": 220.9,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "IrmsA",
+          "variable": "Irms_a",
           "value": 8.2,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "PhaseA",
+          "variable": "phase_a",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "VrmsB",
+          "variable": "Vrms_b",
           "value": 221,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "IrmsB",
+          "variable": "Irms_b",
           "value": 6.6,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "PhaseB",
+          "variable": "phase_b",
           "value": 64,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "VrmsC",
+          "variable": "Vrms_c",
           "value": 221.1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "IrmsC",
+          "variable": "Irms_c",
           "value": 5,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "PhaseC",
+          "variable": "phase_c",
           "value": 48,
           "date": "2023-07-19T07:51:25.508306410Z"
         }

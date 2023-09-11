@@ -15,42 +15,42 @@
     "output": {
       "data": [
         {
-          "variable": "ActiveEnergyWhPhaseA",
+          "variable": "active_energy_Wh_phase_a",
           "value": 256,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseA",
+          "variable": "reactive_energy_Wh_phase_a",
           "value": 512,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ActiveEnergyWhPhaseB",
+          "variable": "active_energy_Wh_phase_b",
           "value": 768,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseB",
+          "variable": "reactive_energy_Wh_phase_b",
           "value": 1024,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ActiveEnergyWhPhaseC",
+          "variable": "active_energy_Wh_phase_c",
           "value": 1280,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseC",
+          "variable": "reactive_energy_Wh_phase_c",
           "value": 1536,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ActiveEnergyWhPhaseABC",
+          "variable": "active_energy_Wh_phase_abc",
           "value": 1792,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "ReactiveEnergyWhPhaseABC",
+          "variable": "reactive_energy_Wh_phase_abc",
           "value": 2048,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
