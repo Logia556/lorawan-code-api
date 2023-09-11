@@ -3333,26 +3333,30 @@ function normalisation_standard(input, endpoint_parameters){
             let flagstandard = true;
             let indent = 0;
             let data = []
+            let type = ""
             while (flagstandard) {
+                console.log("bekbncnien")
                 let firstKey = Object.keys(decoded.data)[indent];
+                console.log(firstKey)
                 if (firstKey === undefined) {
                     flagstandard = false;
                     break;
                 } else {
+                    console.log("poucevert")
                     console.log(endpoint_parameters[firstKey])
                     if (endpoint_parameters[firstKey] === undefined) {
                         data.push({variable: firstKey,
                             value: decoded.data[firstKey],
                             date: input.recvTime
                         })
-                        break
+                    }else{
+                        type = endpoint_parameters[firstKey][access];
+                        data.push({
+                            variable: type,
+                            value: decoded.data[firstKey],
+                            date: input.recvTime
+                        })
                     }
-                    let type = endpoint_parameters[firstKey][access];
-                    data.push({
-                        variable: type,
-                        value: decoded.data[firstKey],
-                        date: input.recvTime
-                    })
                     indent++;
                 }
             }
