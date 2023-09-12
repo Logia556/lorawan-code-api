@@ -13,7 +13,7 @@
     "output": {
       "data": [
         {
-          "variable": "state",
+          "variable": "pin_state",
           "value": "ON",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -27,7 +27,7 @@
     "input": {
       "bytes": [
         17, 10,  0, 6,
-        0,  0, 16, 1
+        0,  0, 16, 0
       ],
       "fPort": 125,
       "recvTime": "2023-07-19T07:51:25.508306410Z"
@@ -35,7 +35,7 @@
     "output": {
       "data": [
         {
-          "variable": "state",
+          "variable": "pin_state",
           "value": "OFF",
           "date": "2023-07-19T07:51:25.508306410Z"
         }

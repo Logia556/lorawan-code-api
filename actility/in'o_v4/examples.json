@@ -68,7 +68,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing open detection value | payload:110A000F00551001",
+    "description": "uplink standard report containing state of pin 1 | payload:110A000F00551001",
     "input": {
       "bytes": [
         17,
@@ -96,7 +96,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing number of open detection | payload:110A000F04022300000000",
+    "description": "uplink standard report containing number of pulse detection on input 1 | payload:110A000F04022300000000",
     "input": {
       "bytes": [
         17,
@@ -139,8 +139,30 @@
     "output": {
       "data": [
         {
-          "variable": "output_1",
+          "variable": "pin_state_1",
           "value": "ON",
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing state value | payload:110A000600001000",
+    "input": {
+      "bytes": [
+        17, 10,  0, 6,
+        0,  0, 16, 0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "pin_state_1",
+          "value": "OFF",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
