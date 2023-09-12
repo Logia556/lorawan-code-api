@@ -1,10 +1,10 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing volt value | payload:310A000C00553941500000",
+    "description": "uplink standard report containing intensity value | payload:110A000C00553941500000",
     "input": {
       "bytes": [
-        49, 10,  0, 12, 0,
+        17, 10,  0, 12, 0,
         85, 57, 65, 80, 0,
         0
       ],
@@ -15,7 +15,7 @@
     "output": {
       "data": [
         {
-          "variable": "0-10_V",
+          "variable": "4-20_mA",
           "value": 13,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
