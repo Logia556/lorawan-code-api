@@ -10,7 +10,8 @@ let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 4,lblname: "occupancy", 
 let endpointCorresponder = {
     Concentration: ["TVOC", "CO2"],
     temperature: ["temperature_0","temperature_1"],
-    humidity: ["humidity_0","humidity_1"]
+    humidity: ["humidity_0","humidity_1"],
+    pin_state:["violation_detection"]
 }
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);

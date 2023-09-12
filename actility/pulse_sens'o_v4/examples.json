@@ -1,7 +1,7 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing open detection value | payload:110A000F00551001",
+    "description": "uplink standard report containing state of pin 1 | payload:110A000F00551001",
     "input": {
       "bytes": [
         17,
@@ -29,7 +29,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing number of open detection | payload:110A000F04022300000000",
+    "description": "uplink standard report containing number of pulse detection on input 1 | payload:110A000F04022300000000",
     "input": {
       "bytes": [
         17,
@@ -87,38 +87,38 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "pin_state_4",
-          "value": false,
+          "variable": "NA",
+          "value": "NA",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "pin_state_5",
-          "value": true,
+          "variable": "NA",
+          "value": "NA",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "pin_state_6",
-          "value": true,
+          "variable": "NA",
+          "value": "NA",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "pin_state_7",
-          "value": true,
+          "variable": "NA",
+          "value": "NA",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "pin_state_8",
-          "value": false,
+          "variable": "NA",
+          "value": "NA",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "pin_state_9",
-          "value": true,
+          "variable": "NA",
+          "value": "NA",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "pin_state_10",
-          "value": true,
+          "variable": "NA",
+          "value": "NA",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],

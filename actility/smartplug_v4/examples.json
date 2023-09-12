@@ -13,8 +13,30 @@
     "output": {
       "data": [
         {
-          "variable": "state",
+          "variable": "pin_state",
           "value": "ON",
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing state value | payload:110A000600001000",
+    "input": {
+      "bytes": [
+        17, 10,  0, 6,
+        0,  0, 16, 0
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "pin_state",
+          "value": "OFF",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
@@ -36,12 +58,12 @@
     "output": {
       "data": [
         {
-          "variable": "active_energy_Wh",
+          "variable": "active_energy",
           "value": 71,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_Varh",
+          "variable": "reactive_energy",
           "value": -66,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -51,7 +73,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_W",
+          "variable": "active_power",
           "value": 47,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -63,7 +85,6 @@
       ],
       "warnings": [ "" ]
     }
-
   },
   {
     "type": "uplink",
@@ -171,39 +192,6 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
-      "warnings": [
-        ""
-      ]
-    }
-  },
-  {
-    "type": "uplink",
-    "description": "uplink standard report  containing battery charge | payload:110A00500006410503040E6804",
-    "input": {
-      "bytes": [
-        17,
-        10,
-        0,
-        80,
-        0,
-        6,
-        65,
-        5,
-        3,
-        4,
-        14,
-        104,
-        4
-      ],
-      "fPort": 125,
-      "recvTime": "2023-07-19T07:51:25.508306410Z"
-    },
-    "output": {
-      "data": [{
-        "variable": "disposable_battery_voltage",
-        "value": 3.688,
-        "date": "2023-07-19T07:51:25.508306410Z"
-      }],
       "warnings": [
         ""
       ]
