@@ -1,7 +1,7 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing temperature value | payload:110a80070001412301032041AC0000419DC28F418AB8524187D70A4180147B41668F5C4123AE14411C51EC",
+    "description": "uplink standard report containing master slave 1 data | payload:110a80070001412301032041AC0000419DC28F418AB8524187D70A4180147B41668F5C4123AE14411C51EC",
     "input": {
       "bytes": [
         17,  10, 128,   7,   0,   1,  65,  35,   1,  3,

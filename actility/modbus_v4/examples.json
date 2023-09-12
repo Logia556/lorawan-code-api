@@ -1,7 +1,7 @@
 [
   {
     "type": "uplink",
-    "description": "uplink standard report containing temperature value | payload:110a80070001412301032041AC0000419DC28F418AB8524187D70A4180147B41668F5C4123AE14411C51EC",
+    "description": "uplink standard report containing master slave 1 data | payload:110a80070001412301032041AC0000419DC28F418AB8524187D70A4180147B41668F5C4123AE14411C51EC",
     "input": {
       "bytes": [
         17,  10, 128,   7,   0,   1,  65,  35,   1,  3,
@@ -16,37 +16,22 @@
     "output": {
       "data": [
         {
-          "variable": "payload",
-          "value": "01032041AC0000419DC28F418AB8524187D70A4180147B41668F5C4123AE14411C51EC",
+          "variable": "modbus_payload_1",
+          "value": "41AC00419DC28F418AB8524187D7A4180147B41668F5C4123AE14411C51EC",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "modbus_payload",
-          "value": "41AC0000419DC28F418AB8524187D70A4180147B41668F5C4123AE14411C51EC",
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        {
-          "variable": "size",
-          "value": 35,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        {
-          "variable": "modbus_float",
-          "value": 0,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        {
-          "variable": "modbus_address",
+          "variable": "modbus_slaveID_1",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "modbus_commandID",
+          "variable": "modbus_fnctID_1",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "modbus_size",
+          "variable": "modbus_datasize_1",
           "value": 32,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -93,16 +78,6 @@
     },
     "output": {
       "data": [
-        {
-          "variable": "payloads",
-          "value": "",
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
-        {
-          "variable": "size",
-          "value": 31,
-          "date": "2023-07-19T07:51:25.508306410Z"
-        },
         {
           "variable": "multimodbus_frame_series_sent",
           "value": 6,
@@ -169,82 +144,82 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP0_slaveID",
+          "variable": "multimodbus_slaveID_EP0",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP0_fnctID",
+          "variable": "multimodbus_fnctID_EP0",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP0_datasize",
+          "variable": "multimodbus_datasize_EP0",
           "value": 4,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP0_payload",
+          "variable": "multimodbus_payload_EP0",
           "value": "FFFFFFFE",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP1_slaveID",
+          "variable": "multimodbus_slaveID_EP1",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP1_fnctID",
+          "variable": "multimodbus_fnctID_EP1",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP1_datasize",
+          "variable": "multimodbus_datasize_EP1",
           "value": 4,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP1_payload",
+          "variable": "multimodbus_payload_EP1",
           "value": "00000004",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP2_slaveID",
+          "variable": "multimodbus_slaveID_EP2",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP2_fnctID",
+          "variable": "multimodbus_fnctID_EP2",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP2_datasize",
+          "variable": "multimodbus_datasize_EP2",
           "value": 8,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP2_payload",
+          "variable": "multimodbus_payload_EP2",
           "value": "FFFEFFFF00050000",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP3_slaveID",
+          "variable": "multimodbus_slaveID_EP3",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP3_fnctID",
+          "variable": "multimodbus_fnctID_EP3",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP3_datasize",
+          "variable": "multimodbus_datasize_EP3",
           "value": 12,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP3_payload",
+          "variable": "multimodbus_payload_EP3",
           "value": "41A5999A3333429A7AE1428F",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
