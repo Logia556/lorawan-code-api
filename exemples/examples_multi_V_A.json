@@ -25,7 +25,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_a",
+          "variable": "angle_a",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -40,7 +40,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_b",
+          "variable": "angle_b",
           "value": 64,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -55,7 +55,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_c",
+          "variable": "angle_c",
           "value": 48,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -91,7 +91,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_a",
+          "variable": "angle_a",
           "value": 353,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -106,7 +106,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_b",
+          "variable": "angle_b",
           "value": 339,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -121,7 +121,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_c",
+          "variable": "angle_c",
           "value": 336,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -129,7 +129,7 @@
       "warnings": [
         "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Vrms_a",
         "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 0.5, gap: 0, occurences: 1, field: Irms_a",
-        "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 350, gap: 0, occurences: 1, field: phase_c"
+        "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 350, gap: 0, occurences: 1, field: angle_c"
       ]
     }
   }

@@ -11,7 +11,7 @@ let endpointCorresponder ={
     negative_reactive_power: ["negative_reactive_power_a","negative_reactive_power_b","negative_reactive_power_c","negative_reactive_power_abc"],
     Vrms: ["Vrms_a","Vrms_b","Vrms_c"],
     Irms: ["Irms_a","Irms_b","Irms_c"],
-    phase_angle: ["phase_angle_a","phase_angle_b","phase_angle_c"],
+    angle: ["angle_a","angle_b","angle_c"],
 }
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);

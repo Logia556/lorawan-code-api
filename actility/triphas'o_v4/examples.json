@@ -249,7 +249,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_angle_a",
+          "variable": "angle_a",
           "value": 355,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -282,7 +282,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_angle_b",
+          "variable": "angle_b",
           "value": 354,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -317,7 +317,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_angle_a",
+          "variable": "angle_a",
           "value": 354,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -344,42 +344,42 @@
     "output": {
       "data": [
         {
-          "variable": "active_energy_phase_a",
+          "variable": "active_energy_a",
           "value": 256,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_phase_a",
+          "variable": "reactive_energy_a",
           "value": 512,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_energy_phase_b",
+          "variable": "active_energy_b",
           "value": 768,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_phase_b",
+          "variable": "reactive_energy_b",
           "value": 1024,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_energy_phase_c",
+          "variable": "active_energy_c",
           "value": 1280,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_phase_c",
+          "variable": "reactive_energy_c",
           "value": 1536,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_energy_phase_abc",
+          "variable": "active_energy_abc",
           "value": 1792,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_energy_phase_abc",
+          "variable": "reactive_energy_abc",
           "value": 2048,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -405,49 +405,49 @@
     "output": {
       "data": [
         {
-          "variable": "active_power_phase_a",
+          "variable": "active_power_a",
           "value": 6211,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_phase_a",
+          "variable": "reactive_power_a",
           "value": 4294966304,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_phase_b",
+          "variable": "active_power_b",
           "value": 9418,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_phase_b",
+          "variable": "reactive_power_b",
           "value": 4294964495,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_phase_c",
+          "variable": "active_power_c",
           "value": 7989,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_phase_c",
+          "variable": "reactive_power_c",
           "value": 4294964266,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "active_power_phase_abc",
+          "variable": "active_power_abc",
           "value": 23618,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_phase_abc",
+          "variable": "reactive_power_abc",
           "value": 4294960473,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 50, gap: 1, occurences: 1, field: active_power_phase_a",
-        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 20, gap: 0, occurences: 1, field: active_power_phase_a"
+        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 50, gap: 1, occurences: 1, field: active_power_a",
+        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 20, gap: 0, occurences: 1, field: active_power_a"
       ]
     }
   },
@@ -477,7 +477,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_a",
+          "variable": "angle_a",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -492,7 +492,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_b",
+          "variable": "angle_b",
           "value": 64,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
@@ -507,7 +507,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "phase_c",
+          "variable": "angle_c",
           "value": 48,
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -515,6 +515,75 @@
       "warnings": [ "" ]
     }
 
+  },
+  {
+    "type": "uplink",
+    "description": "uplink standard report containing long threshold alarm | payload:118A800D000041120975010C01610974015E0153098301610150A0D0000032000001D1010005000001B208015E000001",
+    "input": {
+      "bytes": [
+        17, 138, 128, 13,   0,   0, 65, 18,   9, 117,   1,
+        12,   1,  97,  9, 116,   1, 94,  1,  83,   9, 131,
+        1,  97,   1, 80, 160, 208,  0,  0,  50,   0,   0,
+        1, 209,   1,  0,   5,   0,  0,  1, 178,   8,   1,
+        94,   0,   0,  1
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "Vrms_a",
+          "value": 242.1,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "Irms_a",
+          "value": 26.8,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "angle_a",
+          "value": 353,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "Vrms_b",
+          "value": 242,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "Irms_b",
+          "value": 35,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "angle_b",
+          "value": 339,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "Vrms_c",
+          "value": 243.5,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "Irms_c",
+          "value": 35.3,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        },
+        {
+          "variable": "angle_c",
+          "value": 336,
+          "date": "2023-07-19T07:51:25.508306410Z"
+        }
+      ],
+      "warnings": [
+        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Vrms_a",
+        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 0.5, gap: 0, occurences: 1, field: Irms_a",
+        "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 350, gap: 0, occurences: 1, field: angle_c"
+      ]
+    }
   },
   {
     "type": "uplink",

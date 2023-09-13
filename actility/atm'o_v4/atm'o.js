@@ -9,6 +9,7 @@ let batch_param = [3, [{taglbl: 0,resol: 1, sampletype: 7,lblname: "temperature"
 
 let endpointCorresponder={
     index:["index_1","index_2"],
+    pin_state:["pin_state_1","pin_state_2"]
 }
 function decodeUplink(input) {
     return result = watteco.watteco_decodeUplink(input,batch_param,endpointCorresponder);

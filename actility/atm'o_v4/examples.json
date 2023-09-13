@@ -97,7 +97,7 @@
     },
     "output": {
       "data": [{
-        "variable": "pin_state",
+        "variable": "pin_state_1",
         "value": true,
         "date": "2023-07-19T07:51:25.508306410Z"
       }],
