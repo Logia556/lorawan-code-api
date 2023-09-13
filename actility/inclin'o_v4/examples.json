@@ -24,7 +24,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing temperature value | payload:110A040600001801",
+    "description": "uplink standard report containing occupancy value | payload:110A040600001801",
     "input": {
       "bytes": [
         17, 10,  4, 6,

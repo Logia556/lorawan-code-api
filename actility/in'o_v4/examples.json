@@ -139,7 +139,7 @@
     "output": {
       "data": [
         {
-          "variable": "pin_state_1",
+          "variable": "output_1",
           "value": "ON",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -161,7 +161,7 @@
     "output": {
       "data": [
         {
-          "variable": "pin_state_1",
+          "variable": "output_1",
           "value": "OFF",
           "date": "2023-07-19T07:51:25.508306410Z"
         }

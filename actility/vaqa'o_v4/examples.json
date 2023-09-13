@@ -80,7 +80,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing state of the case | payload:110A000F00551001",
+    "description": "uplink standard report containing violation detection | payload:110A000F00551001",
     "input": {
       "bytes": [
         17,

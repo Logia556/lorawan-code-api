@@ -29,6 +29,34 @@
   },
   {
     "type": "uplink",
+    "description": "uplink standard report containing open status | payload:310A000F00551001",
+    "input": {
+      "bytes": [
+        49,
+        10,
+        0,
+        15,
+        0,
+        85,
+        16,
+        1
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [{
+        "variable": "open",
+        "value": true,
+        "date": "2023-07-19T07:51:25.508306410Z"
+      }],
+      "warnings": [
+        ""
+      ]
+    }
+  },
+  {
+    "type": "uplink",
     "description": "uplink standard report containing number of pulse detection on input 1 | payload:110A000F04022300000000",
     "input": {
       "bytes": [

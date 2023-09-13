@@ -2314,7 +2314,7 @@ function Decoder(bytes, port) {
                 if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.forcenotify = bytes[i1]
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) {
                     let attribute_type = bytes[i1-1]
-                    decoded.data.value = bytes[i1]
+                    decoded.data.output_value = bytes[i1]
                     let ia = i1+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
@@ -2339,7 +2339,7 @@ function Decoder(bytes, port) {
                     }
                 }
                 if ((clustID === 0x0006 ) && (attID === 0x0000)) {
-                    let state = bytes[i1]; if(state === 1) decoded.data.pin_state = "ON"; else decoded.data.pin_state = "OFF" ;
+                    let state = bytes[i1]; if(state === 1) decoded.data.output = "ON"; else decoded.data.output = "OFF" ;
                 }
                 if ((clustID === 0x8008 ) && (attID === 0x0000)){
                     let attribute_type = bytes[i1-1]
@@ -2487,200 +2487,200 @@ function Decoder(bytes, port) {
                 {
                     let b2 = bytes[i1+2]
                     let b3 = bytes[i1+3]
-                    decoded.data.multimodbus_frame_series_sent = bytes[i1+1];
-                    decoded.data.multimodbus_frame_number_in_serie = (b2 & 0xE0) >> 5;
-                    decoded.data.multimodbus_last_frame_of_serie = (b2 & 0x1C ) >> 2;
-                    decoded.data.multimodbus_EP9 = ((b2&0x01) === 0x01);
-                    decoded.data.multimodbus_EP8 = ((b2&0x02) === 0x02);
-                    decoded.data.multimodbus_EP7 = ((b3&0x80) === 0x80);
-                    decoded.data.multimodbus_EP6 = ((b3&0x40) === 0x40);
-                    decoded.data.multimodbus_EP5 = ((b3&0x20) === 0x20);
-                    decoded.data.multimodbus_EP4 = ((b3&0x10) === 0x10);
-                    decoded.data.multimodbus_EP3 = ((b3&0x08) === 0x08);
-                    decoded.data.multimodbus_EP2 = ((b3&0x04) === 0x04);
-                    decoded.data.multimodbus_EP1 = ((b3&0x02) === 0x02);
-                    decoded.data.multimodbus_EP0 = ((b3&0x01) === 0x01);
+                    decoded.data.modbus_frame_series_sent = bytes[i1+1];
+                    decoded.data.modbus_frame_number_in_serie = (b2 & 0xE0) >> 5;
+                    decoded.data.modbus_last_frame_of_serie = (b2 & 0x1C ) >> 2;
+                    decoded.data.modbus_EP9 = ((b2&0x01) === 0x01);
+                    decoded.data.modbus_EP8 = ((b2&0x02) === 0x02);
+                    decoded.data.modbus_EP7 = ((b3&0x80) === 0x80);
+                    decoded.data.modbus_EP6 = ((b3&0x40) === 0x40);
+                    decoded.data.modbus_EP5 = ((b3&0x20) === 0x20);
+                    decoded.data.modbus_EP4 = ((b3&0x10) === 0x10);
+                    decoded.data.modbus_EP3 = ((b3&0x08) === 0x08);
+                    decoded.data.modbus_EP2 = ((b3&0x04) === 0x04);
+                    decoded.data.modbus_EP1 = ((b3&0x02) === 0x02);
+                    decoded.data.modbus_EP0 = ((b3&0x01) === 0x01);
                     let i2 = i1 + 4;
                     without_header = 0;
-                    if (decoded.data.multimodbus_EP0 === true)
+                    if (decoded.data.modbus_EP0 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP0 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP0 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP0 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP0 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP0 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP0 = bytes[i2+2];
                             i2 +=3;
                         }
-                        decoded.data.multimodbus_payload_EP0 = ""
+                        decoded.data.modbus_payload_EP0 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for(let j = 0; j < decoded.data.multimodbus_datasize_EP0;j++)
+                        for(let j = 0; j < decoded.data.modbus_datasize_EP0;j++)
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP0 += temp_hex_str;
+                            decoded.data.modbus_payload_EP0 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP0;
+                        i2 += decoded.data.modbus_datasize_EP0;
                     }
-                    if (decoded.data.multimodbus_EP1 === true)
+                    if (decoded.data.modbus_EP1 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP1 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP1 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP1 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP1 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP1 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP1 = bytes[i2+2];
                             i2 +=3
                         }
-                        decoded.data.multimodbus_payload_EP1 = ""
+                        decoded.data.modbus_payload_EP1 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP1; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP1; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP1 += temp_hex_str;
+                            decoded.data.modbus_payload_EP1 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP1;
+                        i2 += decoded.data.modbus_datasize_EP1;
                     }
-                    if (decoded.data.multimodbus_EP2 === true)
+                    if (decoded.data.modbus_EP2 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP2 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP2 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP2 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP2 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP2 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP2 = bytes[i2+2];
                             i2 +=3;
                         }
-                        decoded.data.multimodbus_payload_EP2 = ""
+                        decoded.data.modbus_payload_EP2 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP2; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP2; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP2 += temp_hex_str;
+                            decoded.data.modbus_payload_EP2 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP2;
+                        i2 += decoded.data.modbus_datasize_EP2;
                     }
-                    if (decoded.data.multimodbus_EP3 === true)
+                    if (decoded.data.modbus_EP3 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP3 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP3 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP3 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP3 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP3 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP3 = bytes[i2+2];
                             i2 +=3
                         }
-                        decoded.data.multimodbus_payload_EP3 = ""
+                        decoded.data.modbus_payload_EP3 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP3; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP3; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP3 += temp_hex_str;
+                            decoded.data.modbus_payload_EP3 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP3;
+                        i2 += decoded.data.modbus_datasize_EP3;
                     }
-                    if (decoded.data.multimodbus_EP4 === true)
+                    if (decoded.data.modbus_EP4 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP4 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP4 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP4 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP4 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP4 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP4 = bytes[i2+2];
                             i2 +=3;
                         }
-                        decoded.data.multimodbus_payload_EP4 = ""
+                        decoded.data.modbus_payload_EP4 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP4; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP4; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP4 += temp_hex_str;
+                            decoded.data.modbus_payload_EP4 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP4;
+                        i2 += decoded.data.modbus_datasize_EP4;
                     }
-                    if (decoded.data.multimodbus_EP5 === true)
+                    if (decoded.data.modbus_EP5 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP5 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP5 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP5 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP5 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP5 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP5 = bytes[i2+2];
                             i2 +=3;
                         }
-                        decoded.data.multimodbus_payload_EP5 = ""
+                        decoded.data.modbus_payload_EP5 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP5; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP5; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP5 += temp_hex_str;
+                            decoded.data.modbus_payload_EP5 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP5;
+                        i2 += decoded.data.modbus_datasize_EP5;
                     }
-                    if (decoded.data.multimodbus_EP6 === true)
+                    if (decoded.data.modbus_EP6 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP6 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP6 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP6 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP6 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP6 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP6 = bytes[i2+2];
                             i2 +=3
                         }
-                        decoded.data.multimodbus_payload_EP6 = ""
+                        decoded.data.modbus_payload_EP6 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP6; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP6; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP6 += temp_hex_str;
+                            decoded.data.modbus_payload_EP6 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP6;
+                        i2 += decoded.data.modbus_datasize_EP6;
                     }
-                    if (decoded.data.multimodbus_EP7 === true)
+                    if (decoded.data.modbus_EP7 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP7 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP7 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP7 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP7 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP7 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP7 = bytes[i2+2];
                             i2 +=3
                         }
-                        decoded.data.multimodbus_payload_EP7 = ""
+                        decoded.data.modbus_payload_EP7 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP7; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP7; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP7 += temp_hex_str;
+                            decoded.data.modbus_payload_EP7 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP7;
+                        i2 += decoded.data.modbus_datasize_EP7;
                     }
-                    if (decoded.data.multimodbus_EP8 === true)
+                    if (decoded.data.modbus_EP8 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP8 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP8 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP8 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP8 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP8 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP8 = bytes[i2+2];
                             i2 +=3;
                         }
-                        decoded.data.multimodbus_payload_EP8 = ""
+                        decoded.data.modbus_payload_EP8 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP8; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP8; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP8 += temp_hex_str;
+                            decoded.data.modbus_payload_EP8 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP8;
+                        i2 += decoded.data.modbus_datasize_EP8;
                     }
-                    if (decoded.data.multimodbus_EP9 === true)
+                    if (decoded.data.modbus_EP9 === true)
                     {
                         if (without_header === 0){
-                            decoded.data.multimodbus_slaveID_EP9 = bytes[i2];
-                            decoded.data.multimodbus_fnctID_EP9 = bytes[i2+1];
-                            decoded.data.multimodbus_datasize_EP9 = bytes[i2+2];
+                            decoded.data.modbus_slaveID_EP9 = bytes[i2];
+                            decoded.data.modbus_fnctID_EP9 = bytes[i2+1];
+                            decoded.data.modbus_datasize_EP9 = bytes[i2+2];
                             i2 +=3
                         }
-                        decoded.data.multimodbus_payload_EP9 = ""
+                        decoded.data.modbus_payload_EP9 = ""
                         if (bytes[i2] === undefined ) return decoded;
-                        for( let j = 0; j < decoded.data.multimodbus_datasize_EP9; j++ )
+                        for( let j = 0; j < decoded.data.modbus_datasize_EP9; j++ )
                         {
                             temp_hex_str   = bytes[i2+j].toString( 16 ).toUpperCase( );
                             if( temp_hex_str.length === 1 ) temp_hex_str = "0" + temp_hex_str;
-                            decoded.data.multimodbus_payload_EP9 += temp_hex_str;
+                            decoded.data.modbus_payload_EP9 += temp_hex_str;
                         }
-                        i2 += decoded.data.multimodbus_datasize_EP9;
+                        i2 += decoded.data.modbus_datasize_EP9;
                     }
                 }
                 if (  (clustID === 0x0052 ) && (attID === 0x0000)) {
@@ -2688,7 +2688,7 @@ function Decoder(bytes, port) {
                     decoded.data.reactive_energy = UintToInt(bytes[i1+4]*256*256+bytes[i1+5]*256+bytes[i1+6],3);
                     decoded.data.nb_samples = (bytes[i1+7]*256+bytes[i1+8]);
                     decoded.data.active_power = UintToInt(bytes[i1+9]*256+bytes[i1+10],2);
-                    decoded.data.reactive_power_let = UintToInt(bytes[i1+11]*256+bytes[i1+12],2);
+                    decoded.data.reactive_power = UintToInt(bytes[i1+11]*256+bytes[i1+12],2);
                 }
                 if ((clustID === 0x8004 ) && (attID === 0x0000)) {
                     if (bytes[i1] === 1)

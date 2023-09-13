@@ -13,7 +13,7 @@
     "output": {
       "data": [
         {
-          "variable": "pin_state",
+          "variable": "output",
           "value": "ON",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -35,7 +35,7 @@
     "output": {
       "data": [
         {
-          "variable": "pin_state",
+          "variable": "output",
           "value": "OFF",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
@@ -78,7 +78,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "reactive_power_let",
+          "variable": "reactive_power",
           "value": -42,
           "date": "2023-07-19T07:51:25.508306410Z"
         }

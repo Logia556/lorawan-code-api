@@ -60,7 +60,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink standard report containing 10 state values | payload:110A80050000190371",
+    "description": "uplink standard report containing 3 state values | payload:110A80050000190371",
     "input": {
       "bytes": [
         17, 10, 128,   5, 0,

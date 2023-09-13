@@ -230,7 +230,7 @@
   },
   {
     "type": "uplink",
-    "description": "uplink batch report | payload:20220080039281F268D3212D54A0C3E170380AB000",
+    "description": "uplink batch report contenaing several pressures and battery level  | payload:20220080039281F268D3212D54A0C3E170380AB000",
     "input": {
       "bytes": [
         32,  34,   0, 128,  3, 146, 129,

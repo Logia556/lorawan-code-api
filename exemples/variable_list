@@ -1,0 +1,5 @@
+0402: temperature, temperature_1, temperature_2
+0403: pressure
+0405: humidity, humidity_1, humidity_2
+0400: illuminance
+0406: occupancy

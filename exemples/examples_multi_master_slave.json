@@ -16,147 +16,147 @@
     "output": {
       "data": [
         {
-          "variable": "multimodbus_frame_series_sent",
+          "variable": "modbus_frame_series_sent",
           "value": 6,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_frame_number_in_serie",
+          "variable": "modbus_frame_number_in_serie",
           "value": 0,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_last_frame_of_serie",
+          "variable": "modbus_last_frame_of_serie",
           "value": 0,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP9",
+          "variable": "modbus_EP9",
           "value": false,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP8",
+          "variable": "modbus_EP8",
           "value": false,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP7",
+          "variable": "modbus_EP7",
           "value": false,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP6",
+          "variable": "modbus_EP6",
           "value": false,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP5",
+          "variable": "modbus_EP5",
           "value": false,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP4",
+          "variable": "modbus_EP4",
           "value": false,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP3",
+          "variable": "modbus_EP3",
           "value": true,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP2",
+          "variable": "modbus_EP2",
           "value": true,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP1",
+          "variable": "modbus_EP1",
           "value": true,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_EP0",
+          "variable": "modbus_EP0",
           "value": true,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_slaveID_EP0",
+          "variable": "modbus_slaveID_EP0",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_fnctID_EP0",
+          "variable": "modbus_fnctID_EP0",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_datasize_EP0",
+          "variable": "modbus_datasize_EP0",
           "value": 4,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_payload_EP0",
+          "variable": "modbus_payload_EP0",
           "value": "FFFFFFFE",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_slaveID_EP1",
+          "variable": "modbus_slaveID_EP1",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_fnctID_EP1",
+          "variable": "modbus_fnctID_EP1",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_datasize_EP1",
+          "variable": "modbus_datasize_EP1",
           "value": 4,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_payload_EP1",
+          "variable": "modbus_payload_EP1",
           "value": "00000004",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_slaveID_EP2",
+          "variable": "modbus_slaveID_EP2",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_fnctID_EP2",
+          "variable": "modbus_fnctID_EP2",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_datasize_EP2",
+          "variable": "modbus_datasize_EP2",
           "value": 8,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_payload_EP2",
+          "variable": "modbus_payload_EP2",
           "value": "FFFEFFFF00050000",
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_slaveID_EP3",
+          "variable": "modbus_slaveID_EP3",
           "value": 1,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_fnctID_EP3",
+          "variable": "modbus_fnctID_EP3",
           "value": 3,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_datasize_EP3",
+          "variable": "modbus_datasize_EP3",
           "value": 12,
           "date": "2023-07-19T07:51:25.508306410Z"
         },
         {
-          "variable": "multimodbus_payload_EP3",
+          "variable": "modbus_payload_EP3",
           "value": "41A5999A3333429A7AE1428F",
           "date": "2023-07-19T07:51:25.508306410Z"
         }
