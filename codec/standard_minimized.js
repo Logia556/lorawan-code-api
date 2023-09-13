@@ -3111,7 +3111,7 @@ function Decoder(bytes, port) {
                 if (  (clustID === 0x800f) ) {
                     let i = i1+1;
                     if (attID === 0x0000) {
-                        let o = decoded.data.Last = {};
+                        let o = decoded.data.last = {};
                         o.NbTriggedAcq = BytesToInt64(bytes,i,"U32"); i+=4;
                         o.Mean_X_G = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
                         o.Max_X_G  = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
@@ -3136,7 +3136,7 @@ function Decoder(bytes, port) {
                         o.MaxMax_G  = BytesToInt64(bytes,i,"U16")/100.0; i+=2;
                         o.MaxDt     = BytesToInt64(bytes,i,"U16"); i+=2;
                     } else if (attID === 0x8000) {
-                        let o = decoded.data.Params = {};
+                        let o = decoded.data.params = {};
                         o.WaitFreq_Hz       = BytesToInt64(bytes,i,"U16")/10.0; i+=2;
                         o.AcqFreq_Hz        = BytesToInt64(bytes,i,"U16")/10.0; i+=2;
                         let delay = BytesToInt64(bytes,i,"U16"); i+=2;
@@ -3151,7 +3151,7 @@ function Decoder(bytes, port) {
                         o.Range_G           = BytesToInt64(bytes,i,"U16")/100; i+=2;
                         o.FilterSmoothCoef  = BytesToInt64(bytes,i,"U8"); i+=1;
                         o.FilterGainCoef    = BytesToInt64(bytes,i,"U8"); i+=1;
-                        o = decoded.data.Params.WorkingModes = {};
+                        o = decoded.data.Params.working_modes = {};
                         o.SignalEachAcq     = (bytes[i] & 0x80 ? "true" : "false");
                         o.RstAftStdRpt_X    = (bytes[i] & 0x01 ? "true" : "false");
                         o.RstAftStdRpt_Y    = (bytes[i] & 0x02 ? "true" : "false");
