@@ -3,3 +3,7 @@
 0405: humidity, humidity_1, humidity_2
 0400: illuminance
 0406: occupancy
+000F: index, pin_state, polarity, edge_selection, debounce_period, poll_period, force_notify
+0013: output_value
+0006: output
+8008: differential_pressure

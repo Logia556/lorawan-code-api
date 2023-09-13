@@ -2301,17 +2301,17 @@ function Decoder(bytes, port) {
                     if (bytes[i1] === 1) decoded.data.polarity = "reverse";
                 }
                 if ((clustID === 0x000f ) && (attID === 0x0400)){
-                    if (bytes[i1] === 0) decoded.data.edgeselection = "none";
-                    if (bytes[i1] === 1) decoded.data.edgeselection = "falling edge";
-                    if (bytes[i1] === 2) decoded.data.edgeselection = "rising edge";
-                    if (bytes[i1] === 3) decoded.data.edgeselection = "both edges";
-                    if (bytes[i1] === 5) decoded.data.edgeselection = "polling and falling edge";
-                    if (bytes[i1] === 6) decoded.data.edgeselection = "polling and rising edge";
-                    if (bytes[i1] === 7) decoded.data.edgeselection = "polling and both edges";
+                    if (bytes[i1] === 0) decoded.data.edge_selection = "none";
+                    if (bytes[i1] === 1) decoded.data.edge_selection = "falling edge";
+                    if (bytes[i1] === 2) decoded.data.edge_selection = "rising edge";
+                    if (bytes[i1] === 3) decoded.data.edge_selection = "both edges";
+                    if (bytes[i1] === 5) decoded.data.edge_selection = "polling and falling edge";
+                    if (bytes[i1] === 6) decoded.data.edge_selection = "polling and rising edge";
+                    if (bytes[i1] === 7) decoded.data.edge_selection = "polling and both edges";
                 }
-                if ((clustID === 0x000f ) && (attID === 0x0401)) decoded.data.debounceperiod = bytes[i1]
-                if ((clustID === 0x000f ) && (attID === 0x0403)) decoded.data.pollperiod = bytes[i1]
-                if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.forcenotify = bytes[i1]
+                if ((clustID === 0x000f ) && (attID === 0x0401)) decoded.data.debounce_period = bytes[i1]
+                if ((clustID === 0x000f ) && (attID === 0x0403)) decoded.data.poll_period = bytes[i1]
+                if ((clustID === 0x000f ) && (attID === 0x0404)) decoded.data.force_notify = bytes[i1]
                 if ((clustID === 0x0013 ) && (attID === 0x0055)) {
                     let attribute_type = bytes[i1-1]
                     decoded.data.output_value = bytes[i1]
