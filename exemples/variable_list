@@ -1,3 +1,4 @@
+0000: firmware, kernel, manufacturer, model, date, position, application_name
 0402: temperature:[temperature_x]
 0403: pressure
 0405: humidity:[humidity_x]
@@ -9,7 +10,7 @@
 8008: differential_pressure
 8005: pin_state_1, pin_state_2, pin_state_3, pin_state_4:[NA], pin_state_5:[NA], pin_state_6:[NA], pin_state_7:[NA], pin_state_8:[NA], pin_state_9:[NA], pin_state_10:[NA]
 8006: speed, databit, parity, stopbit
-000C: analog:[angle, Irms, 4-20_mA, 0-10_V, 0-100_mV, 0-70_V, 0-5_V_1, 0-5_V_2 , ratiometric_0-5_V_1, ratiometric_0-5_V_2, ], type, powerduration, mode, frequency, range
+000C: analog:[angle, Irms, 4-20_mA, 0-10_V, 0-100_mV, 0-70_V, 0-5_V_1, 0-5_V_2 , ratiometric_0-5_V_1, ratiometric_0-5_V_2, ], type, power_duration, mode, frequency, range
 8007: modbus_payload:[modbus_payload_EPx], modbus_slaveID:[modbus_slaveID_EPx], modbus_fnctID:[modbus_fnctID_EPx], modbus_datasize:[modbus_datasize_EPx]
 8009: modbus_frame_series_sent, modbus_frame_number_in_serie, modbus_last_frame_of_serie, modbus_EP0, modbus_EP1, modbus_EP2, modbus_EP3, modbus_EP4, modbus_EP5, modbus_EP6, modbus_EP7, modbus_EP8, modbus_EP9,
 0052: active_energy, reactive_energy, nb_samples, active_power, reactive_power
