@@ -2404,9 +2404,9 @@ function Decoder(bytes, port) {
                     }
                 }
                 if ((clustID===0x8006)&&(attID===0x0000)) decoded.data.speed = bytes[i1]*256*256+bytes[i1+1]*256+bytes[i1+2];
-                if ((clustID===0x8006)&&(attID===0x0001)) decoded.data.databit = bytes[i1]
+                if ((clustID===0x8006)&&(attID===0x0001)) decoded.data.data_bit = bytes[i1]
                 if ((clustID===0x8006)&&(attID===0x0002)) decoded.data.parity = bytes[i1];
-                if ((clustID===0x8006)&&(attID===0x0003)) decoded.data.stopbit = bytes[i1];
+                if ((clustID===0x8006)&&(attID===0x0003)) decoded.data.stop_bit = bytes[i1];
                 if ((clustID === 0x000c ) && (attID === 0x0055)){
                     let attribute_type = bytes[i1-1]
                     decoded.data.analog = Bytes2Float32(bytes[i1]*256*256*256+bytes[i1+1]*256*256+bytes[i1+2]*256+bytes[i1+3]);
@@ -2705,7 +2705,7 @@ function Decoder(bytes, port) {
                     decoded.data.automatic_association.nb_err_frames = bytes[i1+3] *256+bytes[i1+4];
                 }
                 if ((clustID===0x8004) && (attID===0x0003)){
-                    decoded.data.datarate = bytes[i1+2];
+                    decoded.data.data_rate = bytes[i1+2];
                 }
                 if ((clustID===0x8004) && (attID===0x0004)){
                     decoded.data.ABP_dev_address = "";
