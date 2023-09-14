@@ -106,3 +106,33 @@ cette séparation est dûe à la compression du code dans main.js qui casse les 
 | 800F |       |        |         |      |          |                    |          |       |        |         |        |                     |            |         |                   |              |                    |                      |           |    |        |              |           |           |        |             |          |
 | 8010 |       |        |         |      |          |                    |          |       |        |         |        |                     |            |         |                   |              |                    |                      |           |    |        |              |     X     |           |        |             |          |
 | 8052 |       |        |         |      |          |                    |          |       |        |         |        |                     |            |         |                   |              |                    |                      |     X     |    |        |              |           |           |        |             |          |
+
+## table cluster name
+|                name                |  ID  |
+|:----------------------------------:|:----:|
+|            analog input            | 000C |
+|               basic                | 0000 |
+|            binary input            | 000F |
+|           configuration            | 0050 |
+|           concentration            | 800C |
+|       differential pressure        | 8008 |
+|     energy and power metering      | 800A |
+|  energy and power multi metering   | 8010 |
+|            illuminance             | 0400 |
+|              lorawan               | 8004 |
+|        multi binary inputs         | 8005 |
+|     multi master/slave answers     | 8009 |
+|         multi state output         | 0013 |
+|             occupancy              | 0406 |
+|               ON/OFF               | 0006 |
+|              pressure              | 0403 |
+|           power quality            | 8052 |
+|         relative humidity          | 0405 |
+|          serial interface          | 8006 |
+|    serial master/slave protocol    | 8007 |
+|        simple metering like        | 0052 |
+|            temperature             | 0402 |
+|                tic                 |      |
+|            volume meter            | 8002 |
+|    voltage and current metering    | 800B |
+| voltage and current multi metering | 800D |
