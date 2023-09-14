@@ -74,7 +74,7 @@ on peut observer leur exactitude en lançant un test JEST comme expliqué [ici](
 <p>cependant notre packaging webpack crée un fichier main.js qui fonctionne de la même manière.<br>
 cette séparation est dûe à la compression du code dans main.js qui casse les liens logiques entres les fichiers, ainsi que le nom des fonctions ; JEST ne le supporte pas.</p>
 
-## table des cluster
+## table des cluster n
 
 |      | atm'o | clos'o | flash'o | in'o | inclin'o | indoor_temperature | intens'o | lev'o | modbus | monit'o | move'o | outdoor_temperature | pilot_wire | press'o | pulse_sens'o_atex | pulse_sens'o | remote_temperature | remote_temperature_2 | smartplug | TH | tics'o | toran'o_atex | triphas'o | vaqa'o_lt | vaqa'o | vaqa'o_plus | ventil'o |
 |:----:|:-----:|:------:|:-------:|:----:|:--------:|:------------------:|:--------:|:-----:|:------:|:-------:|:------:|:-------------------:|:----------:|:-------:|:-----------------:|:------------:|:------------------:|:--------------------:|:---------:|:--:|:------:|:------------:|:---------:|:---------:|:------:|:-----------:|:--------:|
