@@ -265,5 +265,64 @@
       ],
       "warnings": [ "" ]
     }
+  },
+  {
+    "type": "uplink",
+    "description": "uplink batch report | payload:70060000e2760090cfc0015b028423fb03272919804c121c003ebc5bd6895f0040000b68b72c27a0ddb4dc8076db920c68b72c19605b04",
+    "input": {
+      "bytes": [
+        112,   6,   0,   0, 226, 118,   0, 144, 207, 192,   1,
+        91,   2, 132,  35, 251,   3,  39,  41,  25, 128,  76,
+        18,  28,   0,  62, 188,  91, 214, 137,  95,   0,  64,
+        0,  11, 104, 183,  44,  39, 160, 221, 180, 220, 128,
+        118, 219, 146,  12, 104, 183,  44,  25,  96,  91,   4
+      ],
+      "fPort": 125,
+      "recvTime": "2023-07-19T07:51:25.508306410Z"
+    },
+    "output": {
+      "data": [
+        {
+          "variable": "occupancy",
+          "value": 0,
+          "date": "2023-07-19T07:31:09.508Z"
+        },
+        {
+          "variable": "temperature_1",
+          "value": 18.7,
+          "date": "2023-07-19T07:31:24.508Z"
+        },
+        {
+          "variable": "temperature_1",
+          "value": 18.5,
+          "date": "2023-07-19T07:41:25.508Z"
+        },
+        {
+          "variable": "humidity_1",
+          "value": 31,
+          "date": "2023-07-19T07:31:23.508Z"
+        },
+        { "variable": "CO2", "value": 450, "date": "2023-07-19T07:31:24.508Z" },
+        { "variable": "CO2", "value": 470, "date": "2023-07-19T07:41:24.508Z" },
+        { "variable": "TVOC", "value": 240, "date": "2023-07-19T07:34:51.508Z" },
+        { "variable": "TVOC", "value": 250, "date": "2023-07-19T07:44:51.508Z" },
+        {
+          "variable": "illuminance",
+          "value": 50,
+          "date": "2023-07-19T07:32:52.508Z"
+        },
+        {
+          "variable": "illuminance",
+          "value": 160,
+          "date": "2023-07-19T07:42:54.508Z"
+        },
+        {
+          "variable": "pressure",
+          "value": 1011,
+          "date": "2023-07-19T07:44:51.508Z"
+        }
+      ],
+      "warnings": [ "" ]
+    }
   }
 ]
