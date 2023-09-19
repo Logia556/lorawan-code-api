@@ -4,7 +4,8 @@
   "description": "TH captor npm packaged",
   "main": "index.js",
   "scripts": {
-    "test": "jest --collectCoverage"
+    "test": "jest --collectCoverage",
+    "rebuild": "node ../../rebuild.js"
   },
   "author": "",
   "license": "ISC",
