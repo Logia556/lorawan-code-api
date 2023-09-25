@@ -2191,6 +2191,11 @@ function Decoder(bytes, port) {
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 100
                         let rc = ""
@@ -2198,7 +2203,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2223,6 +2227,11 @@ function Decoder(bytes, port) {
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 100
                         let rc = ""
@@ -2230,7 +2239,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2251,6 +2259,11 @@ function Decoder(bytes, port) {
                     let ia = i1+4
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -2258,7 +2271,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2277,6 +2289,11 @@ function Decoder(bytes, port) {
                     let ia = i1+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -2284,7 +2301,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2319,6 +2335,11 @@ function Decoder(bytes, port) {
                     let ia = i1+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -2326,7 +2347,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2348,6 +2368,11 @@ function Decoder(bytes, port) {
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -2355,7 +2380,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2384,6 +2408,11 @@ function Decoder(bytes, port) {
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 100
                         let rc = ""
@@ -2391,7 +2420,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2414,6 +2442,11 @@ function Decoder(bytes, port) {
                     let ia = i1+4
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -2421,7 +2454,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2758,6 +2790,11 @@ function Decoder(bytes, port) {
                     let ia = i2+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1000
                         let ftype = "multistate"
@@ -2767,7 +2804,6 @@ function Decoder(bytes, port) {
                         ia+=1
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2812,6 +2848,11 @@ function Decoder(bytes, port) {
                     let ia = i2+5
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let ftype = "multistate"
@@ -2820,7 +2861,6 @@ function Decoder(bytes, port) {
                         ia+=1
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2846,6 +2886,11 @@ function Decoder(bytes, port) {
                     let ia = i1 + 33
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let ftype = "multistate"
@@ -2854,7 +2899,6 @@ function Decoder(bytes, port) {
                         ia+=1
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2879,6 +2923,11 @@ function Decoder(bytes, port) {
                     let ia = i1 + 33
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let ftype = "multistate"
@@ -2887,7 +2936,6 @@ function Decoder(bytes, port) {
                         ia+=1
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2911,6 +2959,11 @@ function Decoder(bytes, port) {
                     let ia = i2+3
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let ftype = "multistate"
@@ -2919,7 +2972,6 @@ function Decoder(bytes, port) {
                         ia+=1
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2946,6 +2998,11 @@ function Decoder(bytes, port) {
                     let ia = i1 + 19
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let ftype = "multistate"
@@ -2954,7 +3011,6 @@ function Decoder(bytes, port) {
                         ia+=1
                         let field_index = bytes[ia+1]
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -2973,6 +3029,11 @@ function Decoder(bytes, port) {
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -2980,7 +3041,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -3001,6 +3061,11 @@ function Decoder(bytes, port) {
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -3008,7 +3073,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -3027,6 +3091,11 @@ function Decoder(bytes, port) {
                     let ia = i1+2
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -3034,7 +3103,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
@@ -3053,6 +3121,11 @@ function Decoder(bytes, port) {
                     let ia = i1+1
                     if ((cmdID===0x8a)||(bytes[ia]!==undefined)) {
                         let listMess = []
+                        if (cmdID===0x8a){
+                            listMess.push("alarm triggered")
+                        }else{
+                            listMess.push("cause triggered")
+                        }
                         let flag = 0
                         let divider = 1
                         let rc = ""
@@ -3060,7 +3133,6 @@ function Decoder(bytes, port) {
                         rc = decimalToBitString(bytes[ia])
                         ia+=1
                         if ((rc[2] === "0") && (rc[3] === "0")) {
-                            listMess.push("alarm triggered")
                             decoded.zclheader.alarmmsg = listMess
                         }
                         if ((rc[2] === "0") && (rc[3] === "1")) {
