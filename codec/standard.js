@@ -1451,11 +1451,11 @@ function alarmShort(length, listMess, flag, bytes, decoded, i1){
                 qual = "fall"
             }
 
-            let mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual
+            let mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual+"}"
             listMess.push(mess)
         }
         if ((csd[3] === "0") && (csd[4] === "1")) {
-            let mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"
+            let mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta}"
             listMess.push(mess)
         }
         i+=1
@@ -1556,9 +1556,9 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown+"}"
                 }else{
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count+"}"
                 }            } else {
                 let fi =bytes[(i1+((length)*i))+1+shift]
                 let alarm_field = field[clustID][attID][fi].name
@@ -1583,9 +1583,9 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field+"}"
                 } else {
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field+"}"
                 }             }
             listMess.push(mess)
         }
@@ -1603,7 +1603,7 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)+shift] ) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp+"}"
             } else {
                 let fi =bytes[(i1+((length)*i))+1+shift]
                 let alarm_field = field[clustID][attID][fi].name
@@ -1616,7 +1616,7 @@ function alarmLong1Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)+shift] ) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field+"}"
             }
             listMess.push(mess)
         }
@@ -1703,9 +1703,9 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown+"}"
                 }else{
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count+"}"
                 }
             } else {
                 let fi =bytes[(i1+((length)*i))+1+shift]
@@ -1731,9 +1731,9 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field+"}"
                 } else {
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field+"}"
                 }            }
             listMess.push(mess)
         }
@@ -1751,7 +1751,7 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)+shift] + bytes[i1+3+((length)*i)+shift]) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp+"}"
             } else {
                 let fi =bytes[(i1+((length)*i))+1]
                 let alarm_field = field[clustID][attID][fi].name
@@ -1764,7 +1764,7 @@ function alarmLong3Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift] + bytes[i1+4+((length)*i)+shift]) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field+"}"
             }
             listMess.push(mess)
         }
@@ -1853,9 +1853,9 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown+"}"
                 }else{
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count+"}"
                 }
             } else {
                 let fi =bytes[(i1+((length)*i))+1+shift]
@@ -1881,9 +1881,9 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field+"}"
                 } else {
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field+"}"
                 }
             }
             listMess.push(mess)
@@ -1902,7 +1902,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)+shift] * 256 + bytes[i1 + 2 + ((length)*i)+shift]) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp+"}"
             } else {
                 let fi =bytes[(i1+((length)*i))+1+shift]
                 let alarm_field = field[clustID][attID][fi].name
@@ -1915,7 +1915,7 @@ function alarmLong2Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)+shift] * 256 + bytes[i1 + 3 + ((length)*i)+shift]) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp + ", field: " + alarm_field+"}"
             }
             listMess.push(mess)
         }
@@ -2003,9 +2003,9 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown+"}"
                 }else{
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count+"}"
                 }
             } else {
                 let fi =bytes[(i1+((length)*i))+1]
@@ -2031,9 +2031,9 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                     countDown=parseInt(countDown,2)
                     shift+=4
 
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences_up: " + countUp + ", occurences_down: " + countDown + ", field: " + alarm_field+"}"
                 } else {
-                    mess = "alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field
+                    mess = "cause:{alarm:"+alarm+", criterion_index: "+index + ", mode: threshold" + ", crossing: "+qual +  ", value: "+temp + ", gap: "+ gap + ", occurences: " + count + ", field: " + alarm_field+"}"
                 }            }
             listMess.push(mess)
         }
@@ -2051,7 +2051,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 1 + ((length)*i)+shift]*256*256*256 + bytes[i1 + 2 + ((length)*i)+shift]*256*256 + bytes[i1 + 3 + ((length)*i)+shift]*256 + bytes[i1 + 4 + ((length)*i)+shift]) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp+"}"
             } else {
                 let fi =bytes[(i1+((length)*i))+1]
                 let alarm_field = field[clustID][attID][fi].name
@@ -2064,7 +2064,7 @@ function alarmLong4Bytes(length, listMess, flag, bytes, decoded, i1,divider,name
                 else if (function_type==="float"){
                     temp = Bytes2Float32((bytes[i1 + 2 + ((length)*i)+shift]*256*256*256 + bytes[i1 + 3 + ((length)*i)+shift]*256*256 + bytes[i1 + 4 + ((length)*i)+shift]*256 + bytes[i1 + 5 + ((length)*i)+shift]) / divider).toString()
                 }
-                mess = "alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp +", field: " + alarm_field
+                mess = "cause:{alarm:"+alarm+", criterion_index: "+ index + ", mode: delta"+ ", value: " + temp +", field: " + alarm_field+"}"
             }
             listMess.push(mess)
         }
