@@ -48,8 +48,9 @@
       ],
       "warnings":
       [
-        "alarm, criterion_index: 0, mode: threshold, crossing: fall",
-        "alarm, criterion_index: 1, mode: threshold, crossing: fall"
+        "alarm triggered",
+        "cause:{alarm:true, criterion_index: 0, mode: threshold, crossing: fall}",
+        "cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: fall}"
       ]
 
     }
@@ -76,11 +77,11 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: fall, value: 23, gap: 0, occurences: 1",
-        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 21, gap: 0, occurences: 1",
-        "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 20, gap: 0, occurences: 1"
+        "alarm triggered",
+        "cause:{alarm:true, criterion_index: 0, mode: threshold, crossing: fall, value: 23, gap: 0, occurences: 1}",
+        "cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: fall, value: 21, gap: 0, occurences: 1}",
+        "cause:{alarm:true, criterion_index: 2, mode: threshold, crossing: fall, value: 20, gap: 0, occurences: 1}"
       ]
-
     }
 
   },
@@ -104,7 +105,7 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
-      "warnings":  [ "alarm, criterion_index: 0, mode: delta, value: 0.2" ]
+      "warnings":  [ "alarm triggered", "cause:{alarm:true, criterion_index: 0, mode: delta, value: 0.2}"]
     }
   },
   {
