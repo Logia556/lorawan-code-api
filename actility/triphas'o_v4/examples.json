@@ -218,7 +218,8 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences: 2, field: positive_reactive_power"
+        "alarm triggered",
+        "cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences: 2, field: positive_reactive_power}"
       ]
     }
   },
@@ -285,7 +286,9 @@
           "date": "2023-07-19T07:51:25.508306410Z"
         }
       ],
-      "warnings": [ "alarm, criterion_index: 0, mode: threshold, crossing: exceed" ]
+      "warnings": [ "cause triggered",
+        "cause:{alarm:false, criterion_index: 0, mode: threshold, crossing: exceed}"
+      ]
     }
 
   },
@@ -321,8 +324,9 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 100, gap: 0, occurences: 1, field: Vrms",
-        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Irms"
+        "alarm triggered",
+        "cause:{alarm:false, criterion_index: 0, mode: threshold, crossing: exceed, value: 100, gap: 0, occurences: 1, field: Vrms}",
+        "cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Irms}"
       ]
     }
   },
@@ -444,8 +448,9 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 50, gap: 1, occurences: 1, field: active_power_a",
-        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 20, gap: 0, occurences: 1, field: active_power_a"
+        "cause triggered",
+        "cause:{alarm:false, criterion_index: 0, mode: threshold, crossing: exceed, value: 50, gap: 1, occurences: 1, field: active_power_a}",
+        "cause:{alarm:false, criterion_index: 1, mode: threshold, crossing: exceed, value: 20, gap: 0, occurences: 1, field: active_power_a}"
       ]
     }
   },
@@ -577,9 +582,10 @@
         }
       ],
       "warnings": [
-        "alarm, criterion_index: 0, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Vrms_a",
-        "alarm, criterion_index: 1, mode: threshold, crossing: exceed, value: 0.5, gap: 0, occurences: 1, field: Irms_a",
-        "alarm, criterion_index: 2, mode: threshold, crossing: fall, value: 350, gap: 0, occurences: 1, field: angle_c"
+        "alarm triggered",
+        "cause:{alarm:true, criterion_index: 0, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Vrms_a}",
+        "cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: exceed, value: 0.5, gap: 0, occurences: 1, field: Irms_a}",
+        "cause:{alarm:true, criterion_index: 2, mode: threshold, crossing: fall, value: 350, gap: 0, occurences: 1, field: angle_c}"
       ]
     }
   },
